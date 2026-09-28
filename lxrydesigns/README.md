@@ -69,7 +69,7 @@ lxrydesigns/
 
 ## Contact
 
-Email: hello@lxrydesigns.ch
+Email: hello@lxrydesigns.com
 Location: Geneva, Switzerland
 
 ---
