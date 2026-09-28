@@ -21,7 +21,8 @@
         :root {
             --primary-black: #000000;
             --primary-silver: #C8CCCE;
-            --accent-teal: #00A19B;
+            --accent-teal: #27F4D2;
+            --accent-deep: #00A19B;
             --accent-bright: #27F4D2;
             --dark-bg: #0D0D0D;
             --light-bg: #F5F5F5;
@@ -40,10 +41,39 @@
             overflow-x: hidden;
         }
 
+        /* Ambient HUD background */
+        .hud-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.5;
+        }
+
+        .hud-bg svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .hud-line { fill: none; stroke: var(--accent-bright); }
+
+        @keyframes hud-spin { to { transform: rotate(360deg); } }
+        @keyframes hud-spin-rev { to { transform: rotate(-360deg); } }
+
+        .spin-slow { animation: hud-spin 90s linear infinite; transform-box: fill-box; transform-origin: center; }
+        .spin-med  { animation: hud-spin-rev 55s linear infinite; transform-box: fill-box; transform-origin: center; }
+        .spin-fast { animation: hud-spin 34s linear infinite; transform-box: fill-box; transform-origin: center; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .spin-slow, .spin-med, .spin-fast { animation: none; }
+        }
+
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, var(--primary-black) 0%, #1A1A1A 50%, var(--dark-bg) 100%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.82) 0%, rgba(20, 22, 26, 0.5) 50%, rgba(13, 13, 13, 0.86) 100%);
             position: relative;
             display: flex;
             align-items: center;
@@ -78,7 +108,7 @@
 
         .hero-label {
             display: inline-block;
-            background: rgba(0, 161, 155, 0.1);
+            background: rgba(39, 244, 210, 0.1);
             border: 1px solid var(--accent-teal);
             color: var(--accent-teal);
             padding: 8px 16px;
@@ -129,14 +159,14 @@
             font-size: 1.1em;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 40px rgba(0, 161, 155, 0.3);
+            box-shadow: 0 10px 40px rgba(39, 244, 210, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .cta-primary:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0, 161, 155, 0.5);
+            box-shadow: 0 20px 60px rgba(39, 244, 210, 0.5);
         }
 
         .cta-secondary {
@@ -195,7 +225,7 @@
             background: rgba(13, 13, 13, 0.85);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 161, 155, 0.2);
+            border-bottom: 1px solid rgba(39, 244, 210, 0.2);
             transition: padding 0.35s ease, background 0.35s ease;
         }
 
@@ -320,7 +350,7 @@
 
         /* Metrics Section */
         .metrics {
-            background: rgba(0, 161, 155, 0.05);
+            background: rgba(39, 244, 210, 0.05);
             padding: 60px 40px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -329,16 +359,16 @@
         }
 
         .metric-card {
-            background: rgba(0, 161, 155, 0.1);
+            background: rgba(39, 244, 210, 0.1);
             padding: 40px;
             border-radius: 12px;
-            border: 1px solid rgba(0, 161, 155, 0.3);
+            border: 1px solid rgba(39, 244, 210, 0.3);
             transition: all 0.3s ease;
         }
 
         .metric-card:hover {
             border-color: var(--accent-teal);
-            background: rgba(0, 161, 155, 0.15);
+            background: rgba(39, 244, 210, 0.15);
             transform: translateY(-5px);
         }
 
@@ -359,7 +389,7 @@
         /* Services Section */
         .services {
             padding: 100px 40px;
-            background: linear-gradient(180deg, rgba(0, 161, 155, 0.05) 0%, transparent 100%);
+            background: linear-gradient(180deg, rgba(39, 244, 210, 0.05) 0%, transparent 100%);
         }
 
         .section-header {
@@ -391,8 +421,8 @@
         }
 
         .service-card {
-            background: linear-gradient(135deg, rgba(0, 161, 155, 0.1), rgba(0, 161, 155, 0.05));
-            border: 1px solid rgba(0, 161, 155, 0.3);
+            background: linear-gradient(135deg, rgba(39, 244, 210, 0.1), rgba(39, 244, 210, 0.05));
+            border: 1px solid rgba(39, 244, 210, 0.3);
             padding: 50px 30px;
             border-radius: 12px;
             transition: all 0.3s ease;
@@ -418,19 +448,19 @@
 
         .service-card:hover {
             border-color: var(--accent-teal);
-            background: linear-gradient(135deg, rgba(0, 161, 155, 0.2), rgba(0, 161, 155, 0.1));
+            background: linear-gradient(135deg, rgba(39, 244, 210, 0.2), rgba(39, 244, 210, 0.1));
             transform: translateY(-10px);
         }
 
         .service-card.featured {
             border: 2px solid var(--accent-teal);
-            background: linear-gradient(135deg, rgba(0, 161, 155, 0.2), rgba(0, 161, 155, 0.1));
+            background: linear-gradient(135deg, rgba(39, 244, 210, 0.2), rgba(39, 244, 210, 0.1));
             transform: scale(1.05);
         }
 
         .badge {
             display: inline-block;
-            background: rgba(0, 161, 155, 0.2);
+            background: rgba(39, 244, 210, 0.2);
             color: var(--accent-teal);
             padding: 6px 16px;
             border-radius: 20px;
@@ -462,7 +492,7 @@
         .service-card li {
             padding: 12px 0;
             color: #B0B0B0;
-            border-bottom: 1px solid rgba(0, 161, 155, 0.1);
+            border-bottom: 1px solid rgba(39, 244, 210, 0.1);
             font-size: 0.95em;
         }
 
@@ -476,13 +506,13 @@
         /* AI Automation Section */
         .ai-automation {
             padding: 100px 40px;
-            background: linear-gradient(135deg, rgba(0, 161, 155, 0.1) 0%, rgba(0, 161, 155, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(39, 244, 210, 0.1) 0%, rgba(39, 244, 210, 0.05) 100%);
         }
 
         .ai-box {
             max-width: 1000px;
             margin: 0 auto;
-            background: rgba(0, 161, 155, 0.15);
+            background: rgba(39, 244, 210, 0.15);
             border: 2px solid var(--accent-teal);
             padding: 60px;
             border-radius: 12px;
@@ -510,11 +540,11 @@
         }
 
         .ai-step {
-            background: rgba(0, 161, 155, 0.1);
+            background: rgba(39, 244, 210, 0.1);
             padding: 25px;
             border-radius: 8px;
             text-align: center;
-            border: 1px solid rgba(0, 161, 155, 0.3);
+            border: 1px solid rgba(39, 244, 210, 0.3);
         }
 
         .ai-step-num {
@@ -559,7 +589,7 @@
         .systems-list li {
             color: #B0B0B0;
             padding: 8px 0;
-            border-bottom: 1px solid rgba(0, 161, 155, 0.1);
+            border-bottom: 1px solid rgba(39, 244, 210, 0.1);
         }
 
         .systems-list li:before {
@@ -568,7 +598,7 @@
         }
 
         .ai-pricing {
-            background: linear-gradient(135deg, rgba(0, 161, 155, 0.2), rgba(0, 161, 155, 0.1));
+            background: linear-gradient(135deg, rgba(39, 244, 210, 0.2), rgba(39, 244, 210, 0.1));
             padding: 30px;
             border-radius: 8px;
             text-align: center;
@@ -623,15 +653,15 @@
         }
 
         .roi-item {
-            background: rgba(0, 161, 155, 0.1);
+            background: rgba(39, 244, 210, 0.1);
             padding: 40px;
             border-radius: 12px;
-            border: 1px solid rgba(0, 161, 155, 0.3);
+            border: 1px solid rgba(39, 244, 210, 0.3);
             transition: all 0.3s ease;
         }
 
         .roi-item:hover {
-            background: rgba(0, 161, 155, 0.15);
+            background: rgba(39, 244, 210, 0.15);
             border-color: var(--accent-teal);
         }
 
@@ -654,7 +684,7 @@
         /* Process Section */
         .process {
             padding: 100px 40px;
-            background: linear-gradient(180deg, rgba(0, 161, 155, 0.05) 0%, transparent 100%);
+            background: linear-gradient(180deg, rgba(39, 244, 210, 0.05) 0%, transparent 100%);
         }
 
         .process-timeline {
@@ -742,7 +772,7 @@
         /* Footer */
         footer {
             background: var(--dark-bg);
-            border-top: 1px solid rgba(0, 161, 155, 0.2);
+            border-top: 1px solid rgba(39, 244, 210, 0.2);
             padding: 40px;
             text-align: center;
             color: #808080;
@@ -791,6 +821,55 @@
 </head>
 <body>
     <!-- Navigation -->
+    <!-- Ambient HUD background -->
+    <div class="hud-bg" aria-hidden="true">
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+            <!-- large reactor, right -->
+            <g class="spin-slow">
+                <circle class="hud-line" cx="1120" cy="300" r="232" stroke-width="1.5" stroke-opacity="0.18" stroke-dasharray="3 14"/>
+                <circle class="hud-line" cx="1120" cy="300" r="206" stroke-width="14" stroke-opacity="0.16" stroke-dasharray="2 26"/>
+            </g>
+            <g class="spin-med">
+                <circle class="hud-line" cx="1120" cy="300" r="168" stroke-width="2" stroke-opacity="0.28" stroke-dasharray="46 20"/>
+                <circle class="hud-line" cx="1120" cy="300" r="140" stroke-width="1" stroke-opacity="0.16"/>
+            </g>
+            <g class="spin-fast">
+                <circle class="hud-line" cx="1120" cy="300" r="96" stroke-width="3" stroke-opacity="0.30" stroke-dasharray="120 260"/>
+                <circle class="hud-line" cx="1120" cy="300" r="70" stroke-width="1.5" stroke-opacity="0.22" stroke-dasharray="4 10"/>
+            </g>
+            <circle cx="1120" cy="300" r="7" fill="var(--accent-bright)" fill-opacity="0.35"/>
+
+            <!-- smaller cluster, lower left -->
+            <g class="spin-med">
+                <circle class="hud-line" cx="250" cy="710" r="150" stroke-width="10" stroke-opacity="0.12" stroke-dasharray="2 22"/>
+                <circle class="hud-line" cx="250" cy="710" r="120" stroke-width="1.5" stroke-opacity="0.18" stroke-dasharray="60 30"/>
+            </g>
+            <g class="spin-fast">
+                <circle class="hud-line" cx="250" cy="710" r="78" stroke-width="1.5" stroke-opacity="0.2"/>
+                <circle class="hud-line" cx="250" cy="710" r="52" stroke-width="1" stroke-opacity="0.14" stroke-dasharray="30 18"/>
+            </g>
+
+            <!-- faint crosshair guides -->
+            <line class="hud-line" x1="0" y1="452" x2="1440" y2="452" stroke-width="1" stroke-opacity="0.05"/>
+            <line class="hud-line" x1="720" y1="0" x2="720" y2="900" stroke-width="1" stroke-opacity="0.04"/>
+
+            <!-- corner brackets -->
+            <g stroke-width="2" stroke-opacity="0.28">
+                <path class="hud-line" d="M40 104 L40 40 L104 40"/>
+                <path class="hud-line" d="M1400 104 L1400 40 L1336 40"/>
+                <path class="hud-line" d="M40 796 L40 860 L104 860"/>
+                <path class="hud-line" d="M1400 796 L1400 860 L1336 860"/>
+            </g>
+
+            <!-- reference ticks -->
+            <g stroke-width="2" stroke-opacity="0.22">
+                <path class="hud-line" d="M700 60 h40 M718 50 v20"/>
+                <path class="hud-line" d="M120 300 h30 M133 290 v20"/>
+                <path class="hud-line" d="M1300 640 h30 M1313 630 v20"/>
+            </g>
+        </svg>
+    </div>
+
     <nav>
         <a href="#" class="logo" aria-label="LXRY Designs — Digital Solutions, home">
             <img src="assets/lxry-mark-solid.png" alt="" class="logo-mark">
