@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <meta name="theme-color" content="#0D0D0D">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Jura:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -207,18 +207,48 @@
         .logo {
             display: flex;
             align-items: center;
+            gap: 16px;
             text-decoration: none;
         }
 
-        .logo-img {
-            height: 68px;
+        .logo-mark {
+            height: 60px;
             width: auto;
             display: block;
             transition: height 0.35s ease;
         }
 
-        nav.scrolled .logo-img {
-            height: 48px;
+        .logo-wordmark {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .lw-name {
+            font-family: 'Jura', 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+            letter-spacing: 6px;
+            color: var(--accent-bright);
+            transition: font-size 0.35s ease;
+        }
+
+        .lw-tag {
+            font-family: 'Jura', 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.74rem;
+            letter-spacing: 6px;
+            color: var(--white);
+            margin-top: 6px;
+        }
+
+        nav.scrolled .logo-mark {
+            height: 44px;
+        }
+
+        nav.scrolled .lw-name {
+            font-size: 1.3rem;
         }
 
         .footer-logo {
@@ -232,8 +262,10 @@
         @media (max-width: 600px) {
             nav { padding: 12px 18px; }
             nav.scrolled { padding: 8px 18px; }
-            .logo-img { height: 46px; }
-            nav.scrolled .logo-img { height: 38px; }
+            .logo-mark { height: 44px; }
+            nav.scrolled .logo-mark { height: 36px; }
+            .lw-name { font-size: 1.15rem; letter-spacing: 3px; }
+            .lw-tag { font-size: 0.7rem; letter-spacing: 3px; }
             .footer-logo { width: 78%; }
         }
 
@@ -729,7 +761,11 @@
     <!-- Navigation -->
     <nav>
         <a href="#" class="logo" aria-label="LXRY Designs — Digital Solutions, home">
-            <img src="assets/lxry-logo-horizontal.png" alt="LXRY Designs — Digital Solutions" class="logo-img">
+            <img src="assets/lxry-mark.png" alt="" class="logo-mark">
+            <span class="logo-wordmark">
+                <span class="lw-name">LXRY DESIGNS</span>
+                <span class="lw-tag">DIGITAL SOLUTIONS</span>
+            </span>
         </a>
         <ul class="nav-links">
             <li><a href="#services">Web Services</a></li>
