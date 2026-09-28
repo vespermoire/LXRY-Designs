@@ -3,14 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LXRY Designs - Digital Growth & AI Automation for Professional Services</title>
+    <title>LXRY Designs — Web, SEO, Compliance & AI Automation | Geneva & Pays de Gex</title>
+    <meta name="description" content="Cross-border digital studio in Divonne-les-Bains, working both sides of the Geneva border. Websites, SEO, Swiss + EU compliance and AI automation. Every engagement starts with an audit.">
+    <link rel="canonical" href="https://www.lxrydesigns.com/">
     <link rel="icon" href="assets/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
     <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <meta name="theme-color" content="#0D0D0D">
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="LXRY Designs">
+    <meta property="og:url" content="https://www.lxrydesigns.com/">
+    <meta property="og:title" content="LXRY Designs — Web, SEO, Compliance & AI Automation">
+    <meta property="og:description" content="Cross-border digital studio serving Geneva and the Pays de Gex. We audit first, then rebuild, optimise and automate.">
+    <meta property="og:image" content="https://www.lxrydesigns.com/assets/favicon-512.png">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LXRY Designs — Web, SEO, Compliance & AI Automation">
+    <meta name="twitter:description" content="Cross-border digital studio serving Geneva and the Pays de Gex. Every engagement starts with an audit.">
+    <meta name="twitter:image" content="https://www.lxrydesigns.com/assets/favicon-512.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Jura:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "LXRY Designs",
+      "description": "Cross-border digital studio: websites, SEO, Swiss + EU compliance and AI automation, serving Geneva and the Pays de Gex.",
+      "url": "https://www.lxrydesigns.com/",
+      "email": "hello@lxrydesigns.com",
+      "telephone": "+447808782871",
+      "image": "https://www.lxrydesigns.com/assets/lxry-mark-solid.png",
+      "logo": "https://www.lxrydesigns.com/assets/lxry-mark-solid.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Divonne-les-Bains",
+        "addressRegion": "Auvergne-Rhône-Alpes",
+        "postalCode": "01220",
+        "addressCountry": "FR"
+      },
+      "geo": { "@type": "GeoCoordinates", "latitude": 46.3576, "longitude": 6.1436 },
+      "areaServed": [
+        { "@type": "City", "name": "Geneva" },
+        { "@type": "AdministrativeArea", "name": "Pays de Gex" },
+        { "@type": "AdministrativeArea", "name": "Canton of Vaud" }
+      ],
+      "knowsLanguage": ["fr", "en"],
+      "currenciesAccepted": "CHF, EUR",
+      "sameAs": []
+    }
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -28,6 +77,9 @@
             --light-bg: #F5F5F5;
             --white: #FFFFFF;
             --dark-gray: #565F64;
+            /* Text tokens tuned for WCAG AA on dark + teal-tinted surfaces */
+            --text-body: #D4D8DA;
+            --text-muted: #AEB4B7;
         }
 
         html {
@@ -37,8 +89,29 @@
         body {
             font-family: 'Inter', sans-serif;
             background: var(--dark-bg);
-            color: #E0E0E0;
+            color: var(--text-body);
             overflow-x: hidden;
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            z-index: 2000;
+            background: var(--accent-teal);
+            color: var(--primary-black);
+            padding: 12px 20px;
+            font-weight: 700;
+            border-radius: 0 0 8px 0;
+        }
+        .skip-link:focus {
+            left: 0;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent-teal);
+            outline-offset: 3px;
         }
 
         /* Ambient HUD background */
@@ -74,11 +147,12 @@
 
         @media (prefers-reduced-motion: reduce) {
             .spin-slow, .spin-med, .spin-fast, .sweep-r, .sweep-l, .scanline, .pulse { animation: none; }
+            html { scroll-behavior: auto; }
         }
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.82) 0%, rgba(20, 22, 26, 0.5) 50%, rgba(13, 13, 13, 0.86) 100%);
             position: relative;
             display: flex;
@@ -126,7 +200,7 @@
         }
 
         .hero h1 {
-            font-size: 4.5em;
+            font-size: 4.2em;
             font-weight: 900;
             margin-bottom: 20px;
             line-height: 1.1;
@@ -139,10 +213,10 @@
         }
 
         .hero-subtitle {
-            font-size: 1.3em;
-            color: #B0B0B0;
+            font-size: 1.25em;
+            color: var(--primary-silver);
             margin-bottom: 50px;
-            max-width: 700px;
+            max-width: 720px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.6;
@@ -168,6 +242,8 @@
             box-shadow: 0 10px 40px rgba(39, 244, 210, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .cta-primary:hover {
@@ -187,6 +263,8 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .cta-secondary:hover {
@@ -294,58 +372,22 @@
             letter-spacing: 6px;
         }
 
-        .footer-brand {
+        .nav-right {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            margin: 0 auto 30px;
-        }
-
-        .footer-mark {
-            height: 150px;
-            width: auto;
-            display: block;
-            margin-bottom: 16px;
-        }
-
-        .footer-name {
-            font-family: 'Jura', 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 2rem;
-            letter-spacing: 11px;
-            color: var(--accent-bright);
-        }
-
-        .footer-tag {
-            font-family: 'Jura', 'Inter', sans-serif;
-            font-weight: 500;
-            font-size: 0.9rem;
-            letter-spacing: 11px;
-            color: var(--white);
-            margin-top: 8px;
-        }
-
-        @media (max-width: 600px) {
-            nav { padding: 12px 18px; }
-            nav.scrolled { padding: 8px 18px; }
-            .logo-mark { height: 70px; }
-            nav.scrolled .logo-mark { height: 50px; }
-            .lw-name { font-size: 1.3rem; letter-spacing: 4px; }
-            .lw-tag { font-size: 0.7rem; letter-spacing: 4px; }
-            .footer-mark { height: 104px; }
-            .footer-name { font-size: 1.5rem; letter-spacing: 6px; }
-            .footer-tag { font-size: 0.72rem; letter-spacing: 6px; }
+            gap: 28px;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 34px;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #B0B0B0;
+            color: var(--primary-silver);
             font-weight: 600;
             transition: color 0.3s;
         }
@@ -354,7 +396,72 @@
             color: var(--accent-teal);
         }
 
-        /* Metrics Section */
+        .nav-links a.nav-contact {
+            border: 2px solid var(--accent-teal);
+            color: var(--accent-teal);
+            padding: 9px 22px;
+            border-radius: 50px;
+        }
+
+        .nav-links a.nav-contact:hover {
+            background: var(--accent-teal);
+            color: var(--primary-black);
+        }
+
+        /* Language toggle */
+        .lang-toggle {
+            display: inline-flex;
+            border: 1px solid rgba(39, 244, 210, 0.4);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary-silver);
+            font-family: 'Jura', 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: background 0.25s, color 0.25s;
+        }
+
+        .lang-btn[aria-pressed="true"] {
+            background: var(--accent-teal);
+            color: var(--primary-black);
+        }
+
+        /* Hamburger */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: 1px solid rgba(39, 244, 210, 0.4);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            margin: 0 auto;
+            background: var(--accent-teal);
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+        .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Metrics / trust band */
         .metrics {
             background: rgba(39, 244, 210, 0.05);
             padding: 60px 40px;
@@ -387,7 +494,7 @@
         }
 
         .metric-label {
-            color: #B0B0B0;
+            color: var(--primary-silver);
             font-weight: 600;
             font-size: 0.95em;
         }
@@ -400,7 +507,7 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 70px;
         }
 
         .section-header h2 {
@@ -412,10 +519,11 @@
         }
 
         .section-header p {
-            font-size: 1.2em;
-            color: #B0B0B0;
-            max-width: 600px;
+            font-size: 1.15em;
+            color: var(--primary-silver);
+            max-width: 640px;
             margin: 0 auto;
+            line-height: 1.6;
         }
 
         .services-grid {
@@ -429,11 +537,13 @@
         .service-card {
             background: linear-gradient(135deg, rgba(39, 244, 210, 0.1), rgba(39, 244, 210, 0.05));
             border: 1px solid rgba(39, 244, 210, 0.3);
-            padding: 50px 30px;
+            padding: 44px 30px;
             border-radius: 12px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card::before {
@@ -448,29 +558,27 @@
             transition: opacity 0.3s;
         }
 
-        .service-card:hover::before {
-            opacity: 1;
-        }
+        .service-card:hover::before { opacity: 1; }
 
         .service-card:hover {
             border-color: var(--accent-teal);
-            background: linear-gradient(135deg, rgba(39, 244, 210, 0.2), rgba(39, 244, 210, 0.1));
-            transform: translateY(-10px);
+            background: linear-gradient(135deg, rgba(39, 244, 210, 0.18), rgba(39, 244, 210, 0.09));
+            transform: translateY(-8px);
         }
 
         .service-card.featured {
             border: 2px solid var(--accent-teal);
             background: linear-gradient(135deg, rgba(39, 244, 210, 0.2), rgba(39, 244, 210, 0.1));
-            transform: scale(1.05);
         }
 
         .badge {
             display: inline-block;
+            align-self: flex-start;
             background: rgba(39, 244, 210, 0.2);
             color: var(--accent-teal);
             padding: 6px 16px;
             border-radius: 20px;
-            font-size: 0.85em;
+            font-size: 0.82em;
             font-weight: 700;
             margin-bottom: 20px;
             text-transform: uppercase;
@@ -478,28 +586,30 @@
         }
 
         .service-card h3 {
-            font-size: 2em;
+            font-size: 1.7em;
             font-weight: 900;
             color: var(--white);
-            margin-bottom: 15px;
+            margin-bottom: 14px;
+            line-height: 1.15;
         }
 
-        .service-price {
-            font-size: 1.5em;
-            font-weight: 900;
-            color: var(--accent-teal);
-            margin: 20px 0 30px 0;
+        .service-promise {
+            color: var(--primary-silver);
+            font-size: 0.98em;
+            line-height: 1.55;
+            margin-bottom: 22px;
         }
 
         .service-card ul {
             list-style: none;
+            margin-top: auto;
         }
 
         .service-card li {
-            padding: 12px 0;
-            color: #B0B0B0;
-            border-bottom: 1px solid rgba(39, 244, 210, 0.1);
-            font-size: 0.95em;
+            padding: 11px 0;
+            color: var(--text-body);
+            border-bottom: 1px solid rgba(39, 244, 210, 0.12);
+            font-size: 0.93em;
         }
 
         .service-card li:before {
@@ -507,6 +617,28 @@
             color: var(--accent-teal);
             font-weight: 900;
             margin-right: 10px;
+        }
+
+        .service-tag {
+            display: block;
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(39, 244, 210, 0.18);
+            color: var(--accent-teal);
+            font-weight: 700;
+            font-size: 0.8em;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .service-note {
+            display: block;
+            margin-top: 8px;
+            color: var(--text-muted);
+            font-size: 0.82em;
+            font-weight: 500;
+            letter-spacing: 0;
+            text-transform: none;
         }
 
         /* AI Automation Section */
@@ -518,7 +650,7 @@
         .ai-box {
             max-width: 1000px;
             margin: 0 auto;
-            background: rgba(39, 244, 210, 0.15);
+            background: rgba(39, 244, 210, 0.13);
             border: 2px solid var(--accent-teal);
             padding: 60px;
             border-radius: 12px;
@@ -526,13 +658,13 @@
 
         .ai-box h3 {
             color: var(--accent-teal);
-            font-size: 2.5em;
+            font-size: 2.3em;
             margin-bottom: 20px;
             font-weight: 900;
         }
 
-        .ai-box p {
-            color: #B0B0B0;
+        .ai-box > p {
+            color: var(--primary-silver);
             margin-bottom: 20px;
             line-height: 1.8;
             font-size: 1.05em;
@@ -567,7 +699,7 @@
         }
 
         .ai-step p {
-            color: #B0B0B0;
+            color: var(--primary-silver);
             font-size: 0.9em;
             margin: 0;
         }
@@ -593,74 +725,56 @@
         }
 
         .systems-list li {
-            color: #B0B0B0;
+            color: var(--text-body);
             padding: 8px 0;
-            border-bottom: 1px solid rgba(39, 244, 210, 0.1);
+            border-bottom: 1px solid rgba(39, 244, 210, 0.12);
         }
 
         .systems-list li:before {
-            content: '⚙️ ';
+            content: '⚙  ';
+            color: var(--accent-teal);
             margin-right: 8px;
         }
 
-        .ai-pricing {
+        .ai-cta {
             background: linear-gradient(135deg, rgba(39, 244, 210, 0.2), rgba(39, 244, 210, 0.1));
-            padding: 30px;
+            padding: 34px;
             border-radius: 8px;
             text-align: center;
             margin-top: 30px;
             border: 1px solid var(--accent-teal);
         }
 
-        .ai-pricing h4 {
+        .ai-cta h4 {
             color: var(--white);
             font-size: 1.3em;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        .ai-price {
-            font-size: 2.5em;
-            font-weight: 900;
-            color: var(--accent-teal);
-            margin-bottom: 10px;
+        .ai-cta p {
+            color: var(--primary-silver);
+            font-size: 0.98em;
+            margin-bottom: 22px;
         }
 
-        .ai-pricing p {
-            color: #B0B0B0;
-            font-size: 0.95em;
-        }
-
-        /* ROI Section */
+        /* Sample audit / proof */
         .roi {
             padding: 100px 40px;
             background: linear-gradient(135deg, rgba(0, 0, 0, 0.72) 0%, rgba(26, 26, 26, 0.62) 100%);
             text-align: center;
         }
 
-        .roi h2 {
-            font-size: 3em;
-            font-weight: 900;
-            margin-bottom: 20px;
-            color: var(--white);
-        }
-
-        .roi-subtitle {
-            font-size: 1.2em;
-            color: #B0B0B0;
-            margin-bottom: 60px;
-        }
-
         .roi-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            max-width: 900px;
-            margin: 0 auto;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 1050px;
+            margin: 50px auto 0;
         }
 
         .roi-item {
             background: rgba(39, 244, 210, 0.1);
-            padding: 40px;
+            padding: 36px 24px;
             border-radius: 12px;
             border: 1px solid rgba(39, 244, 210, 0.3);
             transition: all 0.3s ease;
@@ -672,8 +786,8 @@
         }
 
         .roi-label {
-            color: #B0B0B0;
-            font-size: 0.95em;
+            color: var(--primary-silver);
+            font-size: 0.9em;
             font-weight: 600;
             margin-bottom: 15px;
             text-transform: uppercase;
@@ -681,10 +795,16 @@
         }
 
         .roi-value {
-            font-size: 2.5em;
+            font-size: 2.1em;
             font-weight: 900;
             color: var(--accent-teal);
             font-variant-numeric: tabular-nums;
+        }
+
+        .roi-foot {
+            margin-top: 40px;
+            color: var(--text-muted);
+            font-size: 0.9em;
         }
 
         /* Process Section */
@@ -698,8 +818,7 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             max-width: 1200px;
-            margin: 0 auto;
-            margin-top: 60px;
+            margin: 60px auto 0;
         }
 
         .process-step {
@@ -717,9 +836,7 @@
             font-weight: 700;
         }
 
-        .process-step:last-child::after {
-            content: '';
-        }
+        .process-step:last-child::after { content: ''; }
 
         .step-circle {
             width: 70px;
@@ -750,7 +867,7 @@
         }
 
         .process-step p {
-            color: #B0B0B0;
+            color: var(--primary-silver);
             font-size: 0.9em;
             line-height: 1.5;
         }
@@ -770,73 +887,355 @@
         }
 
         .cta-final p {
-            font-size: 1.3em;
-            color: #B0B0B0;
-            margin-bottom: 50px;
+            font-size: 1.25em;
+            color: var(--primary-silver);
+            margin-bottom: 20px;
+        }
+
+        .cta-contact-line {
+            font-size: 1em;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .cta-contact-line a {
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-weight: 600;
         }
 
         /* Footer */
         footer {
             background: var(--dark-bg);
             border-top: 1px solid rgba(39, 244, 210, 0.2);
-            padding: 40px;
-            text-align: center;
-            color: #808080;
+            padding: 70px 40px 40px;
+            color: var(--text-muted);
         }
 
-        footer p {
-            margin: 10px 0;
+        .footer-top {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+            gap: 44px;
         }
 
-        footer a {
-            color: var(--accent-teal);
-            text-decoration: none;
-            margin: 0 20px;
+        .footer-brand-col .footer-mark {
+            height: 96px;
+            width: auto;
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        .footer-name {
+            font-family: 'Jura', 'Inter', sans-serif;
             font-weight: 600;
+            font-size: 1.5rem;
+            letter-spacing: 8px;
+            color: var(--accent-bright);
         }
+
+        .footer-tag {
+            font-family: 'Jura', 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.72rem;
+            letter-spacing: 8px;
+            color: var(--white);
+            margin: 6px 0 18px;
+        }
+
+        .footer-blurb {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 320px;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-row a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(39, 244, 210, 0.35);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-teal);
+            transition: background 0.25s, color 0.25s;
+        }
+
+        .social-row a:hover {
+            background: var(--accent-teal);
+            color: var(--primary-black);
+        }
+
+        .social-row svg { width: 18px; height: 18px; fill: currentColor; }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-family: 'Jura', 'Inter', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .footer-col ul { list-style: none; }
+
+        .footer-col li { margin-bottom: 12px; }
+
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.92em;
+            transition: color 0.25s;
+        }
+
+        .footer-col a:hover { color: var(--accent-teal); }
+
+        .footer-contact p {
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .footer-contact a { color: var(--accent-teal); text-decoration: none; }
+
+        .footer-map {
+            margin-top: 16px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(39, 244, 210, 0.3);
+            line-height: 0;
+        }
+
+        .footer-map iframe {
+            width: 100%;
+            height: 160px;
+            border: 0;
+            filter: grayscale(0.3) contrast(1.05);
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 50px auto 0;
+            padding-top: 26px;
+            border-top: 1px solid rgba(39, 244, 210, 0.12);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 0.85em;
+        }
+
+        .footer-bottom .legal-note { color: var(--text-muted); max-width: 620px; }
+        .footer-bottom .copyright { color: var(--text-muted); }
 
         /* Responsive */
-        @media (max-width: 900px) {
-            .hero h1 {
-                font-size: 2.5em;
-            }
+        @media (max-width: 1024px) {
+            .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+        }
 
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.5em; }
             .metrics, .services-grid, .roi-grid, .process-timeline, .ai-flow {
                 grid-template-columns: 1fr;
             }
+            .roi-grid { grid-template-columns: 1fr 1fr; }
+            .process-step::after { content: '↓'; right: 0; top: 75px; }
+            .systems-list { grid-template-columns: 1fr; }
+            .ai-box { padding: 40px 24px; }
 
-            .service-card.featured {
-                transform: scale(1);
-            }
-
+            /* Mobile nav */
+            .nav-toggle { display: flex; }
             .nav-links {
-                gap: 20px;
-            }
-
-            .process-step::after {
-                content: '↓';
+                position: absolute;
+                top: 100%;
+                left: 0;
                 right: 0;
-                top: 75px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                background: rgba(9, 10, 11, 0.98);
+                border-bottom: 1px solid rgba(39, 244, 210, 0.2);
+                padding: 8px 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease;
             }
+            .nav-links.open { max-height: 380px; }
+            .nav-links li { width: 100%; }
+            .nav-links a {
+                display: block;
+                padding: 15px 40px;
+            }
+            .nav-links a.nav-contact {
+                border: none;
+                border-radius: 0;
+                color: var(--accent-teal);
+                margin: 6px 40px;
+                border: 2px solid var(--accent-teal);
+                border-radius: 50px;
+                text-align: center;
+                padding: 12px;
+            }
+        }
 
-            .systems-list {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 600px) {
+            nav { padding: 12px 18px; }
+            nav.scrolled { padding: 8px 18px; }
+            .logo-mark { height: 64px; }
+            nav.scrolled .logo-mark { height: 48px; }
+            .lw-name { font-size: 1.15rem; letter-spacing: 3px; }
+            .lw-tag { font-size: 0.62rem; letter-spacing: 3px; }
+            .nav-right { gap: 12px; }
+            .services, .ai-automation, .roi, .process, .cta-final { padding-left: 20px; padding-right: 20px; }
+            .roi-grid { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr; }
+            footer { padding: 50px 20px 30px; }
+        }
+
+        /* ---------- Advanced button animations ---------- */
+        .cta-primary, .cta-secondary, .nav-contact, .lang-btn, .service-tag[href], .ai-cta .cta-primary {
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            will-change: transform;
+        }
+
+        /* Living gradient on primary buttons */
+        .cta-primary {
+            background: linear-gradient(120deg, var(--accent-deep), var(--accent-teal), #7dfbe6, var(--accent-teal));
+            background-size: 300% 300%;
+            animation: cta-grad 7s ease infinite;
+        }
+        @keyframes cta-grad {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Sheen sweep */
+        .cta-primary::after,
+        .cta-secondary::after,
+        .nav-contact::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -130%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            transform: skewX(-20deg);
+            pointer-events: none;
+            z-index: 2;
+        }
+        .cta-secondary::after,
+        .nav-contact::after {
+            background: linear-gradient(120deg, transparent, rgba(39, 244, 210, 0.45), transparent);
+        }
+        .cta-primary::after { animation: sheen 5s ease-in-out infinite; }
+        @keyframes sheen {
+            0% { left: -130%; }
+            45% { left: 150%; }
+            100% { left: 150%; }
+        }
+        .cta-secondary:hover::after,
+        .nav-contact:hover::after { animation: sheen 0.75s ease; }
+
+        /* Click ripple */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.45);
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+            z-index: 3;
+        }
+        @keyframes ripple {
+            to { transform: translate(-50%, -50%) scale(14); opacity: 0; }
+        }
+
+        /* Animated underline on plain nav links */
+        .nav-links a:not(.nav-contact) {
+            position: relative;
+        }
+        .nav-links a:not(.nav-contact)::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            height: 2px;
+            width: 100%;
+            background: var(--accent-teal);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        .nav-links a:not(.nav-contact):hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Floating WhatsApp */
+        .wa-float {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 1500;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transition: transform 0.25s ease;
+        }
+        .wa-float:hover { transform: scale(1.08); }
+        .wa-float svg { width: 30px; height: 30px; fill: #fff; }
+        .wa-float::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid #25D366;
+            animation: wa-pulse 2.4s ease-out infinite;
+        }
+        @keyframes wa-pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            100% { transform: scale(1.7); opacity: 0; }
+        }
+        @media (max-width: 600px) {
+            .wa-float { width: 52px; height: 52px; right: 16px; bottom: 16px; }
+            .wa-float svg { width: 27px; height: 27px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cta-primary { animation: none; }
+            .cta-primary::after, .cta-secondary::after, .nav-contact::after { display: none; }
+            .wa-float::before { animation: none; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+    <a href="#main" class="skip-link" data-i18n="skip">Skip to main content</a>
+
     <!-- Ambient HUD background -->
     <div class="hud-bg" aria-hidden="true">
         <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-            <!-- large central ambient ring -->
             <g class="spin-slow">
                 <circle class="hud-line" cx="720" cy="450" r="400" stroke-width="1" stroke-opacity="0.06" stroke-dasharray="2 22"/>
                 <circle class="hud-line" cx="720" cy="450" r="330" stroke-width="1" stroke-opacity="0.05" stroke-dasharray="60 40"/>
             </g>
-
-            <!-- reactor 1, right -->
             <g class="spin-slow">
                 <circle class="hud-line" cx="1180" cy="240" r="234" stroke-width="1.5" stroke-opacity="0.20" stroke-dasharray="3 14"/>
                 <circle class="hud-line" cx="1180" cy="240" r="208" stroke-width="14" stroke-opacity="0.16" stroke-dasharray="2 26"/>
@@ -849,14 +1248,11 @@
                 <circle class="hud-line" cx="1180" cy="240" r="98" stroke-width="3" stroke-opacity="0.32" stroke-dasharray="120 260"/>
                 <circle class="hud-line" cx="1180" cy="240" r="72" stroke-width="1.5" stroke-opacity="0.24" stroke-dasharray="4 10"/>
             </g>
-            <!-- reactor 1 radar sweep -->
             <g class="sweep-r">
                 <path d="M1180 240 L1180 40 A200 200 0 0 1 1241.8 49.8 Z" fill="var(--accent-bright)" fill-opacity="0.06"/>
                 <line class="hud-line" x1="1180" y1="240" x2="1180" y2="40" stroke-width="2" stroke-opacity="0.45"/>
             </g>
             <circle cx="1180" cy="240" r="7" fill="var(--accent-bright)" fill-opacity="0.4"/>
-
-            <!-- reactor 2, lower left -->
             <g class="spin-med">
                 <circle class="hud-line" cx="210" cy="720" r="176" stroke-width="10" stroke-opacity="0.13" stroke-dasharray="2 22"/>
                 <circle class="hud-line" cx="210" cy="720" r="140" stroke-width="1.5" stroke-opacity="0.20" stroke-dasharray="60 30"/>
@@ -869,45 +1265,31 @@
                 <path d="M210 720 L210 570 A150 150 0 0 1 256.4 577.3 Z" fill="var(--accent-bright)" fill-opacity="0.05"/>
                 <line class="hud-line" x1="210" y1="720" x2="210" y2="570" stroke-width="2" stroke-opacity="0.4"/>
             </g>
-
-            <!-- small mid-left cluster -->
             <g class="spin-fast">
                 <circle class="hud-line" cx="70" cy="430" r="60" stroke-width="1.5" stroke-opacity="0.16" stroke-dasharray="40 22"/>
             </g>
             <circle class="hud-line pulse" cx="70" cy="430" r="30" stroke-width="1.5"/>
-
-            <!-- data arcs -->
             <g stroke-width="2" fill="none">
                 <path class="hud-line" d="M900 640 A150 150 0 0 1 1040 760" stroke-opacity="0.18"/>
                 <path class="hud-line" d="M420 150 A120 120 0 0 1 300 250" stroke-opacity="0.16"/>
                 <path class="hud-line" d="M1330 470 A90 90 0 0 1 1360 560" stroke-opacity="0.16"/>
             </g>
-
-            <!-- faint crosshair guides -->
             <line class="hud-line" x1="0" y1="452" x2="1440" y2="452" stroke-width="1" stroke-opacity="0.05"/>
             <line class="hud-line" x1="720" y1="0" x2="720" y2="900" stroke-width="1" stroke-opacity="0.04"/>
-
-            <!-- moving scan line -->
             <g class="scanline">
                 <line class="hud-line" x1="0" y1="0" x2="1440" y2="0" stroke-width="2" stroke-opacity="0.10"/>
                 <line class="hud-line" x1="0" y1="6" x2="1440" y2="6" stroke-width="1" stroke-opacity="0.04"/>
             </g>
-
-            <!-- edge scale ticks (left + right) -->
             <g class="hud-line" stroke-width="2" stroke-opacity="0.16">
                 <path d="M20 200 h16 M20 250 h10 M20 300 h16 M20 350 h10 M20 400 h16 M20 450 h10 M20 500 h16 M20 550 h10 M20 600 h16"/>
                 <path d="M1420 200 h-16 M1420 250 h-10 M1420 300 h-16 M1420 350 h-10 M1420 400 h-16 M1420 450 h-10 M1420 500 h-16 M1420 550 h-10 M1420 600 h-16"/>
             </g>
-
-            <!-- corner brackets -->
             <g stroke-width="2" stroke-opacity="0.3">
                 <path class="hud-line" d="M40 104 L40 40 L104 40"/>
                 <path class="hud-line" d="M1400 104 L1400 40 L1336 40"/>
                 <path class="hud-line" d="M40 796 L40 860 L104 860"/>
                 <path class="hud-line" d="M1400 796 L1400 860 L1336 860"/>
             </g>
-
-            <!-- pulsing reference crosses -->
             <g class="hud-line pulse" stroke-width="2">
                 <path d="M700 70 h34 M717 53 v34"/>
                 <path d="M560 660 h28 M574 646 v28"/>
@@ -916,6 +1298,7 @@
         </svg>
     </div>
 
+    <!-- Navigation -->
     <nav>
         <a href="#" class="logo" aria-label="LXRY Designs — Digital Solutions, home">
             <img src="assets/lxry-mark-solid.png" alt="" class="logo-mark">
@@ -924,99 +1307,164 @@
                 <span class="lw-tag">DIGITAL SOLUTIONS</span>
             </span>
         </a>
-        <ul class="nav-links">
-            <li><a href="#services">Web Services</a></li>
-            <li><a href="#ai">AI Automation</a></li>
-            <li><a href="#roi">Results</a></li>
-            <li><a href="#contact" class="cta-secondary">Book Demo</a></li>
-        </ul>
+        <div class="nav-right">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#services" data-i18n="nav.services">Services</a></li>
+                <li><a href="#ai" data-i18n="nav.ai">AI Automation</a></li>
+                <li><a href="#process" data-i18n="nav.approach">Approach</a></li>
+                <li><a href="#contact" class="nav-contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+            <div class="lang-toggle" role="group" aria-label="Language / Langue">
+                <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+                <button class="lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </nav>
 
     <!-- Hero Section -->
+    <main id="main">
     <section class="hero">
         <div class="hero-bg-particles" id="particles"></div>
         <div class="hero-content">
-            <div class="hero-label">Digital Growth & AI Automation</div>
-            <h1>Generate <span class="accent">5-9x More Leads</span> + <span class="accent">Automate 20+ Hours/Week</span></h1>
-            <p class="hero-subtitle">We help professional services firms attract more clients, eliminate manual work, and unlock efficiency through website optimization, managed growth marketing, and AI workflow automation.</p>
+            <div class="hero-label" data-i18n="hero.label">Digital studio · Geneva ⇄ Pays de Gex</div>
+            <h1 data-i18n="hero.h1">Websites that <span class="accent">win clients</span>. Workflows that <span class="accent">run themselves</span>.</h1>
+            <p class="hero-subtitle" data-i18n="hero.sub">A cross-border studio in Divonne-les-Bains, working both sides of the Geneva border. We audit first, then rebuild, optimise and automate — priced to what your business actually needs, in CHF or EUR.</p>
             <div class="cta-group">
-                <button class="cta-primary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">Web Audit</button>
-                <button class="cta-secondary" onclick="document.getElementById('ai').scrollIntoView({behavior: 'smooth'})">AI Automation Audit →</button>
+                <a href="#services" class="cta-primary" data-i18n="hero.cta1">Get an audit</a>
+                <a href="#ai" class="cta-secondary" data-i18n="hero.cta2">AI automation →</a>
             </div>
         </div>
         <div class="scroll-indicator">
-            <span>SCROLL TO EXPLORE</span>
-            <span class="scroll-arrow">↓</span>
+            <span data-i18n="hero.scroll">SCROLL TO EXPLORE</span>
+            <span class="scroll-arrow" aria-hidden="true">↓</span>
         </div>
     </section>
 
-    <!-- Metrics -->
-    <section class="metrics">
+    <!-- Trust band -->
+    <section class="metrics" aria-label="At a glance">
         <div class="metric-card">
-            <div class="metric-value" data-target="5-9x">5-9x</div>
-            <div class="metric-label">Lead Growth</div>
+            <div class="metric-value">108</div>
+            <div class="metric-label" data-i18n="trust.1">Audit checkpoints per site</div>
         </div>
         <div class="metric-card">
-            <div class="metric-value" data-target="800%">800%+</div>
-            <div class="metric-label">Year 1 ROI</div>
+            <div class="metric-value">2</div>
+            <div class="metric-label" data-i18n="trust.2">Countries &amp; currencies — CHF · EUR</div>
         </div>
         <div class="metric-card">
-            <div class="metric-value" data-target="20+ hrs">20+ hrs</div>
-            <div class="metric-label">Weekly Automation</div>
+            <div class="metric-value">AA</div>
+            <div class="metric-label" data-i18n="trust.3">WCAG 2.2 accessibility target</div>
         </div>
     </section>
 
-    <!-- Web Services Section -->
+    <!-- Services Section -->
     <section id="services" class="services">
         <div class="section-header">
-            <h2>Web Services</h2>
-            <p>Choose the service level that matches your growth goals</p>
+            <h2 data-i18n="services.h2">Our Services</h2>
+            <p data-i18n="services.p">Seven ways we make your digital presence work harder. Every engagement begins with an audit — so you only pay for what actually moves the needle.</p>
         </div>
 
         <div class="services-grid">
-            <div class="service-card">
-                <div class="badge">Foundation</div>
-                <h3>LAUNCH</h3>
-                <div class="service-price">CHF 10-12k</div>
-                <ul>
-                    <li>Full website audit</li>
-                    <li>Critical fixes</li>
-                    <li>GDPR compliance</li>
-                    <li>Analytics setup</li>
-                    <li>English translation</li>
-                    <li>4 blog posts</li>
-                    <li>FAQ section</li>
-                </ul>
-            </div>
-
+            <!-- 1 Audit -->
             <div class="service-card featured">
-                <div class="badge">⭐ Most Popular</div>
-                <h3>GROWTH</h3>
-                <div class="service-price">CHF 3k/month</div>
+                <div class="badge" data-i18n="s1.badge">★ Start here</div>
+                <h3 data-i18n="s1.title">Website Audit</h3>
+                <p class="service-promise" data-i18n="s1.promise">An evidence-based review of your whole site — technical SEO, performance, accessibility, security, compliance and conversion — delivered as a prioritised, plain-English fix list.</p>
                 <ul>
-                    <li>Everything in LAUNCH</li>
-                    <li>2 blog posts/month</li>
-                    <li>50+ social posts/month</li>
-                    <li>Monthly newsletter</li>
-                    <li>Daily engagement</li>
-                    <li>Monthly reports</li>
-                    <li>Strategy reviews</li>
+                    <li data-i18n="s1.b1">100+ checkpoints, scored and prioritised</li>
+                    <li data-i18n="s1.b2">Core Web Vitals, mobile UX &amp; WCAG 2.2 AA</li>
+                    <li data-i18n="s1.b3">Search visibility, indexing &amp; structured data</li>
+                    <li data-i18n="s1.b4">Privacy, legal &amp; security hygiene</li>
                 </ul>
+                <span class="service-tag" data-i18n="s1.tag">Every engagement starts here</span>
             </div>
 
+            <!-- 2 Build & Migration -->
             <div class="service-card">
-                <div class="badge">Acceleration</div>
-                <h3>PREMIUM</h3>
-                <div class="service-price">CHF 4k/month</div>
+                <div class="badge" data-i18n="s2.badge">Foundation</div>
+                <h3 data-i18n="s2.title">Website Build &amp; Migration</h3>
+                <p class="service-promise" data-i18n="s2.promise">A fast, clean site that works as a real business platform — rebuilt or migrated properly, with tested redirects and no loose ends left behind.</p>
                 <ul>
-                    <li>Everything in GROWTH</li>
-                    <li>LinkedIn ads</li>
-                    <li>Meta ads management</li>
-                    <li>CRM integration</li>
-                    <li>Email automation</li>
-                    <li>Video strategy</li>
-                    <li>Competitor analysis</li>
+                    <li data-i18n="s2.b1">One canonical site, real 404s, tested redirects</li>
+                    <li data-i18n="s2.b2">Native service, project &amp; contact pages</li>
+                    <li data-i18n="s2.b3">Structured data, metadata &amp; Search Console</li>
+                    <li data-i18n="s2.b4">Cross-device QA &amp; launch checklist</li>
                 </ul>
+                <span class="service-tag" data-i18n="scoped">Scoped &amp; priced to your audit</span>
+            </div>
+
+            <!-- 3 Conversion & Contact -->
+            <div class="service-card">
+                <div class="badge" data-i18n="s3.badge">Convert</div>
+                <h3 data-i18n="s3.title">Conversion &amp; Contact Systems</h3>
+                <p class="service-promise" data-i18n="s3.promise">Turn visitors into qualified enquiries with contact journeys built to convert — and to be trusted at the highest-intent moment.</p>
+                <ul>
+                    <li data-i18n="s3.b1">Native forms with validation &amp; anti-spam</li>
+                    <li data-i18n="s3.b2">Multi-step estimator &amp; enquiry hand-off</li>
+                    <li data-i18n="s3.b3">Delivery monitoring &amp; autoresponders</li>
+                    <li data-i18n="s3.b4">Click-to-call &amp; conversion tracking</li>
+                </ul>
+                <span class="service-tag" data-i18n="scoped">Scoped &amp; priced to your audit</span>
+            </div>
+
+            <!-- 4 Compliance -->
+            <div class="service-card">
+                <div class="badge" data-i18n="s4.badge">Trust</div>
+                <h3 data-i18n="s4.title">Compliance &amp; Privacy</h3>
+                <p class="service-promise" data-i18n="s4.promise">Get your privacy, cookie and legal presentation right on both sides of the border — Swiss FDPIC and EU/GDPR — structured and ready for lawyer sign-off.</p>
+                <ul>
+                    <li data-i18n="s4.b1">Privacy statement &amp; legal-notice structure</li>
+                    <li data-i18n="s4.b2">Cookie/consent matched to real technology</li>
+                    <li data-i18n="s4.b3">Form privacy notices &amp; consent handling</li>
+                    <li data-i18n="s4.b4">Data-flow register &amp; compliance checklist</li>
+                </ul>
+                <span class="service-tag" data-i18n="s4.tag">Implementation, not legal advice
+                    <span class="service-note" data-i18n="s4.note">We prepare; your lawyer approves.</span>
+                </span>
+            </div>
+
+            <!-- 5 Search & Growth -->
+            <div class="service-card">
+                <div class="badge" data-i18n="s5.badge">Grow</div>
+                <h3 data-i18n="s5.title">Search &amp; Growth</h3>
+                <p class="service-promise" data-i18n="s5.promise">Be found by the right clients — multilingual SEO, local visibility across two countries, and content that proves your expertise.</p>
+                <ul>
+                    <li data-i18n="s5.b1">Technical &amp; local SEO, both countries</li>
+                    <li data-i18n="s5.b2">French + English (German optional) + hreflang</li>
+                    <li data-i18n="s5.b3">FAQ, resources &amp; expert-led content</li>
+                    <li data-i18n="s5.b4">Structured data &amp; entity consistency</li>
+                </ul>
+                <span class="service-tag" data-i18n="scoped">Scoped &amp; priced to your audit</span>
+            </div>
+
+            <!-- 6 AI Automation -->
+            <div class="service-card">
+                <div class="badge" data-i18n="s6.badge">Automate</div>
+                <h3 data-i18n="s6.title">AI Automation &amp; Workflows</h3>
+                <p class="service-promise" data-i18n="s6.promise">Reclaim hours every week — we map your systems and build AI-powered automations that remove the manual, repetitive work.</p>
+                <ul>
+                    <li data-i18n="s6.b1">Full workflow &amp; tech-stack audit</li>
+                    <li data-i18n="s6.b2">CRM, email, document &amp; data automation</li>
+                    <li data-i18n="s6.b3">Custom AI agent workflows &amp; integrations</li>
+                    <li data-i18n="s6.b4">Build, deploy &amp; ongoing support</li>
+                </ul>
+                <a href="#ai" class="service-tag" style="text-decoration:none" data-i18n="s6.tag">See how it works ↓</a>
+            </div>
+
+            <!-- 7 Support & Care -->
+            <div class="service-card">
+                <div class="badge" data-i18n="s7.badge">Care</div>
+                <h3 data-i18n="s7.title">Ongoing Support &amp; Care</h3>
+                <p class="service-promise" data-i18n="s7.promise">Keep everything fast, secure, compliant and growing — with a support partnership sized to your needs, not a rigid package.</p>
+                <ul>
+                    <li data-i18n="s7.b1">Hosting, updates, backups &amp; uptime</li>
+                    <li data-i18n="s7.b2">Performance, security &amp; link monitoring</li>
+                    <li data-i18n="s7.b3">Content, social &amp; newsletter (optional)</li>
+                    <li data-i18n="s7.b4">Monthly reporting &amp; strategy reviews</li>
+                </ul>
+                <span class="service-tag" data-i18n="s7.tag">Tailored monthly plans</span>
             </div>
         </div>
     </section>
@@ -1024,143 +1472,369 @@
     <!-- AI Automation Section -->
     <section id="ai" class="ai-automation">
         <div class="section-header">
-            <h2>AI Automation Consulting</h2>
-            <p>Discover 20+ hours/week of manual work ready to automate</p>
+            <h2 data-i18n="ai.h2">AI Automation &amp; Workflows</h2>
+            <p data-i18n="ai.p">Find the 10, 20, 30+ hours a week hidden in manual, repetitive work.</p>
         </div>
 
         <div class="ai-box">
-            <h3>Transform Your Workflows with AI</h3>
-            <p>We audit your entire tech stack and propose AI-powered automations to eliminate manual work, reduce errors, and cut operational costs.</p>
+            <h3 data-i18n="ai.box.h3">Transform your workflows with AI</h3>
+            <p data-i18n="ai.box.p">We audit your entire tech stack and design AI-powered automations that eliminate manual work, reduce errors, and cut operational cost — then we build and support them.</p>
 
             <div class="ai-flow">
                 <div class="ai-step">
                     <div class="ai-step-num">1</div>
-                    <h4>Audit</h4>
-                    <p>Map your systems, workflows, pain points</p>
+                    <h4 data-i18n="ai.s1.h">Audit</h4>
+                    <p data-i18n="ai.s1.p">Map your systems, workflows and pain points</p>
                 </div>
                 <div class="ai-step">
                     <div class="ai-step-num">2</div>
-                    <h4>Analyze</h4>
-                    <p>Identify 20+ hrs/week automation opportunities</p>
+                    <h4 data-i18n="ai.s2.h">Analyse</h4>
+                    <p data-i18n="ai.s2.p">Pinpoint the highest-value automation opportunities</p>
                 </div>
                 <div class="ai-step">
                     <div class="ai-step-num">3</div>
-                    <h4>Propose</h4>
-                    <p>Custom AI workflows + cost savings breakdown</p>
+                    <h4 data-i18n="ai.s3.h">Propose</h4>
+                    <p data-i18n="ai.s3.p">Custom AI workflows with a time &amp; cost breakdown</p>
                 </div>
                 <div class="ai-step">
                     <div class="ai-step-num">4</div>
-                    <h4>Implement</h4>
-                    <p>Build & deploy automations with support</p>
+                    <h4 data-i18n="ai.s4.h">Implement</h4>
+                    <p data-i18n="ai.s4.p">Build, deploy and support the automations</p>
                 </div>
             </div>
 
             <div class="ai-systems">
-                <h4>Systems We Audit</h4>
+                <h4 data-i18n="ai.sys.h">Systems we audit</h4>
                 <ul class="systems-list">
-                    <li>CRM Workflows (Salesforce, HubSpot, Pipedrive)</li>
-                    <li>Email & Marketing Automation (Mailchimp, Klaviyo)</li>
-                    <li>Project Management (Monday, Asana, Linear)</li>
-                    <li>Document & Data Processing (PDFs, Spreadsheets)</li>
-                    <li>AI Agent Workflows & Integration</li>
-                    <li>Custom Tool Connections</li>
+                    <li data-i18n="ai.sys.1">CRM workflows (Salesforce, HubSpot, Pipedrive)</li>
+                    <li data-i18n="ai.sys.2">Email &amp; marketing automation (Mailchimp, Klaviyo)</li>
+                    <li data-i18n="ai.sys.3">Project management (Monday, Asana, Linear)</li>
+                    <li data-i18n="ai.sys.4">Document &amp; data processing (PDFs, spreadsheets)</li>
+                    <li data-i18n="ai.sys.5">AI agent workflows &amp; integration</li>
+                    <li data-i18n="ai.sys.6">Custom tool connections</li>
                 </ul>
             </div>
 
-            <div class="ai-pricing">
-                <h4>AI Automation Audit</h4>
-                <div class="ai-price">CHF 500</div>
-                <p>Includes: Systems review, discovery call, initial findings, and custom proposal</p>
+            <div class="ai-cta">
+                <h4 data-i18n="ai.cta.h">Start with an AI automation audit</h4>
+                <p data-i18n="ai.cta.p">Systems review, discovery call, initial findings and a custom proposal — scoped and priced to what we uncover.</p>
+                <a href="#contact" class="cta-primary" data-i18n="ai.cta.btn">Book your AI audit</a>
             </div>
         </div>
     </section>
 
-    <!-- ROI Section -->
-    <section id="roi" class="roi">
-        <h2>Real Results</h2>
-        <p class="roi-subtitle">Architecture firm case study (Web Services): Geneva</p>
+    <!-- Sample audit / proof -->
+    <section id="sample" class="roi">
+        <div class="section-header">
+            <h2 data-i18n="sample.h2">What an audit uncovers</h2>
+            <p data-i18n="sample.p">Real, anonymised findings from a recent architecture-practice review on the Geneva border — the kind of thing our audit surfaces on day one.</p>
+        </div>
 
         <div class="roi-grid">
             <div class="roi-item">
-                <div class="roi-label">Leads/Month</div>
-                <div class="roi-value">5 → 100</div>
+                <div class="roi-label" data-i18n="sample.1l">Largest Contentful Paint</div>
+                <div class="roi-value">4.3s → &lt;2.5s</div>
             </div>
             <div class="roi-item">
-                <div class="roi-label">Projects/Month</div>
-                <div class="roi-value">1 → 8</div>
+                <div class="roi-label" data-i18n="sample.2l">Duplicate URL variants</div>
+                <div class="roi-value">4 → 1</div>
             </div>
             <div class="roi-item">
-                <div class="roi-label">New Annual Revenue</div>
-                <div class="roi-value">CHF 600k+</div>
+                <div class="roi-label" data-i18n="sample.3l">Homepage image weight</div>
+                <div class="roi-value">4.8 MB</div>
             </div>
             <div class="roi-item">
-                <div class="roi-label">Investment</div>
-                <div class="roi-value">CHF 46k</div>
+                <div class="roi-label" data-i18n="sample.4l">Accessibility score</div>
+                <div class="roi-value">92 → 95+</div>
             </div>
         </div>
+        <p class="roi-foot" data-i18n="sample.foot">Illustrative findings from a recent cross-border audit, anonymised. We never publish identifiable client data or invented results.</p>
     </section>
 
     <!-- Process Section -->
     <section id="process" class="process">
         <div class="section-header">
-            <h2>Our Process</h2>
-            <p>From audit to launch to sustained growth</p>
+            <h2 data-i18n="process.h2">Our Approach</h2>
+            <p data-i18n="process.p">From the first audit to sustained growth.</p>
         </div>
 
         <div class="process-timeline">
             <div class="process-step">
                 <div class="step-circle">1</div>
-                <h4>Audit</h4>
-                <p>Deep dive into systems, compliance, performance.</p>
+                <h4 data-i18n="process.1h">Audit</h4>
+                <p data-i18n="process.1p">A deep look at your systems, compliance and performance.</p>
             </div>
             <div class="process-step">
                 <div class="step-circle">2</div>
-                <h4>Strategy</h4>
-                <p>Present findings with ROI and roadmap.</p>
+                <h4 data-i18n="process.2h">Strategy</h4>
+                <p data-i18n="process.2p">Findings, priorities and a roadmap with clear costs.</p>
             </div>
             <div class="process-step">
                 <div class="step-circle">3</div>
-                <h4>Build</h4>
-                <p>4-week rebuild + compliance + content.</p>
+                <h4 data-i18n="process.3h">Build</h4>
+                <p data-i18n="process.3p">Rebuild, migrate, comply and connect — tested end to end.</p>
             </div>
             <div class="process-step">
                 <div class="step-circle">4</div>
-                <h4>Scale</h4>
-                <p>Ongoing management + optimization.</p>
+                <h4 data-i18n="process.4h">Grow</h4>
+                <p data-i18n="process.4p">Ongoing optimisation, content and automation.</p>
             </div>
         </div>
     </section>
 
     <!-- Final CTA -->
     <section id="contact" class="cta-final">
-        <h2>Ready to Transform?</h2>
-        <p>Get audits + ROI projections for web growth and AI automation</p>
-        <button class="cta-primary" onclick="alert('Contact: Email hello@lxrydesigns.com for web audit or AI automation audit')">Book Your Audit</button>
+        <h2 data-i18n="cta.h2">Ready when you are.</h2>
+        <p data-i18n="cta.p">Tell us about your site or your workflows. We start with an audit and a straight answer.</p>
+        <p class="cta-contact-line" data-i18n="cta.line">Divonne-les-Bains, France · serving Geneva &amp; Pays de Gex · CHF · EUR</p>
+        <div class="cta-group" style="margin-bottom:26px;">
+            <a href="mailto:hello@lxrydesigns.com?subject=Website%20or%20AI%20automation%20audit" class="cta-primary" data-i18n="cta.btn">Request your audit</a>
+            <a href="tel:+447808782871" class="cta-secondary" data-i18n="cta.call">Call +44 7808 78 28 71</a>
+        </div>
+        <p class="cta-contact-line">
+            <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>
+            &nbsp;·&nbsp;
+            <a href="https://wa.me/447808782871?text=Hi%20LXRY%20Designs%2C%20I%27d%20like%20an%20audit" target="_blank" rel="noopener">WhatsApp</a>
+        </p>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-brand">
-            <img src="assets/lxry-mark-solid.png" alt="" class="footer-mark">
-            <span class="footer-name">LXRY DESIGNS</span>
-            <span class="footer-tag">DIGITAL SOLUTIONS</span>
+        <div class="footer-top">
+            <div class="footer-col footer-brand-col">
+                <img src="assets/lxry-mark-solid.png" alt="" class="footer-mark">
+                <span class="footer-name">LXRY DESIGNS</span>
+                <span class="footer-tag">DIGITAL SOLUTIONS</span>
+                <p class="footer-blurb" data-i18n="foot.blurb">Cross-border web, SEO, compliance and AI automation. Divonne-les-Bains, working both sides of the Geneva border.</p>
+                <div class="social-row">
+                    <a href="#" aria-label="LinkedIn" title="LinkedIn — profile coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24h-4V8z"/></svg></a>
+                    <a href="#" aria-label="Instagram" title="Instagram — profile coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.4-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg></a>
+                    <a href="#" aria-label="X" title="X — profile coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.7l-8.1 9.2 9.5 12.6h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.9L0 1.5h7.6l5.2 6.9 6.1-6.9zm-1.3 19.7h2L6.5 3.6H4.4l13.2 17.6z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-i18n="foot.explore">Explore</h4>
+                <ul>
+                    <li><a href="#services" data-i18n="nav.services">Services</a></li>
+                    <li><a href="#ai" data-i18n="nav.ai">AI Automation</a></li>
+                    <li><a href="#process" data-i18n="nav.approach">Approach</a></li>
+                    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4 data-i18n="foot.services">Services</h4>
+                <ul>
+                    <li><a href="#services" data-i18n="s1.title">Website Audit</a></li>
+                    <li><a href="#services" data-i18n="s2.title">Website Build &amp; Migration</a></li>
+                    <li><a href="#services" data-i18n="s4.title">Compliance &amp; Privacy</a></li>
+                    <li><a href="#services" data-i18n="s5.title">Search &amp; Growth</a></li>
+                    <li><a href="#ai" data-i18n="s6.title">AI Automation &amp; Workflows</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h4 data-i18n="foot.contact">Contact</h4>
+                <p><a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a></p>
+                <p><a href="tel:+447808782871">+44 7808 78 28 71</a> · <a href="https://wa.me/447808782871?text=Hi%20LXRY%20Designs" target="_blank" rel="noopener">WhatsApp</a></p>
+                <p data-i18n="foot.addr">Divonne-les-Bains, France<br>Serving Geneva &amp; Pays de Gex<br>CHF · EUR</p>
+                <div class="footer-map">
+                    <iframe
+                        title="LXRY Designs — Divonne-les-Bains"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox=6.115%2C46.348%2C6.172%2C46.368&layer=mapnik&marker=46.3576%2C6.1436"></iframe>
+                </div>
+            </div>
         </div>
-        <p><strong>LXRY Designs</strong> — Digital Growth & AI Automation</p>
-        <p>Professional Services | Geneva, Switzerland | 30km radius</p>
-        <div>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Contact</a>
+
+        <div class="footer-bottom">
+            <span class="legal-note" data-i18n="foot.legal">Privacy statement &amp; legal notice in preparation — contact us for our data-processing details. Map © OpenStreetMap contributors.</span>
+            <span class="copyright">© 2026 LXRY Designs · Divonne-les-Bains, France</span>
         </div>
-        <p style="margin-top: 20px; opacity: 0.6;">© 2026 LXRY Designs. All rights reserved.</p>
     </footer>
+
+    <!-- Floating WhatsApp -->
+    <a class="wa-float" href="https://wa.me/447808782871?text=Hi%20LXRY%20Designs%2C%20I%27d%20like%20an%20audit" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-4.9 1 1-4.8-.2-.4C5.5 18.6 5 16.8 5 15 5 9 10 4 16 4s11 5 11 11-5 10-11 10zm6.1-7.8c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4z"/></svg>
+    </a>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <script>
-        gsap.registerPlugin(ScrollTrigger);
+        /* ---------- Language toggle (FR / EN) ---------- */
+        const I18N = {
+            fr: {
+                "skip": "Aller au contenu principal",
+                "nav.services": "Services",
+                "nav.ai": "Automatisation IA",
+                "nav.approach": "Méthode",
+                "nav.contact": "Contact",
+                "hero.label": "Studio digital · Genève ⇄ Pays de Gex",
+                "hero.h1": "Des sites qui <span class=\"accent\">attirent des clients</span>. Des flux qui <span class=\"accent\">tournent seuls</span>.",
+                "hero.sub": "Un studio transfrontalier à Divonne-les-Bains, actif des deux côtés de la frontière genevoise. On audite d’abord, puis on reconstruit, optimise et automatise — au juste prix pour votre entreprise, en CHF ou en EUR.",
+                "hero.cta1": "Obtenir un audit",
+                "hero.cta2": "Automatisation IA →",
+                "hero.scroll": "DÉFILER POUR EXPLORER",
+                "trust.1": "Points de contrôle par audit",
+                "trust.2": "Pays &amp; devises — CHF · EUR",
+                "trust.3": "Objectif d’accessibilité WCAG 2.2",
+                "services.h2": "Nos Services",
+                "services.p": "Sept façons de rendre votre présence digitale plus performante. Chaque mission commence par un audit — vous ne payez que pour ce qui compte vraiment.",
+                "s1.badge": "★ Commencez ici",
+                "s1.title": "Audit de site web",
+                "s1.promise": "Une analyse factuelle de tout votre site — SEO technique, performance, accessibilité, sécurité, conformité et conversion — livrée sous forme de liste de corrections priorisée et claire.",
+                "s1.b1": "100+ points de contrôle, notés et priorisés",
+                "s1.b2": "Core Web Vitals, UX mobile &amp; WCAG 2.2 AA",
+                "s1.b3": "Visibilité, indexation &amp; données structurées",
+                "s1.b4": "Confidentialité, mentions légales &amp; sécurité",
+                "s1.tag": "Toute mission commence ici",
+                "s2.badge": "Fondation",
+                "s2.title": "Création &amp; Migration de site",
+                "s2.promise": "Un site rapide et propre qui fonctionne comme une vraie plateforme d’entreprise — reconstruit ou migré correctement, avec des redirections testées et aucune scorie.",
+                "s2.b1": "Un site canonique, vrais 404, redirections testées",
+                "s2.b2": "Pages services, projets &amp; contact natives",
+                "s2.b3": "Données structurées, métadonnées &amp; Search Console",
+                "s2.b4": "Tests multi-appareils &amp; checklist de lancement",
+                "scoped": "Cadré &amp; chiffré selon votre audit",
+                "s3.badge": "Convertir",
+                "s3.title": "Systèmes de conversion &amp; contact",
+                "s3.promise": "Transformez vos visiteurs en demandes qualifiées avec des parcours de contact conçus pour convertir — et pour inspirer confiance au moment décisif.",
+                "s3.b1": "Formulaires natifs avec validation &amp; anti-spam",
+                "s3.b2": "Estimateur multi-étapes &amp; transfert de demande",
+                "s3.b3": "Suivi de délivrabilité &amp; réponses automatiques",
+                "s3.b4": "Click-to-call &amp; suivi des conversions",
+                "s4.badge": "Confiance",
+                "s4.title": "Conformité &amp; Confidentialité",
+                "s4.promise": "Mettez au carré votre confidentialité, vos cookies et vos mentions légales des deux côtés de la frontière — PFPDT suisse et RGPD UE — prêts pour validation par votre avocat.",
+                "s4.b1": "Structure de la politique de confidentialité &amp; mentions légales",
+                "s4.b2": "Cookies/consentement adaptés à la technologie réelle",
+                "s4.b3": "Mentions de confidentialité &amp; gestion du consentement",
+                "s4.b4": "Registre des flux de données &amp; checklist conformité",
+                "s4.tag": "Mise en œuvre, pas conseil juridique",
+                "s4.note": "Nous préparons ; votre avocat valide.",
+                "s5.badge": "Croître",
+                "s5.title": "Référencement &amp; Croissance",
+                "s5.promise": "Soyez trouvé par les bons clients — SEO multilingue, visibilité locale sur deux pays, et du contenu qui prouve votre expertise.",
+                "s5.b1": "SEO technique &amp; local, sur les deux pays",
+                "s5.b2": "Français + anglais (allemand en option) + hreflang",
+                "s5.b3": "FAQ, ressources &amp; contenu d’expert",
+                "s5.b4": "Données structurées &amp; cohérence des entités",
+                "s6.badge": "Automatiser",
+                "s6.title": "Automatisation IA &amp; Workflows",
+                "s6.promise": "Récupérez des heures chaque semaine — nous cartographions vos systèmes et construisons des automatisations IA qui suppriment le travail manuel et répétitif.",
+                "s6.b1": "Audit complet des workflows &amp; de la stack",
+                "s6.b2": "Automatisation CRM, e-mail, documents &amp; données",
+                "s6.b3": "Workflows d’agents IA &amp; intégrations sur mesure",
+                "s6.b4": "Développement, déploiement &amp; support",
+                "s6.tag": "Voir comment ça marche ↓",
+                "s7.badge": "Suivi",
+                "s7.title": "Support &amp; Maintenance",
+                "s7.promise": "Gardez tout rapide, sécurisé, conforme et en croissance — avec un partenariat de support à votre taille, pas un forfait rigide.",
+                "s7.b1": "Hébergement, mises à jour, sauvegardes &amp; disponibilité",
+                "s7.b2": "Suivi performance, sécurité &amp; liens morts",
+                "s7.b3": "Contenu, réseaux sociaux &amp; newsletter (option)",
+                "s7.b4": "Reporting mensuel &amp; revues stratégiques",
+                "s7.tag": "Forfaits mensuels sur mesure",
+                "ai.h2": "Automatisation IA &amp; Workflows",
+                "ai.p": "Trouvez les 10, 20, 30+ heures par semaine cachées dans le travail manuel et répétitif.",
+                "ai.box.h3": "Transformez vos processus avec l’IA",
+                "ai.box.p": "Nous auditons toute votre stack technique et concevons des automatisations IA qui suppriment le travail manuel, réduisent les erreurs et diminuent les coûts — puis nous les construisons et les maintenons.",
+                "ai.s1.h": "Audit",
+                "ai.s1.p": "Cartographier vos systèmes, workflows et points de friction",
+                "ai.s2.h": "Analyse",
+                "ai.s2.p": "Identifier les automatisations à plus forte valeur",
+                "ai.s3.h": "Proposition",
+                "ai.s3.p": "Workflows IA sur mesure avec gains de temps &amp; coûts",
+                "ai.s4.h": "Mise en œuvre",
+                "ai.s4.p": "Construire, déployer et maintenir les automatisations",
+                "ai.sys.h": "Systèmes que nous auditons",
+                "ai.sys.1": "Workflows CRM (Salesforce, HubSpot, Pipedrive)",
+                "ai.sys.2": "Automatisation e-mail &amp; marketing (Mailchimp, Klaviyo)",
+                "ai.sys.3": "Gestion de projet (Monday, Asana, Linear)",
+                "ai.sys.4": "Traitement documents &amp; données (PDF, tableurs)",
+                "ai.sys.5": "Workflows d’agents IA &amp; intégration",
+                "ai.sys.6": "Connexions d’outils sur mesure",
+                "ai.cta.h": "Commencez par un audit d’automatisation IA",
+                "ai.cta.p": "Revue des systèmes, appel de découverte, premiers constats et proposition sur mesure — cadrés et chiffrés selon ce que nous trouvons.",
+                "ai.cta.btn": "Réserver votre audit IA",
+                "sample.h2": "Ce qu’un audit révèle",
+                "sample.p": "Constats réels et anonymisés d’un cabinet d’architecture récemment audité, à la frontière genevoise — le genre de choses que notre audit révèle dès le premier jour.",
+                "sample.1l": "Largest Contentful Paint",
+                "sample.2l": "Variantes d’URL en double",
+                "sample.3l": "Poids des images d’accueil",
+                "sample.4l": "Score d’accessibilité",
+                "sample.foot": "Constats illustratifs d’un audit transfrontalier récent, anonymisés. Nous ne publions jamais de données client identifiables ni de résultats inventés.",
+                "process.h2": "Notre Méthode",
+                "process.p": "De l’audit initial à la croissance continue.",
+                "process.1h": "Audit",
+                "process.1p": "Un examen approfondi de vos systèmes, conformité et performance.",
+                "process.2h": "Stratégie",
+                "process.2p": "Constats, priorités et feuille de route avec coûts clairs.",
+                "process.3h": "Conception",
+                "process.3p": "Reconstruire, migrer, mettre en conformité et connecter — testé de bout en bout.",
+                "process.4h": "Croissance",
+                "process.4p": "Optimisation, contenu et automatisation en continu.",
+                "cta.h2": "Prêt quand vous l’êtes.",
+                "cta.p": "Parlez-nous de votre site ou de vos processus. On commence par un audit et une réponse claire.",
+                "cta.line": "Divonne-les-Bains, France · au service de Genève &amp; du Pays de Gex · CHF · EUR",
+                "cta.btn": "Demander votre audit",
+                "cta.call": "Appeler +44 7808 78 28 71",
+                "foot.blurb": "Web, SEO, conformité et automatisation IA transfrontaliers. Divonne-les-Bains, actif des deux côtés de la frontière genevoise.",
+                "foot.explore": "Explorer",
+                "foot.services": "Services",
+                "foot.contact": "Contact",
+                "foot.addr": "Divonne-les-Bains, France<br>Au service de Genève &amp; du Pays de Gex<br>CHF · EUR",
+                "foot.legal": "Politique de confidentialité &amp; mentions légales en préparation — contactez-nous pour le détail du traitement des données. Carte © contributeurs OpenStreetMap.",
+                "process.h2b": ""
+            }
+        };
 
-        // Shrink the header logo once the user scrolls past the hero top
+        (function () {
+            const nodes = Array.from(document.querySelectorAll('[data-i18n]'));
+            const en = new Map();
+            nodes.forEach(n => en.set(n, n.innerHTML));
+            const buttons = Array.from(document.querySelectorAll('.lang-btn'));
+
+            function setLang(lang) {
+                nodes.forEach(n => {
+                    const key = n.getAttribute('data-i18n');
+                    if (lang === 'fr' && I18N.fr[key] != null && I18N.fr[key] !== '') {
+                        n.innerHTML = I18N.fr[key];
+                    } else {
+                        n.innerHTML = en.get(n);
+                    }
+                });
+                document.documentElement.lang = lang;
+                buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+                try { localStorage.setItem('lxry-lang', lang); } catch (e) {}
+            }
+
+            let saved = null;
+            try { saved = localStorage.getItem('lxry-lang'); } catch (e) {}
+            if (saved === 'fr') setLang('fr');
+
+            buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+        })();
+
+        /* ---------- Mobile nav ---------- */
+        (function () {
+            const toggle = document.getElementById('navToggle');
+            const links = document.getElementById('navLinks');
+            toggle.addEventListener('click', () => {
+                const open = links.classList.toggle('open');
+                toggle.setAttribute('aria-expanded', String(open));
+            });
+            links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+                links.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+            }));
+        })();
+
+        /* ---------- Nav shrink on scroll ---------- */
         (function () {
             const nav = document.querySelector('nav');
             const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
@@ -1168,25 +1842,25 @@
             onScroll();
         })();
 
-        // Initial states (prevent FOUC)
+        /* ---------- GSAP animations ---------- */
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
         gsap.set('.hero h1', { opacity: 0, y: 50 });
         gsap.set('.hero-subtitle', { opacity: 0, y: 30 });
-        gsap.set('.cta-group', { opacity: 0, y: 30 });
+        gsap.set('.hero .cta-group', { opacity: 0, y: 30 });
         gsap.set('.metric-card', { opacity: 0, y: 50 });
         gsap.set('.service-card', { opacity: 0, y: 50 });
         gsap.set('.roi-item', { opacity: 0, y: 50 });
         gsap.set('.process-step', { opacity: 0, y: 50 });
         gsap.set('.ai-step', { opacity: 0, y: 50 });
 
-        // Hero animation
         const heroTimeline = gsap.timeline({ delay: 0.2 });
         heroTimeline
             .to('.hero-label', { opacity: 1, duration: 0.8 })
             .to('.hero h1', { opacity: 1, y: 0, duration: 1.2 }, 0.3)
             .to('.hero-subtitle', { opacity: 1, y: 0, duration: 1 }, 0.5)
-            .to('.cta-group', { opacity: 1, y: 0, duration: 1 }, 0.7);
+            .to('.hero .cta-group', { opacity: 1, y: 0, duration: 1 }, 0.7);
 
-        // Particle animation
         function createParticles() {
             const container = document.getElementById('particles');
             for (let i = 0; i < 50; i++) {
@@ -1195,7 +1869,6 @@
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.top = Math.random() * 100 + '%';
                 container.appendChild(particle);
-
                 gsap.to(particle, {
                     y: gsap.utils.random(-100, 100),
                     x: gsap.utils.random(-100, 100),
@@ -1208,71 +1881,82 @@
         }
         createParticles();
 
-        // Metrics counter animation
-        ScrollTrigger.create({
-            trigger: '.metrics',
-            onEnter: () => {
-                document.querySelectorAll('.metric-card').forEach((card, i) => {
-                    gsap.to(card, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.2 });
-                });
-            }
-        });
+        ScrollTrigger.create({ trigger: '.metrics', onEnter: () => {
+            document.querySelectorAll('.metric-card').forEach((c, i) => gsap.to(c, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.2 }));
+        }});
+        ScrollTrigger.create({ trigger: '#services', onEnter: () => {
+            document.querySelectorAll('.service-card').forEach((c, i) => gsap.to(c, { opacity: 1, y: 0, duration: 0.7, delay: i * 0.1 }));
+        }});
+        ScrollTrigger.create({ trigger: '#ai', onEnter: () => {
+            document.querySelectorAll('.ai-step').forEach((s, i) => gsap.to(s, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15 }));
+        }});
+        ScrollTrigger.create({ trigger: '#sample', onEnter: () => {
+            document.querySelectorAll('.roi-item').forEach((it, i) => gsap.to(it, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15 }));
+        }});
+        ScrollTrigger.create({ trigger: '#process', onEnter: () => {
+            document.querySelectorAll('.process-step').forEach((s, i) => gsap.to(s, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15 }));
+        }});
 
-        // Service cards animation
-        ScrollTrigger.create({
-            trigger: '#services',
-            onEnter: () => {
-                document.querySelectorAll('.service-card').forEach((card, i) => {
-                    gsap.to(card, {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.8,
-                        delay: i * 0.15
-                    });
-                });
-            }
-        });
-
-        // AI steps animation
-        ScrollTrigger.create({
-            trigger: '#ai',
-            onEnter: () => {
-                document.querySelectorAll('.ai-step').forEach((step, i) => {
-                    gsap.to(step, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15 });
-                });
-            }
-        });
-
-        // ROI animation
-        ScrollTrigger.create({
-            trigger: '#roi',
-            onEnter: () => {
-                document.querySelectorAll('.roi-item').forEach((item, i) => {
-                    gsap.to(item, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15 });
-                });
-            }
-        });
-
-        // Process animation
-        ScrollTrigger.create({
-            trigger: '#process',
-            onEnter: () => {
-                document.querySelectorAll('.process-step').forEach((step, i) => {
-                    gsap.to(step, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15 });
-                });
-            }
-        });
-
-        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                const target = document.querySelector(href);
                 if (target) {
-                    gsap.to(window, { scrollTo: target, duration: 1.2 });
+                    e.preventDefault();
+                    gsap.to(window, { scrollTo: { y: target, offsetY: 70 }, duration: 1.1 });
                 }
             });
         });
+
+        /* ---------- Button micro-interactions ---------- */
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Click ripple on every button-like control
+        document.querySelectorAll('.cta-primary, .cta-secondary, .nav-contact, .lang-btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                const rect = this.getBoundingClientRect();
+                const r = document.createElement('span');
+                r.className = 'ripple';
+                const size = Math.max(rect.width, rect.height);
+                r.style.width = r.style.height = size + 'px';
+                r.style.left = (e.clientX - rect.left) + 'px';
+                r.style.top = (e.clientY - rect.top) + 'px';
+                this.appendChild(r);
+                setTimeout(() => r.remove(), 600);
+            });
+        });
+
+        // Magnetic pull on primary/secondary CTAs (pointer devices only)
+        if (!reduceMotion && window.matchMedia('(pointer:fine)').matches) {
+            document.querySelectorAll('.cta-primary, .cta-secondary').forEach(btn => {
+                const strength = 0.35;
+                btn.addEventListener('mousemove', e => {
+                    const rect = btn.getBoundingClientRect();
+                    const mx = e.clientX - rect.left - rect.width / 2;
+                    const my = e.clientY - rect.top - rect.height / 2;
+                    gsap.to(btn, { x: mx * strength, y: my * strength, duration: 0.4, ease: 'power3.out' });
+                });
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+                });
+            });
+        }
+
+        // Subtle 3D tilt on service cards (pointer devices only)
+        if (!reduceMotion && window.matchMedia('(pointer:fine)').matches) {
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const rx = ((e.clientY - rect.top) / rect.height - 0.5) * -6;
+                    const ry = ((e.clientX - rect.left) / rect.width - 0.5) * 6;
+                    gsap.to(card, { rotateX: rx, rotateY: ry, transformPerspective: 900, duration: 0.4, ease: 'power2.out' });
+                });
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'power2.out' });
+                });
+            });
+        }
     </script>
 </body>
 </html>

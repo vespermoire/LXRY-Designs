@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T18:48:57.869Z",
+        "reason": "Intentional: decorative card accent bars and button sheen/ripple are meant to be clipped by the element radius; no tooltips/menus escape these containers"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T18:49:04.863Z",
+        "reason": "Established LXRY brand: turquoise HUD glow is the site signature aesthetic confirmed across prior sessions"
+      }
+    ]
+  }
+}

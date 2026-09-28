@@ -2,3 +2,25 @@
   # Static site — no build step. The site lives in the lxrydesigns/ subfolder,
   # so point Netlify's publish directory there (repo root has no index.html).
   publish = "lxrydesigns"
+
+# Security headers — the same hygiene our audit checks on client sites.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org; frame-src https://www.openstreetmap.org; connect-src 'self'; base-uri 'self'; form-action 'self' mailto: https://wa.me; frame-ancestors 'self'"
+
+# Long-cache immutable static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
