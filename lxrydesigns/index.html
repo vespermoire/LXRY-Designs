@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LXRY Designs - Digital Growth & AI Automation for Professional Services</title>
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#0D0D0D">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
         * {
@@ -193,14 +199,45 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 1.6em;
             font-weight: 900;
             color: var(--white);
             letter-spacing: 2px;
+            text-decoration: none;
         }
 
-        .logo span {
+        .logo-mark {
+            height: 38px;
+            width: auto;
+            display: block;
+        }
+
+        .logo-text span {
             color: var(--accent-teal);
+        }
+
+        .hero-logo {
+            display: block;
+            width: min(460px, 82%);
+            height: auto;
+            margin: 0 auto 30px;
+            filter: drop-shadow(0 10px 44px rgba(39, 244, 210, 0.18));
+        }
+
+        .footer-logo {
+            display: block;
+            width: 210px;
+            height: auto;
+            margin: 0 auto 26px;
+            opacity: 0.95;
+        }
+
+        @media (max-width: 600px) {
+            .logo-mark { height: 30px; }
+            .hero-logo { width: 88%; margin-bottom: 24px; }
         }
 
         .nav-links {
@@ -694,7 +731,10 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <div class="logo">LXRY <span>Designs</span></div>
+        <a href="#" class="logo" aria-label="LXRY Designs home">
+            <img src="assets/lxry-mark.png" alt="" class="logo-mark">
+            <span class="logo-text">LXRY <span>Designs</span></span>
+        </a>
         <ul class="nav-links">
             <li><a href="#services">Web Services</a></li>
             <li><a href="#ai">AI Automation</a></li>
@@ -707,6 +747,7 @@
     <section class="hero">
         <div class="hero-bg-particles" id="particles"></div>
         <div class="hero-content">
+            <img src="assets/lxry-logo-full.png" alt="LXRY Designs — Digital Solutions" class="hero-logo">
             <div class="hero-label">Digital Growth & AI Automation</div>
             <h1>Generate <span class="accent">5-9x More Leads</span> + <span class="accent">Automate 20+ Hours/Week</span></h1>
             <p class="hero-subtitle">We help professional services firms attract more clients, eliminate manual work, and unlock efficiency through website optimization, managed growth marketing, and AI workflow automation.</p>
@@ -911,6 +952,7 @@
 
     <!-- Footer -->
     <footer>
+        <img src="assets/lxry-logo-full.png" alt="LXRY Designs — Digital Solutions" class="footer-logo">
         <p><strong>LXRY Designs</strong> — Digital Growth & AI Automation</p>
         <p>Professional Services | Geneva, Switzerland | 30km radius</p>
         <div>
