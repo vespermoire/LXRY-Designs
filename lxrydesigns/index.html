@@ -59,6 +59,20 @@
       "sameAs": []
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How much does a project cost?", "acceptedAnswer": { "@type": "Answer", "text": "Every business is different, so we don't publish fixed prices. We audit first, then give you a tailored quotation for exactly what you need — in CHF or EUR." } },
+        { "@type": "Question", "name": "Do you work in both Switzerland and France?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We're based in Divonne-les-Bains and work both sides of the border — Geneva and Vaud on the Swiss side, the Pays de Gex and Ain in France." } },
+        { "@type": "Question", "name": "What does the audit include?", "acceptedAnswer": { "@type": "Answer", "text": "A 345-point review across technical SEO, performance, accessibility, security, compliance and conversion, with per-section 0–100 scores, a full report, executive summary, roadmap to repair and a tailored quotation." } },
+        { "@type": "Question", "name": "How long does a website project take?", "acceptedAnswer": { "@type": "Answer", "text": "A typical foundation build or migration runs around 6–8 weeks once we have access and content — the audit tells us exactly what's involved." } },
+        { "@type": "Question", "name": "Do you handle Swiss and EU compliance?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We implement privacy, cookie and legal presentation for both Swiss FDPIC and EU/GDPR, structured for your lawyer to approve. We implement it; we're not your lawyer." } },
+        { "@type": "Question", "name": "Can you automate our workflows with AI?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We audit your tech stack and build AI automations for CRM, email, documents and more — starting with an AI automation audit." } }
+      ]
+    }
+    </script>
 
     <style>
         * {
@@ -1301,6 +1315,168 @@
             .cta-primary::after, .cta-secondary::after, .nav-contact::after { display: none; }
             .wa-float::before { animation: none; }
         }
+
+        /* ---------- Google Reviews ---------- */
+        .reviews {
+            padding: 100px 40px;
+            background: linear-gradient(180deg, rgba(39, 244, 210, 0.05) 0%, transparent 100%);
+            text-align: center;
+        }
+        .reviews-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(39, 244, 210, 0.3);
+            border-radius: 50px;
+            padding: 12px 26px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: var(--primary-silver);
+        }
+        .reviews-badge .g-logo {
+            font-family: 'Jura', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--accent-teal);
+        }
+        .reviews-badge .stars { color: #FFC24B; letter-spacing: 3px; }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1080px;
+            margin: 0 auto 40px;
+        }
+        .review-card {
+            background: rgba(39, 244, 210, 0.06);
+            border: 1px solid rgba(39, 244, 210, 0.2);
+            border-radius: 12px;
+            padding: 28px 26px;
+            text-align: left;
+        }
+        .review-card .stars { color: #FFC24B; letter-spacing: 2px; margin-bottom: 12px; display: block; }
+        .review-text { color: var(--text-body); line-height: 1.6; margin-bottom: 16px; font-style: italic; }
+        .review-author { color: var(--white); font-weight: 700; font-size: 0.92em; }
+        .reviews-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 26px; }
+        .reviews-note { color: var(--text-muted); font-size: 0.88em; max-width: 640px; margin: 0 auto; }
+
+        /* ---------- FAQ ---------- */
+        .faq { padding: 100px 40px; background: linear-gradient(180deg, rgba(39, 244, 210, 0.05) 0%, transparent 100%); }
+        .faq-list { max-width: 820px; margin: 0 auto; }
+        .faq-item {
+            border: 1px solid rgba(39, 244, 210, 0.2);
+            border-radius: 12px;
+            margin-bottom: 14px;
+            background: rgba(39, 244, 210, 0.04);
+            overflow: hidden;
+        }
+        .faq-item.open { border-color: rgba(39, 244, 210, 0.45); }
+        .faq-q {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 1.08em;
+            font-weight: 700;
+            padding: 22px 26px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+        .faq-q:hover { color: var(--accent-teal); }
+        .faq-icon { color: var(--accent-teal); font-size: 1.6em; line-height: 1; transition: transform 0.3s ease; flex-shrink: 0; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .faq-a-inner { padding: 0 26px 22px; color: var(--text-body); line-height: 1.7; }
+
+        /* ---------- Chat widget ---------- */
+        .chat-launcher {
+            position: fixed;
+            right: 22px;
+            bottom: 90px;
+            z-index: 1500;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-teal), #7dfbe6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            transition: transform 0.25s ease;
+        }
+        .chat-launcher:hover { transform: scale(1.08); }
+        .chat-launcher svg { width: 28px; height: 28px; fill: #04110F; }
+        .chat-panel {
+            position: fixed;
+            right: 22px;
+            bottom: 158px;
+            z-index: 1600;
+            width: 330px;
+            max-width: calc(100vw - 44px);
+            background: #0F1416;
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.6);
+            transform: translateY(16px) scale(0.97);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+        .chat-panel.open { transform: none; opacity: 1; pointer-events: auto; }
+        .chat-head {
+            background: linear-gradient(135deg, rgba(39, 244, 210, 0.22), rgba(39, 244, 210, 0.08));
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(39, 244, 210, 0.2);
+        }
+        .chat-head h4 { color: var(--white); font-size: 1.05em; margin-bottom: 4px; }
+        .chat-head p { color: var(--primary-silver); font-size: 0.82em; }
+        .chat-body { padding: 18px 20px; }
+        .chat-msg {
+            background: rgba(39, 244, 210, 0.1);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: var(--text-body);
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        .chat-actions { display: flex; flex-direction: column; gap: 10px; }
+        .chat-action {
+            text-align: left;
+            background: transparent;
+            border: 1px solid rgba(39, 244, 210, 0.35);
+            color: var(--accent-teal);
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.9em;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .chat-action:hover { background: var(--accent-teal); color: #04110F; }
+
+        @media (max-width: 900px) {
+            .reviews-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+            .reviews, .faq { padding-left: 20px; padding-right: 20px; }
+            .chat-launcher { right: 16px; bottom: 80px; width: 52px; height: 52px; }
+            .chat-panel { right: 16px; bottom: 142px; }
+        }
     </style>
 </head>
 <body>
@@ -1389,6 +1565,7 @@
                 <li><a href="#services" data-i18n="nav.services">Services</a></li>
                 <li><a href="#ai" data-i18n="nav.ai">AI Automation</a></li>
                 <li><a href="#process" data-i18n="nav.approach">Approach</a></li>
+                <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
                 <li><a href="#contact" class="nav-contact" data-i18n="nav.contact">Contact</a></li>
             </ul>
             <div class="lang-toggle" role="group" aria-label="Language / Langue">
@@ -1425,10 +1602,10 @@
         <div class="metric-card metric-card-list">
             <p class="metric-list-title" data-i18n="trust.t1">Audit Includes</p>
             <ul class="metric-list">
-                <li data-i18n="trust.a1">345-point checklist, scored &amp; prioritised</li>
-                <li data-i18n="trust.a2">Every section scored 0–100 (e.g. Technical SEO 56/100)</li>
-                <li data-i18n="trust.a3">Weighted overall website score</li>
-                <li data-i18n="trust.a4">Opportunity coverage: reviews, Maps, FAQ, chat, booking, languages</li>
+                <li data-i18n="trust.a1">345-point audit checklist</li>
+                <li data-i18n="trust.a2">Section scores 0–100 (SEO 56/100)</li>
+                <li data-i18n="trust.a3">Weighted overall site score</li>
+                <li data-i18n="trust.a4">Opportunity coverage score</li>
             </ul>
         </div>
         <div class="metric-card metric-card-list">
@@ -1441,7 +1618,7 @@
             </ul>
         </div>
         <div class="metric-card metric-card-list">
-            <p class="metric-list-title" data-i18n="trust.deliv">Every Audit Includes</p>
+            <p class="metric-list-title" data-i18n="trust.deliv">What You Receive</p>
             <ul class="metric-list">
                 <li data-i18n="trust.d1">Full Audit Report</li>
                 <li data-i18n="trust.d2">Executive Summary</li>
@@ -1643,6 +1820,24 @@
         <p class="roi-foot" data-i18n="sample.foot">Illustrative findings from a recent cross-border audit, anonymised. We never publish identifiable client data or invented results.</p>
     </section>
 
+    <!-- Google Reviews -->
+    <section id="reviews" class="reviews">
+        <div class="section-header">
+            <h2 data-i18n="rev.h2">Google Reviews</h2>
+            <p data-i18n="rev.p">Honest, verified reviews from real clients on our Google Business Profile.</p>
+        </div>
+        <div class="reviews-badge">
+            <span class="g-logo">G</span>
+            <span class="stars">★★★★★</span>
+            <span data-i18n="rev.badge">New on Google — be one of our first</span>
+        </div>
+        <div class="reviews-cta">
+            <a href="#contact" class="cta-primary" data-i18n="rev.write">Leave a Google review</a>
+            <a href="#contact" class="cta-secondary" data-i18n="rev.read">Read our reviews</a>
+        </div>
+        <p class="reviews-note" data-i18n="rev.note">As reviews come in, they'll appear here straight from Google. We never post fabricated or incentivised reviews — the same standard we hold our clients to.</p>
+    </section>
+
     <!-- Process Section -->
     <section id="process" class="process">
         <div class="section-header">
@@ -1670,6 +1865,58 @@
                 <div class="step-circle">4</div>
                 <h3 data-i18n="process.4h">Grow</h3>
                 <p data-i18n="process.4p">Ongoing optimisation, content and automation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <div class="section-header">
+            <h2 data-i18n="faq.h2">Frequently Asked Questions</h2>
+            <p data-i18n="faq.p">Straight answers on cost, scope, timing and compliance.</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span data-i18n="faq.q1">How much does a project cost?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a1">Every business is different, so we don't publish fixed prices. We audit first, then give you a tailored quotation for exactly what you need — in CHF or EUR.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span data-i18n="faq.q2">Do you work in both Switzerland and France?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a2">Yes. We're based in Divonne-les-Bains and work both sides of the border — Geneva and Vaud on the Swiss side, the Pays de Gex and Ain in France. We quote in CHF or EUR.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span data-i18n="faq.q3">What does the audit include?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a3">A 345-point review across technical SEO, performance, accessibility, security, compliance and conversion — with per-section 0–100 scores, a full report, executive summary, roadmap to repair and a tailored quotation.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span data-i18n="faq.q4">How long does a website project take?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a4">A typical foundation build or migration runs around 6–8 weeks once we have access and content — the audit tells us exactly what's involved.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span data-i18n="faq.q5">Do you handle Swiss and EU compliance?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a5">Yes. We implement privacy, cookie and legal presentation for both Swiss FDPIC and EU/GDPR, structured for your lawyer to approve. We implement it — we're not your lawyer.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" aria-expanded="false">
+                    <span data-i18n="faq.q6">Can you automate our workflows with AI?</span>
+                    <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.a6">Yes. We audit your tech stack and build AI automations for CRM, email, documents and more — starting with an AI automation audit.</div></div>
             </div>
         </div>
     </section>
@@ -1711,7 +1958,8 @@
                 <ul>
                     <li><a href="#services" data-i18n="nav.services">Services</a></li>
                     <li><a href="#ai" data-i18n="nav.ai">AI Automation</a></li>
-                    <li><a href="#process" data-i18n="nav.approach">Approach</a></li>
+                    <li><a href="#reviews" data-i18n="nav.reviews">Reviews</a></li>
+                    <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
                     <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
                 </ul>
             </div>
@@ -1748,6 +1996,27 @@
         </div>
     </footer>
 
+    <!-- Chat widget -->
+    <button class="chat-launcher" id="chatLauncher" aria-expanded="false" aria-controls="chatPanel" aria-label="Chat with us">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.5 2 2 5.9 2 10.7c0 2.5 1.2 4.7 3.2 6.2-.1 1-.6 2.4-1.6 3.6 1.6-.2 3.3-.9 4.6-1.8 1.1.3 2.4.5 3.8.5 5.5 0 10-3.9 10-8.7S17.5 2 12 2zM7 12a1.3 1.3 0 1 1 0-2.6A1.3 1.3 0 0 1 7 12zm5 0a1.3 1.3 0 1 1 0-2.6A1.3 1.3 0 0 1 12 12zm5 0a1.3 1.3 0 1 1 0-2.6A1.3 1.3 0 0 1 17 12z"/></svg>
+    </button>
+    <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Chat with LXRY Designs">
+        <div class="chat-head">
+            <h4 data-i18n="chat.h">Chat with LXRY</h4>
+            <p data-i18n="chat.sub">Usually replies within a few hours</p>
+        </div>
+        <div class="chat-body">
+            <div class="chat-msg" data-i18n="chat.msg">Hi! 👋 What can we help with? Pick an option or message us directly.</div>
+            <div class="chat-actions">
+                <a class="chat-action" href="#contact" data-chat-close data-i18n="chat.a1">🔍 Book a website audit</a>
+                <a class="chat-action" href="#ai" data-chat-close data-i18n="chat.a2">🤖 Explore AI automation</a>
+                <a class="chat-action" href="#faq" data-chat-close data-i18n="chat.a3">❓ Read the FAQs</a>
+                <a class="chat-action" href="https://wa.me/447808782871?text=Hi%20LXRY%20Designs" target="_blank" rel="noopener" data-i18n="chat.a4">💬 Message us on WhatsApp</a>
+                <a class="chat-action" href="mailto:hello@lxrydesigns.com" data-i18n="chat.a5">✉️ Email hello@lxrydesigns.com</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Floating WhatsApp -->
     <a class="wa-float" href="https://wa.me/447808782871?text=Hi%20LXRY%20Designs%2C%20I%27d%20like%20an%20audit" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
         <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 29l8.2-1.6c1.7.9 3.7 1.4 5.8 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-4.9 1 1-4.8-.2-.4C5.5 18.6 5 16.8 5 15 5 9 10 4 16 4s11 5 11 11-5 10-11 10zm6.1-7.8c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4z"/></svg>
@@ -1764,7 +2033,37 @@
                 "nav.services": "Services",
                 "nav.ai": "Automatisation IA",
                 "nav.approach": "Méthode",
+                "nav.faq": "FAQ",
+                "nav.reviews": "Avis",
                 "nav.contact": "Contact",
+                "rev.h2": "Avis Google",
+                "rev.p": "Des avis honnêtes et vérifiés de vrais clients, sur notre fiche Google Business.",
+                "rev.badge": "Nouveau sur Google — soyez parmi les premiers",
+                "rev.write": "Laisser un avis Google",
+                "rev.read": "Lire nos avis",
+                "rev.note": "Dès que les avis arrivent, ils s’affichent ici directement depuis Google. Nous ne publions jamais d’avis fabriqués ou rémunérés — la même exigence que nous imposons à nos clients.",
+                "faq.h2": "Questions Fréquentes",
+                "faq.p": "Des réponses claires sur le coût, le périmètre, les délais et la conformité.",
+                "faq.q1": "Combien coûte un projet ?",
+                "faq.a1": "Chaque entreprise est différente : nous n’affichons donc pas de prix fixes. On audite d’abord, puis on vous remet un devis sur mesure pour exactement ce dont vous avez besoin — en CHF ou en EUR.",
+                "faq.q2": "Travaillez-vous en Suisse et en France ?",
+                "faq.a2": "Oui. Basés à Divonne-les-Bains, nous travaillons des deux côtés de la frontière — Genève et Vaud côté suisse, le Pays de Gex et l’Ain en France. Nous facturons en CHF ou en EUR.",
+                "faq.q3": "Que comprend l’audit ?",
+                "faq.a3": "Une analyse de 345 points couvrant SEO technique, performance, accessibilité, sécurité, conformité et conversion — avec des scores par section sur 100, un rapport complet, une synthèse, une feuille de route de correction et un devis sur mesure.",
+                "faq.q4": "Combien de temps prend un projet de site ?",
+                "faq.a4": "Une refonte ou migration de base prend environ 6 à 8 semaines une fois les accès et le contenu réunis — l’audit précise ce qui est nécessaire.",
+                "faq.q5": "Gérez-vous la conformité suisse et UE ?",
+                "faq.a5": "Oui. Nous mettons en place la confidentialité, les cookies et les mentions légales pour le PFPDT suisse et le RGPD UE, structurés pour validation par votre avocat. Nous mettons en œuvre — nous ne sommes pas votre avocat.",
+                "faq.q6": "Pouvez-vous automatiser nos processus avec l’IA ?",
+                "faq.a6": "Oui. Nous auditons votre stack technique et construisons des automatisations IA pour le CRM, l’e-mail, les documents et plus — en commençant par un audit d’automatisation IA.",
+                "chat.h": "Discutez avec LXRY",
+                "chat.sub": "Réponse généralement en quelques heures",
+                "chat.msg": "Bonjour ! 👋 Comment pouvons-nous aider ? Choisissez une option ou écrivez-nous directement.",
+                "chat.a1": "🔍 Réserver un audit de site",
+                "chat.a2": "🤖 Découvrir l’automatisation IA",
+                "chat.a3": "❓ Lire la FAQ",
+                "chat.a4": "💬 Nous écrire sur WhatsApp",
+                "chat.a5": "✉️ E-mail hello@lxrydesigns.com",
                 "hero.label": "Studio digital · Genève ⇄ Pays de Gex",
                 "hero.h1": "Des sites qui <span class=\"accent\">attirent des clients</span>. Des flux qui <span class=\"accent\">tournent seuls</span>.",
                 "hero.sub": "Un studio transfrontalier à Divonne-les-Bains, actif des deux côtés de la frontière genevoise. On audite d’abord, puis on reconstruit, optimise et automatise — au juste prix pour votre entreprise, en CHF ou en EUR.",
@@ -1772,16 +2071,16 @@
                 "hero.cta2": "Automatisation IA →",
                 "hero.scroll": "DÉFILER POUR EXPLORER",
                 "trust.t1": "Contenu de l’audit",
-                "trust.a1": "Checklist de 345 points, notée &amp; priorisée",
-                "trust.a2": "Chaque section notée sur 100 (ex. SEO technique 56/100)",
-                "trust.a3": "Score global du site, pondéré",
-                "trust.a4": "Couverture des opportunités : avis, Maps, FAQ, chat, réservation, langues",
+                "trust.a1": "Checklist d’audit de 345 points",
+                "trust.a2": "Scores par section 0–100 (SEO 56/100)",
+                "trust.a3": "Score global du site pondéré",
+                "trust.a4": "Score de couverture des opportunités",
                 "trust.t2": "Services disponibles en",
                 "trust.b1": "Suisse — Genève &amp; Vaud",
                 "trust.b2": "France — Pays de Gex / Ain",
                 "trust.b3": "CHF &amp; Euros",
                 "trust.b4": "Norme WCAG 2.2 AA",
-                "trust.deliv": "Chaque audit comprend",
+                "trust.deliv": "Ce que vous recevez",
                 "trust.d1": "Rapport d’audit complet",
                 "trust.d2": "Synthèse",
                 "trust.d3": "Feuille de route de correction",
@@ -1944,6 +2243,34 @@
             const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
             window.addEventListener('scroll', onScroll, { passive: true });
             onScroll();
+        })();
+
+        /* ---------- FAQ accordion ---------- */
+        (function () {
+            document.querySelectorAll('.faq-q').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const item = btn.closest('.faq-item');
+                    const panel = item.querySelector('.faq-a');
+                    const isOpen = item.classList.toggle('open');
+                    btn.setAttribute('aria-expanded', String(isOpen));
+                    panel.style.maxHeight = isOpen ? panel.scrollHeight + 'px' : '0';
+                });
+            });
+        })();
+
+        /* ---------- Chat widget ---------- */
+        (function () {
+            const launcher = document.getElementById('chatLauncher');
+            const panel = document.getElementById('chatPanel');
+            if (!launcher || !panel) return;
+            const toggle = (open) => {
+                panel.classList.toggle('open', open);
+                launcher.setAttribute('aria-expanded', String(open));
+            };
+            launcher.addEventListener('click', () => toggle(!panel.classList.contains('open')));
+            panel.querySelectorAll('[data-chat-close]').forEach(el =>
+                el.addEventListener('click', () => toggle(false)));
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
         })();
 
         /* ---------- GSAP animations ---------- */
