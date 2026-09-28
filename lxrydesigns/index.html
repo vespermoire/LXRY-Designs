@@ -191,11 +191,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 40px;
+            padding: 20px 40px;
             background: rgba(13, 13, 13, 0.85);
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 1px solid rgba(0, 161, 155, 0.2);
+            transition: padding 0.35s ease, background 0.35s ease;
+        }
+
+        nav.scrolled {
+            padding: 10px 40px;
+            background: rgba(13, 13, 13, 0.95);
         }
 
         .logo {
@@ -205,9 +211,14 @@
         }
 
         .logo-img {
-            height: 76px;
+            height: 120px;
             width: auto;
             display: block;
+            transition: height 0.35s ease;
+        }
+
+        nav.scrolled .logo-img {
+            height: 58px;
         }
 
         .footer-logo {
@@ -219,8 +230,10 @@
         }
 
         @media (max-width: 600px) {
-            nav { padding: 12px 20px; }
-            .logo-img { height: 48px; }
+            nav { padding: 12px 18px; }
+            nav.scrolled { padding: 8px 18px; }
+            .logo-img { height: 72px; }
+            nav.scrolled .logo-img { height: 44px; }
             .footer-logo { width: 78%; }
         }
 
@@ -949,6 +962,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
         gsap.registerPlugin(ScrollTrigger);
+
+        // Shrink the header logo once the user scrolls past the hero top
+        (function () {
+            const nav = document.querySelector('nav');
+            const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        })();
 
         // Initial states (prevent FOUC)
         gsap.set('.hero h1', { opacity: 0, y: 50 });
