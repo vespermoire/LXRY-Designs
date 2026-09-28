@@ -981,7 +981,7 @@
         .social-row svg { width: 18px; height: 18px; fill: currentColor; }
 
         .footer-col h3 {
-            color: var(--white);
+            color: var(--accent-teal);
             font-family: 'Jura', 'Inter', sans-serif;
             font-size: 1rem;
             font-weight: 600;
@@ -1002,6 +1002,24 @@
         }
 
         .footer-col a:hover { color: var(--accent-teal); }
+
+        /* Turquoise chevron before menu items */
+        .footer-col li a {
+            display: inline-flex;
+            align-items: baseline;
+        }
+        .footer-col li a::before,
+        .nav-links a:not(.nav-contact)::before {
+            content: '\203A';
+            color: var(--accent-teal);
+            font-weight: 700;
+            margin-right: 8px;
+            transition: transform 0.25s ease;
+        }
+        .footer-col li a:hover::before,
+        .nav-links a:not(.nav-contact):hover::before {
+            transform: translateX(3px);
+        }
 
         .footer-contact p {
             font-size: 0.9em;
