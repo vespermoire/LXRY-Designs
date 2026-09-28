@@ -48,7 +48,7 @@
             z-index: -1;
             pointer-events: none;
             overflow: hidden;
-            opacity: 0.5;
+            opacity: 0.68;
         }
 
         .hud-bg svg {
@@ -61,13 +61,19 @@
 
         @keyframes hud-spin { to { transform: rotate(360deg); } }
         @keyframes hud-spin-rev { to { transform: rotate(-360deg); } }
+        @keyframes hud-scan { 0% { transform: translateY(-60px); } 100% { transform: translateY(960px); } }
+        @keyframes hud-pulse { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.5; } }
 
         .spin-slow { animation: hud-spin 90s linear infinite; transform-box: fill-box; transform-origin: center; }
         .spin-med  { animation: hud-spin-rev 55s linear infinite; transform-box: fill-box; transform-origin: center; }
         .spin-fast { animation: hud-spin 34s linear infinite; transform-box: fill-box; transform-origin: center; }
+        .sweep-r   { transform-box: view-box; transform-origin: 1180px 240px; animation: hud-spin 7s linear infinite; }
+        .sweep-l   { transform-box: view-box; transform-origin: 210px 720px; animation: hud-spin-rev 11s linear infinite; }
+        .scanline  { animation: hud-scan 11s linear infinite; }
+        .pulse     { animation: hud-pulse 4.5s ease-in-out infinite; }
 
         @media (prefers-reduced-motion: reduce) {
-            .spin-slow, .spin-med, .spin-fast { animation: none; }
+            .spin-slow, .spin-med, .spin-fast, .sweep-r, .sweep-l, .scanline, .pulse { animation: none; }
         }
 
         /* Hero Section */
@@ -627,7 +633,7 @@
         /* ROI Section */
         .roi {
             padding: 100px 40px;
-            background: linear-gradient(135deg, var(--primary-black) 0%, #1A1A1A 100%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.72) 0%, rgba(26, 26, 26, 0.62) 100%);
             text-align: center;
         }
 
@@ -752,7 +758,7 @@
         /* CTA Section */
         .cta-final {
             padding: 100px 40px;
-            background: linear-gradient(135deg, var(--primary-black) 0%, #1A1A1A 100%);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.72) 0%, rgba(26, 26, 26, 0.62) 100%);
             text-align: center;
         }
 
@@ -824,48 +830,88 @@
     <!-- Ambient HUD background -->
     <div class="hud-bg" aria-hidden="true">
         <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-            <!-- large reactor, right -->
+            <!-- large central ambient ring -->
             <g class="spin-slow">
-                <circle class="hud-line" cx="1120" cy="300" r="232" stroke-width="1.5" stroke-opacity="0.18" stroke-dasharray="3 14"/>
-                <circle class="hud-line" cx="1120" cy="300" r="206" stroke-width="14" stroke-opacity="0.16" stroke-dasharray="2 26"/>
+                <circle class="hud-line" cx="720" cy="450" r="400" stroke-width="1" stroke-opacity="0.06" stroke-dasharray="2 22"/>
+                <circle class="hud-line" cx="720" cy="450" r="330" stroke-width="1" stroke-opacity="0.05" stroke-dasharray="60 40"/>
             </g>
-            <g class="spin-med">
-                <circle class="hud-line" cx="1120" cy="300" r="168" stroke-width="2" stroke-opacity="0.28" stroke-dasharray="46 20"/>
-                <circle class="hud-line" cx="1120" cy="300" r="140" stroke-width="1" stroke-opacity="0.16"/>
-            </g>
-            <g class="spin-fast">
-                <circle class="hud-line" cx="1120" cy="300" r="96" stroke-width="3" stroke-opacity="0.30" stroke-dasharray="120 260"/>
-                <circle class="hud-line" cx="1120" cy="300" r="70" stroke-width="1.5" stroke-opacity="0.22" stroke-dasharray="4 10"/>
-            </g>
-            <circle cx="1120" cy="300" r="7" fill="var(--accent-bright)" fill-opacity="0.35"/>
 
-            <!-- smaller cluster, lower left -->
+            <!-- reactor 1, right -->
+            <g class="spin-slow">
+                <circle class="hud-line" cx="1180" cy="240" r="234" stroke-width="1.5" stroke-opacity="0.20" stroke-dasharray="3 14"/>
+                <circle class="hud-line" cx="1180" cy="240" r="208" stroke-width="14" stroke-opacity="0.16" stroke-dasharray="2 26"/>
+            </g>
             <g class="spin-med">
-                <circle class="hud-line" cx="250" cy="710" r="150" stroke-width="10" stroke-opacity="0.12" stroke-dasharray="2 22"/>
-                <circle class="hud-line" cx="250" cy="710" r="120" stroke-width="1.5" stroke-opacity="0.18" stroke-dasharray="60 30"/>
+                <circle class="hud-line" cx="1180" cy="240" r="170" stroke-width="2" stroke-opacity="0.30" stroke-dasharray="46 20"/>
+                <circle class="hud-line" cx="1180" cy="240" r="142" stroke-width="1" stroke-opacity="0.16"/>
             </g>
             <g class="spin-fast">
-                <circle class="hud-line" cx="250" cy="710" r="78" stroke-width="1.5" stroke-opacity="0.2"/>
-                <circle class="hud-line" cx="250" cy="710" r="52" stroke-width="1" stroke-opacity="0.14" stroke-dasharray="30 18"/>
+                <circle class="hud-line" cx="1180" cy="240" r="98" stroke-width="3" stroke-opacity="0.32" stroke-dasharray="120 260"/>
+                <circle class="hud-line" cx="1180" cy="240" r="72" stroke-width="1.5" stroke-opacity="0.24" stroke-dasharray="4 10"/>
+            </g>
+            <!-- reactor 1 radar sweep -->
+            <g class="sweep-r">
+                <path d="M1180 240 L1180 40 A200 200 0 0 1 1241.8 49.8 Z" fill="var(--accent-bright)" fill-opacity="0.06"/>
+                <line class="hud-line" x1="1180" y1="240" x2="1180" y2="40" stroke-width="2" stroke-opacity="0.45"/>
+            </g>
+            <circle cx="1180" cy="240" r="7" fill="var(--accent-bright)" fill-opacity="0.4"/>
+
+            <!-- reactor 2, lower left -->
+            <g class="spin-med">
+                <circle class="hud-line" cx="210" cy="720" r="176" stroke-width="10" stroke-opacity="0.13" stroke-dasharray="2 22"/>
+                <circle class="hud-line" cx="210" cy="720" r="140" stroke-width="1.5" stroke-opacity="0.20" stroke-dasharray="60 30"/>
+            </g>
+            <g class="spin-fast">
+                <circle class="hud-line" cx="210" cy="720" r="96" stroke-width="1.5" stroke-opacity="0.22"/>
+                <circle class="hud-line" cx="210" cy="720" r="64" stroke-width="1" stroke-opacity="0.16" stroke-dasharray="30 18"/>
+            </g>
+            <g class="sweep-l">
+                <path d="M210 720 L210 570 A150 150 0 0 1 256.4 577.3 Z" fill="var(--accent-bright)" fill-opacity="0.05"/>
+                <line class="hud-line" x1="210" y1="720" x2="210" y2="570" stroke-width="2" stroke-opacity="0.4"/>
+            </g>
+
+            <!-- small mid-left cluster -->
+            <g class="spin-fast">
+                <circle class="hud-line" cx="70" cy="430" r="60" stroke-width="1.5" stroke-opacity="0.16" stroke-dasharray="40 22"/>
+            </g>
+            <circle class="hud-line pulse" cx="70" cy="430" r="30" stroke-width="1.5"/>
+
+            <!-- data arcs -->
+            <g stroke-width="2" fill="none">
+                <path class="hud-line" d="M900 640 A150 150 0 0 1 1040 760" stroke-opacity="0.18"/>
+                <path class="hud-line" d="M420 150 A120 120 0 0 1 300 250" stroke-opacity="0.16"/>
+                <path class="hud-line" d="M1330 470 A90 90 0 0 1 1360 560" stroke-opacity="0.16"/>
             </g>
 
             <!-- faint crosshair guides -->
             <line class="hud-line" x1="0" y1="452" x2="1440" y2="452" stroke-width="1" stroke-opacity="0.05"/>
             <line class="hud-line" x1="720" y1="0" x2="720" y2="900" stroke-width="1" stroke-opacity="0.04"/>
 
+            <!-- moving scan line -->
+            <g class="scanline">
+                <line class="hud-line" x1="0" y1="0" x2="1440" y2="0" stroke-width="2" stroke-opacity="0.10"/>
+                <line class="hud-line" x1="0" y1="6" x2="1440" y2="6" stroke-width="1" stroke-opacity="0.04"/>
+            </g>
+
+            <!-- edge scale ticks (left + right) -->
+            <g class="hud-line" stroke-width="2" stroke-opacity="0.16">
+                <path d="M20 200 h16 M20 250 h10 M20 300 h16 M20 350 h10 M20 400 h16 M20 450 h10 M20 500 h16 M20 550 h10 M20 600 h16"/>
+                <path d="M1420 200 h-16 M1420 250 h-10 M1420 300 h-16 M1420 350 h-10 M1420 400 h-16 M1420 450 h-10 M1420 500 h-16 M1420 550 h-10 M1420 600 h-16"/>
+            </g>
+
             <!-- corner brackets -->
-            <g stroke-width="2" stroke-opacity="0.28">
+            <g stroke-width="2" stroke-opacity="0.3">
                 <path class="hud-line" d="M40 104 L40 40 L104 40"/>
                 <path class="hud-line" d="M1400 104 L1400 40 L1336 40"/>
                 <path class="hud-line" d="M40 796 L40 860 L104 860"/>
                 <path class="hud-line" d="M1400 796 L1400 860 L1336 860"/>
             </g>
 
-            <!-- reference ticks -->
-            <g stroke-width="2" stroke-opacity="0.22">
-                <path class="hud-line" d="M700 60 h40 M718 50 v20"/>
-                <path class="hud-line" d="M120 300 h30 M133 290 v20"/>
-                <path class="hud-line" d="M1300 640 h30 M1313 630 v20"/>
+            <!-- pulsing reference crosses -->
+            <g class="hud-line pulse" stroke-width="2">
+                <path d="M700 70 h34 M717 53 v34"/>
+                <path d="M560 660 h28 M574 646 v28"/>
+                <path d="M1040 120 h28 M1054 106 v28"/>
             </g>
         </svg>
     </div>
