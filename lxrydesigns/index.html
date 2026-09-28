@@ -502,6 +502,59 @@
             font-size: 0.95em;
         }
 
+        /* Merged text card (centre) */
+        .metric-card-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .metric-headline {
+            color: var(--white);
+            font-weight: 800;
+            font-size: 1.35em;
+            line-height: 1.25;
+            margin-bottom: 12px;
+        }
+        .metric-sub {
+            color: var(--primary-silver);
+            font-weight: 600;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+        .metric-sub:last-child { margin-bottom: 0; }
+        .metric-sub .teal { color: var(--accent-teal); font-weight: 900; }
+
+        /* Deliverables list card */
+        .metric-card-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+        .metric-list-title {
+            color: var(--accent-teal);
+            font-family: 'Jura', 'Inter', sans-serif;
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .metric-list { list-style: none; }
+        .metric-list li {
+            color: var(--text-body);
+            font-weight: 600;
+            font-size: 1.02em;
+            padding: 8px 0;
+        }
+        .metric-list li::before {
+            content: '\203A';
+            color: var(--accent-teal);
+            font-weight: 700;
+            margin-right: 12px;
+        }
+
         /* Services Section */
         .services {
             padding: 100px 40px;
@@ -1370,16 +1423,22 @@
     <!-- Trust band -->
     <section class="metrics" aria-label="At a glance">
         <div class="metric-card">
-            <div class="metric-value">108</div>
+            <div class="metric-value">345</div>
             <div class="metric-label" data-i18n="trust.1">Audit checkpoints per site</div>
         </div>
-        <div class="metric-card">
-            <div class="metric-value">2</div>
-            <div class="metric-label" data-i18n="trust.2">Countries &amp; currencies — CHF · EUR</div>
+        <div class="metric-card metric-card-text">
+            <p class="metric-headline" data-i18n="trust.geo">Available in Switzerland &amp; France</p>
+            <p class="metric-sub" data-i18n="trust.cur">In CHF &amp; Euros</p>
+            <p class="metric-sub"><strong class="teal">AA</strong> · <span data-i18n="trust.aa">WCAG 2.2 accessibility target</span></p>
         </div>
-        <div class="metric-card">
-            <div class="metric-value">AA</div>
-            <div class="metric-label" data-i18n="trust.3">WCAG 2.2 accessibility target</div>
+        <div class="metric-card metric-card-list">
+            <h3 class="metric-list-title" data-i18n="trust.deliv">Every audit includes</h3>
+            <ul class="metric-list">
+                <li data-i18n="trust.d1">Full Audit Report</li>
+                <li data-i18n="trust.d2">Executive Summary</li>
+                <li data-i18n="trust.d3">Roadmap to Repair</li>
+                <li data-i18n="trust.d4">Tailored Quotation</li>
+            </ul>
         </div>
     </section>
 
@@ -1704,8 +1763,14 @@
                 "hero.cta2": "Automatisation IA →",
                 "hero.scroll": "DÉFILER POUR EXPLORER",
                 "trust.1": "Points de contrôle par audit",
-                "trust.2": "Pays &amp; devises — CHF · EUR",
-                "trust.3": "Objectif d’accessibilité WCAG 2.2",
+                "trust.geo": "Disponible en Suisse &amp; en France",
+                "trust.cur": "En CHF &amp; en Euros",
+                "trust.aa": "Objectif d’accessibilité WCAG 2.2",
+                "trust.deliv": "Chaque audit comprend",
+                "trust.d1": "Rapport d’audit complet",
+                "trust.d2": "Synthèse",
+                "trust.d3": "Feuille de route de correction",
+                "trust.d4": "Devis sur mesure",
                 "services.h2": "Nos Services",
                 "services.p": "Sept façons de rendre votre présence digitale plus performante. Chaque mission commence par un audit — vous ne payez que pour ce qui compte vraiment.",
                 "s1.badge": "★ Commencez ici",
