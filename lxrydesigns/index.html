@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LXRY Designs - Digital Growth & AI Automation for Professional Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --primary-silver: #C8CCCE;
+            --accent-teal: #00A19B;
+            --accent-bright: #27F4D2;
+            --dark-bg: #0D0D0D;
+            --light-bg: #F5F5F5;
+            --white: #FFFFFF;
+            --dark-gray: #565F64;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: #E0E0E0;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-black) 0%, #1A1A1A 50%, var(--dark-bg) 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-teal);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 40px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            background: rgba(0, 161, 155, 0.1);
+            border: 1px solid var(--accent-teal);
+            color: var(--accent-teal);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 4.5em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            color: var(--white);
+        }
+
+        .hero h1 .accent {
+            color: var(--accent-teal);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3em;
+            color: #B0B0B0;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-bright));
+            color: var(--primary-black);
+            padding: 16px 48px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 161, 155, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 161, 155, 0.5);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--accent-teal);
+            padding: 16px 48px;
+            border: 2px solid var(--accent-teal);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-secondary:hover {
+            background: var(--accent-teal);
+            color: var(--primary-black);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-teal);
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
+
+        .scroll-arrow {
+            display: block;
+            font-size: 1.5em;
+            margin-top: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(13, 13, 13, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 161, 155, 0.2);
+        }
+
+        .logo {
+            font-size: 1.6em;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--accent-teal);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #B0B0B0;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-teal);
+        }
+
+        /* Metrics Section */
+        .metrics {
+            background: rgba(0, 161, 155, 0.05);
+            padding: 60px 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .metric-card {
+            background: rgba(0, 161, 155, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 161, 155, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--accent-teal);
+            background: rgba(0, 161, 155, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 3em;
+            font-weight: 900;
+            color: var(--accent-teal);
+            margin-bottom: 10px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .metric-label {
+            color: #B0B0B0;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 40px;
+            background: linear-gradient(180deg, rgba(0, 161, 155, 0.05) 0%, transparent 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: var(--white);
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            font-size: 1.2em;
+            color: #B0B0B0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(0, 161, 155, 0.1), rgba(0, 161, 155, 0.05));
+            border: 1px solid rgba(0, 161, 155, 0.3);
+            padding: 50px 30px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-teal), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-teal);
+            background: linear-gradient(135deg, rgba(0, 161, 155, 0.2), rgba(0, 161, 155, 0.1));
+            transform: translateY(-10px);
+        }
+
+        .service-card.featured {
+            border: 2px solid var(--accent-teal);
+            background: linear-gradient(135deg, rgba(0, 161, 155, 0.2), rgba(0, 161, 155, 0.1));
+            transform: scale(1.05);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 161, 155, 0.2);
+            color: var(--accent-teal);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .service-card h3 {
+            font-size: 2em;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .service-price {
+            font-size: 1.5em;
+            font-weight: 900;
+            color: var(--accent-teal);
+            margin: 20px 0 30px 0;
+        }
+
+        .service-card ul {
+            list-style: none;
+        }
+
+        .service-card li {
+            padding: 12px 0;
+            color: #B0B0B0;
+            border-bottom: 1px solid rgba(0, 161, 155, 0.1);
+            font-size: 0.95em;
+        }
+
+        .service-card li:before {
+            content: '✓ ';
+            color: var(--accent-teal);
+            font-weight: 900;
+            margin-right: 10px;
+        }
+
+        /* AI Automation Section */
+        .ai-automation {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, rgba(0, 161, 155, 0.1) 0%, rgba(0, 161, 155, 0.05) 100%);
+        }
+
+        .ai-box {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(0, 161, 155, 0.15);
+            border: 2px solid var(--accent-teal);
+            padding: 60px;
+            border-radius: 12px;
+        }
+
+        .ai-box h3 {
+            color: var(--accent-teal);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
+
+        .ai-box p {
+            color: #B0B0B0;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .ai-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .ai-step {
+            background: rgba(0, 161, 155, 0.1);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid rgba(0, 161, 155, 0.3);
+        }
+
+        .ai-step-num {
+            font-size: 2em;
+            font-weight: 900;
+            color: var(--accent-teal);
+            margin-bottom: 10px;
+        }
+
+        .ai-step h4 {
+            color: var(--white);
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .ai-step p {
+            color: #B0B0B0;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        .ai-systems {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .ai-systems h4 {
+            color: var(--accent-teal);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .systems-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            list-style: none;
+        }
+
+        .systems-list li {
+            color: #B0B0B0;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 161, 155, 0.1);
+        }
+
+        .systems-list li:before {
+            content: '⚙️ ';
+            margin-right: 8px;
+        }
+
+        .ai-pricing {
+            background: linear-gradient(135deg, rgba(0, 161, 155, 0.2), rgba(0, 161, 155, 0.1));
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 30px;
+            border: 1px solid var(--accent-teal);
+        }
+
+        .ai-pricing h4 {
+            color: var(--white);
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .ai-price {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: var(--accent-teal);
+            margin-bottom: 10px;
+        }
+
+        .ai-pricing p {
+            color: #B0B0B0;
+            font-size: 0.95em;
+        }
+
+        /* ROI Section */
+        .roi {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, var(--primary-black) 0%, #1A1A1A 100%);
+            text-align: center;
+        }
+
+        .roi h2 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .roi-subtitle {
+            font-size: 1.2em;
+            color: #B0B0B0;
+            margin-bottom: 60px;
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .roi-item {
+            background: rgba(0, 161, 155, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 161, 155, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .roi-item:hover {
+            background: rgba(0, 161, 155, 0.15);
+            border-color: var(--accent-teal);
+        }
+
+        .roi-label {
+            color: #B0B0B0;
+            font-size: 0.95em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .roi-value {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: var(--accent-teal);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 100px 40px;
+            background: linear-gradient(180deg, rgba(0, 161, 155, 0.05) 0%, transparent 100%);
+        }
+
+        .process-timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 60px;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -35px;
+            top: 35px;
+            font-size: 2em;
+            color: var(--accent-teal);
+            font-weight: 700;
+        }
+
+        .process-step:last-child::after {
+            content: '';
+        }
+
+        .step-circle {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary-black), #1A1A1A);
+            border: 2px solid var(--accent-teal);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: 900;
+            color: var(--accent-teal);
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover .step-circle {
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-bright));
+            color: var(--primary-black);
+            transform: scale(1.1);
+        }
+
+        .process-step h4 {
+            color: var(--white);
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            color: #B0B0B0;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .cta-final {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, var(--primary-black) 0%, #1A1A1A 100%);
+            text-align: center;
+        }
+
+        .cta-final h2 {
+            font-size: 3em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .cta-final p {
+            font-size: 1.3em;
+            color: #B0B0B0;
+            margin-bottom: 50px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            border-top: 1px solid rgba(0, 161, 155, 0.2);
+            padding: 40px;
+            text-align: center;
+            color: #808080;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer a {
+            color: var(--accent-teal);
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .metrics, .services-grid, .roi-grid, .process-timeline, .ai-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card.featured {
+                transform: scale(1);
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+
+            .process-step::after {
+                content: '↓';
+                right: 0;
+                top: 75px;
+            }
+
+            .systems-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">LXRY <span>Designs</span></div>
+        <ul class="nav-links">
+            <li><a href="#services">Web Services</a></li>
+            <li><a href="#ai">AI Automation</a></li>
+            <li><a href="#roi">Results</a></li>
+            <li><a href="#contact" class="cta-secondary">Book Demo</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-label">Digital Growth & AI Automation</div>
+            <h1>Generate <span class="accent">5-9x More Leads</span> + <span class="accent">Automate 20+ Hours/Week</span></h1>
+            <p class="hero-subtitle">We help professional services firms attract more clients, eliminate manual work, and unlock efficiency through website optimization, managed growth marketing, and AI workflow automation.</p>
+            <div class="cta-group">
+                <button class="cta-primary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">Web Audit</button>
+                <button class="cta-secondary" onclick="document.getElementById('ai').scrollIntoView({behavior: 'smooth'})">AI Automation Audit →</button>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL TO EXPLORE</span>
+            <span class="scroll-arrow">↓</span>
+        </div>
+    </section>
+
+    <!-- Metrics -->
+    <section class="metrics">
+        <div class="metric-card">
+            <div class="metric-value" data-target="5-9x">5-9x</div>
+            <div class="metric-label">Lead Growth</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" data-target="800%">800%+</div>
+            <div class="metric-label">Year 1 ROI</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" data-target="20+ hrs">20+ hrs</div>
+            <div class="metric-label">Weekly Automation</div>
+        </div>
+    </section>
+
+    <!-- Web Services Section -->
+    <section id="services" class="services">
+        <div class="section-header">
+            <h2>Web Services</h2>
+            <p>Choose the service level that matches your growth goals</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="badge">Foundation</div>
+                <h3>LAUNCH</h3>
+                <div class="service-price">CHF 10-12k</div>
+                <ul>
+                    <li>Full website audit</li>
+                    <li>Critical fixes</li>
+                    <li>GDPR compliance</li>
+                    <li>Analytics setup</li>
+                    <li>English translation</li>
+                    <li>4 blog posts</li>
+                    <li>FAQ section</li>
+                </ul>
+            </div>
+
+            <div class="service-card featured">
+                <div class="badge">⭐ Most Popular</div>
+                <h3>GROWTH</h3>
+                <div class="service-price">CHF 3k/month</div>
+                <ul>
+                    <li>Everything in LAUNCH</li>
+                    <li>2 blog posts/month</li>
+                    <li>50+ social posts/month</li>
+                    <li>Monthly newsletter</li>
+                    <li>Daily engagement</li>
+                    <li>Monthly reports</li>
+                    <li>Strategy reviews</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="badge">Acceleration</div>
+                <h3>PREMIUM</h3>
+                <div class="service-price">CHF 4k/month</div>
+                <ul>
+                    <li>Everything in GROWTH</li>
+                    <li>LinkedIn ads</li>
+                    <li>Meta ads management</li>
+                    <li>CRM integration</li>
+                    <li>Email automation</li>
+                    <li>Video strategy</li>
+                    <li>Competitor analysis</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Automation Section -->
+    <section id="ai" class="ai-automation">
+        <div class="section-header">
+            <h2>AI Automation Consulting</h2>
+            <p>Discover 20+ hours/week of manual work ready to automate</p>
+        </div>
+
+        <div class="ai-box">
+            <h3>Transform Your Workflows with AI</h3>
+            <p>We audit your entire tech stack and propose AI-powered automations to eliminate manual work, reduce errors, and cut operational costs.</p>
+
+            <div class="ai-flow">
+                <div class="ai-step">
+                    <div class="ai-step-num">1</div>
+                    <h4>Audit</h4>
+                    <p>Map your systems, workflows, pain points</p>
+                </div>
+                <div class="ai-step">
+                    <div class="ai-step-num">2</div>
+                    <h4>Analyze</h4>
+                    <p>Identify 20+ hrs/week automation opportunities</p>
+                </div>
+                <div class="ai-step">
+                    <div class="ai-step-num">3</div>
+                    <h4>Propose</h4>
+                    <p>Custom AI workflows + cost savings breakdown</p>
+                </div>
+                <div class="ai-step">
+                    <div class="ai-step-num">4</div>
+                    <h4>Implement</h4>
+                    <p>Build & deploy automations with support</p>
+                </div>
+            </div>
+
+            <div class="ai-systems">
+                <h4>Systems We Audit</h4>
+                <ul class="systems-list">
+                    <li>CRM Workflows (Salesforce, HubSpot, Pipedrive)</li>
+                    <li>Email & Marketing Automation (Mailchimp, Klaviyo)</li>
+                    <li>Project Management (Monday, Asana, Linear)</li>
+                    <li>Document & Data Processing (PDFs, Spreadsheets)</li>
+                    <li>AI Agent Workflows & Integration</li>
+                    <li>Custom Tool Connections</li>
+                </ul>
+            </div>
+
+            <div class="ai-pricing">
+                <h4>AI Automation Audit</h4>
+                <div class="ai-price">CHF 500</div>
+                <p>Includes: Systems review, discovery call, initial findings, and custom proposal</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section id="roi" class="roi">
+        <h2>Real Results</h2>
+        <p class="roi-subtitle">Architecture firm case study (Web Services): Geneva</p>
+
+        <div class="roi-grid">
+            <div class="roi-item">
+                <div class="roi-label">Leads/Month</div>
+                <div class="roi-value">5 → 100</div>
+            </div>
+            <div class="roi-item">
+                <div class="roi-label">Projects/Month</div>
+                <div class="roi-value">1 → 8</div>
+            </div>
+            <div class="roi-item">
+                <div class="roi-label">New Annual Revenue</div>
+                <div class="roi-value">CHF 600k+</div>
+            </div>
+            <div class="roi-item">
+                <div class="roi-label">Investment</div>
+                <div class="roi-value">CHF 46k</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="process">
+        <div class="section-header">
+            <h2>Our Process</h2>
+            <p>From audit to launch to sustained growth</p>
+        </div>
+
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="step-circle">1</div>
+                <h4>Audit</h4>
+                <p>Deep dive into systems, compliance, performance.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-circle">2</div>
+                <h4>Strategy</h4>
+                <p>Present findings with ROI and roadmap.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-circle">3</div>
+                <h4>Build</h4>
+                <p>4-week rebuild + compliance + content.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-circle">4</div>
+                <h4>Scale</h4>
+                <p>Ongoing management + optimization.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="contact" class="cta-final">
+        <h2>Ready to Transform?</h2>
+        <p>Get audits + ROI projections for web growth and AI automation</p>
+        <button class="cta-primary" onclick="alert('Contact: Email hello@lxrydesigns.ch for web audit or AI automation audit')">Book Your Audit</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>LXRY Designs</strong> — Digital Growth & AI Automation</p>
+        <p>Professional Services | Geneva, Switzerland | 30km radius</p>
+        <div>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">Contact</a>
+        </div>
+        <p style="margin-top: 20px; opacity: 0.6;">© 2026 LXRY Designs. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Initial states (prevent FOUC)
+        gsap.set('.hero h1', { opacity: 0, y: 50 });
+        gsap.set('.hero-subtitle', { opacity: 0, y: 30 });
+        gsap.set('.cta-group', { opacity: 0, y: 30 });
+        gsap.set('.metric-card', { opacity: 0, y: 50 });
+        gsap.set('.service-card', { opacity: 0, y: 50 });
+        gsap.set('.roi-item', { opacity: 0, y: 50 });
+        gsap.set('.process-step', { opacity: 0, y: 50 });
+        gsap.set('.ai-step', { opacity: 0, y: 50 });
+
+        // Hero animation
+        const heroTimeline = gsap.timeline({ delay: 0.2 });
+        heroTimeline
+            .to('.hero-label', { opacity: 1, duration: 0.8 })
+            .to('.hero h1', { opacity: 1, y: 0, duration: 1.2 }, 0.3)
+            .to('.hero-subtitle', { opacity: 1, y: 0, duration: 1 }, 0.5)
+            .to('.cta-group', { opacity: 1, y: 0, duration: 1 }, 0.7);
+
+        // Particle animation
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                container.appendChild(particle);
+
+                gsap.to(particle, {
+                    y: gsap.utils.random(-100, 100),
+                    x: gsap.utils.random(-100, 100),
+                    opacity: gsap.utils.random(0.1, 0.5),
+                    duration: gsap.utils.random(3, 8),
+                    repeat: -1,
+                    yoyo: true
+                });
+            }
+        }
+        createParticles();
+
+        // Metrics counter animation
+        ScrollTrigger.create({
+            trigger: '.metrics',
+            onEnter: () => {
+                document.querySelectorAll('.metric-card').forEach((card, i) => {
+                    gsap.to(card, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.2 });
+                });
+            }
+        });
+
+        // Service cards animation
+        ScrollTrigger.create({
+            trigger: '#services',
+            onEnter: () => {
+                document.querySelectorAll('.service-card').forEach((card, i) => {
+                    gsap.to(card, {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        delay: i * 0.15
+                    });
+                });
+            }
+        });
+
+        // AI steps animation
+        ScrollTrigger.create({
+            trigger: '#ai',
+            onEnter: () => {
+                document.querySelectorAll('.ai-step').forEach((step, i) => {
+                    gsap.to(step, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15 });
+                });
+            }
+        });
+
+        // ROI animation
+        ScrollTrigger.create({
+            trigger: '#roi',
+            onEnter: () => {
+                document.querySelectorAll('.roi-item').forEach((item, i) => {
+                    gsap.to(item, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15 });
+                });
+            }
+        });
+
+        // Process animation
+        ScrollTrigger.create({
+            trigger: '#process',
+            onEnter: () => {
+                document.querySelectorAll('.process-step').forEach((step, i) => {
+                    gsap.to(step, { opacity: 1, y: 0, duration: 0.8, delay: i * 0.15 });
+                });
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, { scrollTo: target, duration: 1.2 });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
