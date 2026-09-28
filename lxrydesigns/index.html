@@ -191,7 +191,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 24px 40px;
+            padding: 14px 40px;
             background: rgba(13, 13, 13, 0.85);
             backdrop-filter: blur(10px);
             z-index: 1000;
@@ -201,40 +201,13 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
             text-decoration: none;
         }
 
-        .logo-mark {
-            height: 52px;
+        .logo-img {
+            height: 76px;
             width: auto;
             display: block;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.05;
-        }
-
-        .logo-name {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--white);
-            letter-spacing: 2px;
-        }
-
-        .logo-name span {
-            color: var(--accent-teal);
-        }
-
-        .logo-tag {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 3.5px;
-            text-transform: uppercase;
-            color: var(--primary-silver);
-            margin-top: 4px;
         }
 
         .footer-logo {
@@ -246,10 +219,8 @@
         }
 
         @media (max-width: 600px) {
-            nav { padding: 16px 20px; }
-            .logo-mark { height: 40px; }
-            .logo-name { font-size: 1.2rem; }
-            .logo-tag { font-size: 0.7rem; letter-spacing: 2px; }
+            nav { padding: 12px 20px; }
+            .logo-img { height: 48px; }
             .footer-logo { width: 78%; }
         }
 
@@ -745,11 +716,7 @@
     <!-- Navigation -->
     <nav>
         <a href="#" class="logo" aria-label="LXRY Designs — Digital Solutions, home">
-            <img src="assets/lxry-mark.png" alt="" class="logo-mark">
-            <span class="logo-text">
-                <span class="logo-name">LXRY <span>Designs</span></span>
-                <span class="logo-tag">Digital Solutions</span>
-            </span>
+            <img src="assets/lxry-logo-full.png" alt="LXRY Designs — Digital Solutions" class="logo-img">
         </a>
         <ul class="nav-links">
             <li><a href="#services">Web Services</a></li>
