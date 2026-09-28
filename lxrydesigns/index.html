@@ -258,12 +258,35 @@
             letter-spacing: 6px;
         }
 
-        .footer-logo {
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto 30px;
+        }
+
+        .footer-mark {
+            height: 150px;
+            width: auto;
             display: block;
-            width: min(420px, 80%);
-            height: auto;
-            margin: 0 auto 28px;
-            opacity: 0.95;
+            margin-bottom: 16px;
+        }
+
+        .footer-name {
+            font-family: 'Jura', 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 2rem;
+            letter-spacing: 11px;
+            color: var(--accent-bright);
+        }
+
+        .footer-tag {
+            font-family: 'Jura', 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 11px;
+            color: var(--white);
+            margin-top: 8px;
         }
 
         @media (max-width: 600px) {
@@ -273,7 +296,9 @@
             nav.scrolled .logo-mark { height: 50px; }
             .lw-name { font-size: 1.3rem; letter-spacing: 4px; }
             .lw-tag { font-size: 0.7rem; letter-spacing: 4px; }
-            .footer-logo { width: 78%; }
+            .footer-mark { height: 104px; }
+            .footer-name { font-size: 1.5rem; letter-spacing: 6px; }
+            .footer-tag { font-size: 0.72rem; letter-spacing: 6px; }
         }
 
         .nav-links {
@@ -990,7 +1015,11 @@
 
     <!-- Footer -->
     <footer>
-        <img src="assets/lxry-logo-full.png" alt="LXRY Designs — Digital Solutions" class="footer-logo">
+        <div class="footer-brand">
+            <img src="assets/lxry-mark-solid.png" alt="" class="footer-mark">
+            <span class="footer-name">LXRY DESIGNS</span>
+            <span class="footer-tag">DIGITAL SOLUTIONS</span>
+        </div>
         <p><strong>LXRY Designs</strong> — Digital Growth & AI Automation</p>
         <p>Professional Services | Geneva, Switzerland | 30km radius</p>
         <div>
