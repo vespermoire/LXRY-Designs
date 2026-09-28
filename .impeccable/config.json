@@ -1,0 +1,107 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "clipped-overflow-container",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T18:48:57.869Z",
+        "reason": "Intentional: decorative card accent bars and button sheen/ripple are meant to be clipped by the element radius; no tooltips/menus escape these containers"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T18:49:04.863Z",
+        "reason": "Established LXRY brand: turquoise HUD glow is the site signature aesthetic confirmed across prior sessions"
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T19:07:25.904Z",
+        "reason": "LXRY brand: Jura letterspaced wordmark and uppercase labels are the established identity"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T19:07:27.312Z",
+        "reason": "Brand: uppercase micro-labels, badges and scroll indicator are intentional short labels"
+      },
+      {
+        "rule": "extreme-negative-tracking",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T19:07:28.792Z",
+        "reason": "Intentional display-type tracking on large hero/section headings"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T19:07:30.224Z",
+        "reason": "Brand: DIGITAL SOLUTIONS letterspaced tagline; functional smallprint raised to >=11px"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T19:07:31.723Z",
+        "reason": "Inter is the established LXRY brand body font paired with Jura display"
+      },
+      {
+        "rule": "kicker-above-heading",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T19:07:33.154Z",
+        "reason": "Service-card category badges are an intentional, scannable card pattern"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T19:07:34.625Z",
+        "reason": "Card top accent is part of the LXRY HUD/teal brand aesthetic"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "lxrydesigns/index.html"
+        ],
+        "createdAt": "2026-09-28T19:07:36.104Z",
+        "reason": "Single short max-height transition on the mobile nav menu; not a scroll-linked loop"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          "lxrydesigns/404.html"
+        ],
+        "createdAt": "2026-09-28T19:08:03.628Z",
+        "reason": "Inter is the established LXRY brand body font"
+      }
+    ]
+  }
+}
