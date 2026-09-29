@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — LXRY Designs | Web, SEO & AI Automation Insights</title>
+    <meta name="description" content="Articles on web design, SEO, compliance, and AI automation for digital studios and agencies.">
+    <link rel="canonical" href="https://www.lxrydesigns.com/blog">
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#0D0D0D">
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="LXRY Designs">
+    <meta property="og:url" content="https://www.lxrydesigns.com/blog">
+    <meta property="og:title" content="Blog — LXRY Designs">
+    <meta property="og:description" content="Articles on web design, SEO, compliance, and AI automation.">
+    <meta property="og:image" content="https://www.lxrydesigns.com/assets/favicon-512.png">
+    <meta property="og:locale" content="en_GB">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog — LXRY Designs">
+    <meta name="twitter:description" content="Articles on web design, SEO, compliance, and AI automation.">
+    <meta name="twitter:image" content="https://www.lxrydesigns.com/assets/favicon-512.png">
+
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --primary-silver: #C8CCCE;
+            --accent-teal: #27F4D2;
+            --accent-deep: #00A19B;
+            --accent-bright: #27F4D2;
+            --dark-bg: #0D0D0D;
+            --light-bg: #F5F5F5;
+            --white: #FFFFFF;
+            --dark-gray: #565F64;
+            --text-body: #D4D8DA;
+            --text-muted: #AEB4B7;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-body);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 24px 32px;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(39, 244, 210, 0.1);
+        }
+
+        nav a {
+            color: var(--text-body);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-teal);
+        }
+
+        /* Header */
+        .blog-header {
+            padding: 120px 40px 80px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.82) 0%, rgba(20, 22, 26, 0.5) 50%, rgba(13, 13, 13, 0.86) 100%);
+            border-bottom: 1px solid rgba(39, 244, 210, 0.1);
+        }
+
+        .blog-header h1 {
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            color: var(--white);
+        }
+
+        .blog-header .accent {
+            color: var(--accent-teal);
+        }
+
+        .blog-header p {
+            font-size: 1.1em;
+            color: var(--primary-silver);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .blog-post {
+            padding: 32px;
+            background: rgba(39, 244, 210, 0.05);
+            border: 1px solid rgba(39, 244, 210, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .blog-post:hover {
+            background: rgba(39, 244, 210, 0.08);
+            border-color: rgba(39, 244, 210, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .blog-post-date {
+            color: var(--accent-teal);
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .blog-post h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+            color: var(--white);
+        }
+
+        .blog-post p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .blog-post-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .blog-tag {
+            display: inline-block;
+            background: rgba(0, 161, 155, 0.1);
+            border: 1px solid rgba(39, 244, 210, 0.3);
+            color: var(--accent-teal);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .blog-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-top: 16px;
+            transition: gap 0.2s;
+        }
+
+        .blog-post:hover .blog-cta {
+            gap: 12px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 40px;
+            color: var(--text-muted);
+        }
+
+        .empty-state h2 {
+            color: var(--white);
+            margin-bottom: 16px;
+            font-size: 1.5em;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 40px;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(39, 244, 210, 0.2);
+            border-top-color: var(--accent-teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 40px;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(39, 244, 210, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        footer a {
+            color: var(--accent-teal);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .blog-header {
+                padding: 80px 20px 60px;
+            }
+
+            .blog-header h1 {
+                font-size: 2.5em;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .blog-post {
+                padding: 24px;
+            }
+
+            .blog-post h2 {
+                font-size: 1.4em;
+            }
+
+            nav {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="/" aria-label="Back to home">← Home</a>
+    </nav>
+
+    <!-- Header -->
+    <header class="blog-header">
+        <h1>Blog</h1>
+        <p>Articles on web design, SEO, Swiss/EU compliance, and AI automation for digital studios.</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div id="blog-content" class="loading">
+            <div class="spinner"></div>
+            <p>Loading articles...</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 LXRY Designs. All rights reserved.</p>
+        <p><a href="/">Home</a> | <a href="https://www.lxrydesigns.com/">Services</a></p>
+    </footer>
+
+    <script>
+        // Load and display blog posts
+        async function loadBlogPosts() {
+            try {
+                const response = await fetch('/api/posts.json');
+
+                if (!response.ok) {
+                    throw new Error(`Failed to load posts: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                const posts = data.posts || [];
+
+                const contentDiv = document.getElementById('blog-content');
+
+                if (posts.length === 0) {
+                    contentDiv.innerHTML = `
+                        <div class="empty-state">
+                            <h2>No articles yet</h2>
+                            <p>Check back soon for insights on web design, SEO, and AI automation.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Sort posts by date (newest first)
+                const sortedPosts = posts.sort((a, b) =>
+                    new Date(b.date) - new Date(a.date)
+                );
+
+                // Build HTML
+                let html = '<div class="blog-grid">';
+
+                for (const post of sortedPosts) {
+                    const date = new Date(post.date);
+                    const dateStr = date.toLocaleDateString('en-GB', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    const tagsHtml = post.tags && post.tags.length
+                        ? post.tags.map(tag => `<span class="blog-tag">${escapeHtml(tag)}</span>`).join('')
+                        : '';
+
+                    html += `
+                        <a href="/posts/${post.filename.replace('.md', '.html')}" class="blog-post">
+                            <div class="blog-post-date">${escapeHtml(dateStr)}</div>
+                            <h2>${escapeHtml(post.title)}</h2>
+                            <p>${escapeHtml(post.description || 'Read more...')}</p>
+                            ${tagsHtml ? `<div class="blog-post-tags">${tagsHtml}</div>` : ''}
+                            <div class="blog-cta">Read article →</div>
+                        </a>
+                    `;
+                }
+
+                html += '</div>';
+                contentDiv.innerHTML = html;
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+                document.getElementById('blog-content').innerHTML = `
+                    <div class="empty-state">
+                        <h2>Error loading articles</h2>
+                        <p>We're having trouble loading the blog. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Escape HTML to prevent injection
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Load posts on page load
+        document.addEventListener('DOMContentLoaded', loadBlogPosts);
+    </script>
+</body>
+</html>
