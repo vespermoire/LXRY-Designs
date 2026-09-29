@@ -1001,6 +1001,76 @@
             font-weight: 600;
         }
 
+        /* Contact form */
+        .contact-form {
+            max-width: 580px;
+            margin: 10px auto 22px;
+            text-align: left;
+        }
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .contact-form > div { margin-bottom: 16px; }
+        .contact-form label {
+            display: block;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: var(--primary-silver);
+            margin-bottom: 6px;
+        }
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            background: rgba(39, 244, 210, 0.06);
+            border: 1px solid rgba(39, 244, 210, 0.3);
+            border-radius: 10px;
+            padding: 13px 15px;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 1em;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            background: rgba(39, 244, 210, 0.1);
+        }
+        .contact-form select option { background: #0F1416; color: var(--white); }
+        .contact-form textarea { min-height: 130px; resize: vertical; }
+        .form-note {
+            font-size: 0.82em;
+            color: var(--text-muted);
+            margin: 4px 0 18px;
+        }
+        .form-note a { color: var(--accent-teal); }
+        .contact-form button[type="submit"] {
+            font-family: inherit;
+            cursor: pointer;
+            width: 100%;
+        }
+        .hidden-hp { position: absolute; left: -9999px; }
+        .form-success {
+            display: none;
+            max-width: 580px;
+            margin: 0 auto 22px;
+            background: rgba(39, 244, 210, 0.12);
+            border: 1px solid var(--accent-teal);
+            border-radius: 12px;
+            padding: 22px 26px;
+            color: var(--white);
+            font-weight: 600;
+        }
+        .form-success.show { display: block; }
+        @media (max-width: 600px) {
+            .form-row-2 { grid-template-columns: 1fr; }
+        }
+
         /* Footer */
         footer {
             background: var(--dark-bg);
@@ -1639,7 +1709,7 @@
             <h1 data-i18n="hero.h1">Websites that <span class="accent">win clients</span>. Workflows that <span class="accent">run themselves</span>.</h1>
             <p class="hero-subtitle" data-i18n="hero.sub">A cross-border studio in Divonne-les-Bains, working both sides of the Geneva border. We audit first, then rebuild, optimise and automate — priced to what your business actually needs, in CHF or EUR.</p>
             <div class="cta-group">
-                <a href="#services" class="cta-primary" data-i18n="hero.cta1">Get an audit</a>
+                <a href="#contact" class="cta-primary" data-i18n="hero.cta1">Get an audit</a>
                 <a href="#ai" class="cta-secondary" data-i18n="hero.cta2">AI automation →</a>
             </div>
         </div>
@@ -2072,18 +2142,51 @@
 
     <!-- Final CTA -->
     <section id="contact" class="cta-final">
-        <h2 data-i18n="cta.h2">Ready when you are.</h2>
-        <p data-i18n="cta.p">Tell us about your site or your workflows. We start with an audit and a straight answer.</p>
+        <h2 data-i18n="cta.h2">Book your audit</h2>
+        <p data-i18n="cta.p">Tell us about your site or your workflows and we'll come back with an audit and a straight answer. Fields marked * are required.</p>
+
+        <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm">
+            <input type="hidden" name="form-name" value="contact">
+            <p class="hidden-hp"><label>Leave this blank <input name="bot-field"></label></p>
+            <div class="form-row-2">
+                <div>
+                    <label for="cf-name" data-i18n="form.name">Name *</label>
+                    <input id="cf-name" name="name" type="text" autocomplete="name" required>
+                </div>
+                <div>
+                    <label for="cf-email" data-i18n="form.email">Email *</label>
+                    <input id="cf-email" name="email" type="email" autocomplete="email" required>
+                </div>
+            </div>
+            <div class="form-row-2">
+                <div>
+                    <label for="cf-phone" data-i18n="form.phone">Phone (optional)</label>
+                    <input id="cf-phone" name="phone" type="tel" autocomplete="tel">
+                </div>
+                <div>
+                    <label for="cf-service" data-i18n="form.service">Interested in</label>
+                    <select id="cf-service" name="service">
+                        <option value="" data-i18n="form.opt0">Choose a service…</option>
+                        <option value="Website Audit" data-i18n="form.opt1">Website Audit</option>
+                        <option value="Website Build &amp; Migration" data-i18n="form.opt2">Website Build &amp; Migration</option>
+                        <option value="AI Automation" data-i18n="form.opt3">AI Automation</option>
+                        <option value="Brand Pack" data-i18n="form.opt4">Brand Pack</option>
+                        <option value="Social Media Management" data-i18n="form.opt5">Social Media Management</option>
+                        <option value="Something else" data-i18n="form.opt6">Something else</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label for="cf-message" data-i18n="form.message">Your message *</label>
+                <textarea id="cf-message" name="message" required></textarea>
+            </div>
+            <p class="form-note" data-i18n="form.note">By sending this, you agree we'll use your details to reply to your enquiry. See our <a href="/privacy">Privacy Policy</a>.</p>
+            <button type="submit" class="cta-primary" data-i18n="form.submit">Send enquiry</button>
+        </form>
+        <div class="form-success" id="formSuccess" role="status" data-i18n="form.success">✓ Thanks — we've got your message and will be in touch shortly.</div>
+
+        <p class="cta-contact-line" data-i18n="cta.other">Prefer another way? Email <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a> · Call <a href="tel:+447808782871">+44 7808 78 28 71</a> · <a href="https://wa.me/447404218616?text=Hi%20LXRY%20Designs%2C%20I%27d%20like%20an%20audit" target="_blank" rel="noopener">WhatsApp</a></p>
         <p class="cta-contact-line" data-i18n="cta.line">Divonne-les-Bains, France · serving Geneva &amp; Pays de Gex · CHF · EUR</p>
-        <div class="cta-group" style="margin-bottom:26px;">
-            <a href="mailto:hello@lxrydesigns.com?subject=Website%20or%20AI%20automation%20audit" class="cta-primary" data-i18n="cta.btn">Request your audit</a>
-            <a href="tel:+447808782871" class="cta-secondary" data-i18n="cta.call">Call +44 7808 78 28 71</a>
-        </div>
-        <p class="cta-contact-line">
-            <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>
-            &nbsp;·&nbsp;
-            <a href="https://wa.me/447404218616?text=Hi%20LXRY%20Designs%2C%20I%27d%20like%20an%20audit" target="_blank" rel="noopener">WhatsApp</a>
-        </p>
     </section>
     </main>
 
@@ -2346,11 +2449,25 @@
                 "process.3p": "Reconstruire, migrer, mettre en conformité et connecter — testé de bout en bout.",
                 "process.4h": "Croissance",
                 "process.4p": "Optimisation, contenu et automatisation en continu.",
-                "cta.h2": "Prêt quand vous l’êtes.",
-                "cta.p": "Parlez-nous de votre site ou de vos processus. On commence par un audit et une réponse claire.",
+                "cta.h2": "Réservez votre audit",
+                "cta.p": "Parlez-nous de votre site ou de vos processus et nous reviendrons vers vous avec un audit et une réponse claire. Les champs marqués * sont obligatoires.",
                 "cta.line": "Divonne-les-Bains, France · au service de Genève &amp; du Pays de Gex · CHF · EUR",
-                "cta.btn": "Demander votre audit",
-                "cta.call": "Appeler +44 7808 78 28 71",
+                "cta.other": "Vous préférez un autre moyen ? E-mail <a href=\"mailto:hello@lxrydesigns.com\">hello@lxrydesigns.com</a> · Tél. <a href=\"tel:+447808782871\">+44 7808 78 28 71</a> · <a href=\"https://wa.me/447404218616?text=Bonjour%20LXRY%20Designs\" target=\"_blank\" rel=\"noopener\">WhatsApp</a>",
+                "form.name": "Nom *",
+                "form.email": "E-mail *",
+                "form.phone": "Téléphone (facultatif)",
+                "form.service": "Vous êtes intéressé par",
+                "form.opt0": "Choisir un service…",
+                "form.opt1": "Audit de site web",
+                "form.opt2": "Création &amp; migration de site",
+                "form.opt3": "Automatisation IA",
+                "form.opt4": "Pack de marque",
+                "form.opt5": "Gestion des réseaux sociaux",
+                "form.opt6": "Autre chose",
+                "form.message": "Votre message *",
+                "form.note": "En envoyant ce formulaire, vous acceptez que nous utilisions vos coordonnées pour répondre à votre demande. Voir notre <a href=\"/privacy\">Politique de confidentialité</a>.",
+                "form.submit": "Envoyer la demande",
+                "form.success": "✓ Merci — nous avons bien reçu votre message et reviendrons vers vous rapidement.",
                 "foot.blurb": "Web, SEO, conformité et automatisation IA transfrontaliers. Divonne-les-Bains, actif des deux côtés de la frontière genevoise.",
                 "foot.explore": "Explorer",
                 "foot.services": "Services",
@@ -2402,6 +2519,30 @@
                 links.classList.remove('open');
                 toggle.setAttribute('aria-expanded', 'false');
             }));
+        })();
+
+        /* ---------- Contact form (Netlify Forms, AJAX) ---------- */
+        (function () {
+            const form = document.getElementById('contactForm');
+            const success = document.getElementById('formSuccess');
+            if (!form) return;
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const btn = form.querySelector('button[type="submit"]');
+                const original = btn.textContent;
+                btn.disabled = true; btn.textContent = '…';
+                const data = new URLSearchParams(new FormData(form)).toString();
+                fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
+                    .then(() => {
+                        form.style.display = 'none';
+                        success.classList.add('show');
+                        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    })
+                    .catch(() => {
+                        btn.disabled = false; btn.textContent = original;
+                        alert('Sorry, something went wrong — please email hello@lxrydesigns.com');
+                    });
+            });
         })();
 
         /* ---------- Nav shrink on scroll ---------- */
