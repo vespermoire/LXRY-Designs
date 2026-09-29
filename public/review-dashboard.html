@@ -510,9 +510,11 @@
           showValidationErrors(data.validationErrors);
           document.getElementById('status').className = 'status invalid';
           document.getElementById('status').textContent = `✕ ${data.validationErrors.length} validation error(s)`;
+          document.getElementById('approve-btn').disabled = true;
         } else {
           document.getElementById('status').className = 'status valid';
           document.getElementById('status').textContent = '✓ All validations passed';
+          document.getElementById('approve-btn').disabled = false;
         }
 
         displayDraft(data.draft);
