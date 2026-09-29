@@ -1,0 +1,142 @@
+/* Shared newsletter signup form — HUD/turquoise brand.
+   Self-contained tokens so the component looks right on any page. */
+.lxry-signup {
+  --sg-turq: #27F4D2;
+  --sg-teal: #00A19B;
+  --sg-panel: #0F1514;
+  --sg-border: #20302D;
+  --sg-text: #E9EDEC;
+  --sg-dim: #8C9694;
+  --sg-black: #0D0D0D;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.lxry-signup .sg-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lxry-signup label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sg-dim);
+}
+
+.lxry-signup input[type="text"],
+.lxry-signup input[type="email"] {
+  width: 100%;
+  padding: 13px 15px;
+  background: var(--sg-black);
+  border: 1px solid var(--sg-border);
+  border-radius: 8px;
+  color: var(--sg-text);
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lxry-signup input[type="text"]:focus,
+.lxry-signup input[type="email"]:focus {
+  outline: none;
+  border-color: var(--sg-turq);
+  box-shadow: 0 0 0 3px rgba(39, 244, 210, 0.15);
+}
+
+.lxry-signup input::placeholder {
+  color: #4a5250;
+}
+
+/* Consent row */
+.lxry-signup .sg-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: var(--sg-dim);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.lxry-signup .sg-consent input[type="checkbox"] {
+  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--sg-turq);
+  flex: 0 0 auto;
+}
+
+.lxry-signup .sg-consent a {
+  color: var(--sg-turq);
+  text-decoration: underline;
+}
+
+/* Submit button — matches the site's primary CTA */
+.lxry-signup button {
+  padding: 14px 24px;
+  background: var(--sg-turq);
+  color: var(--sg-black);
+  border: none;
+  border-radius: 8px;
+  font-family: 'Jura', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+}
+
+.lxry-signup button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(39, 244, 210, 0.25);
+}
+
+.lxry-signup button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Honeypot — visually removed, still in the DOM for bots */
+.lxry-signup .sg-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Status messages */
+.lxry-signup [data-signup-status] {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  min-height: 1.2em;
+}
+.lxry-signup [data-signup-status].is-success {
+  color: var(--sg-turq);
+}
+.lxry-signup [data-signup-status].is-error {
+  color: #ff8a80;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lxry-signup button,
+  .lxry-signup input {
+    transition: none;
+  }
+  .lxry-signup button:hover:not(:disabled) {
+    transform: none;
+  }
+}
