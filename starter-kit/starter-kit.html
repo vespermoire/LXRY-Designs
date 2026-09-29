@@ -66,8 +66,8 @@
   svg.ic-line{ fill:none; stroke:var(--turq); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
 
   /* ---------- WORKFLOW CARDS ---------- */
-  .wf{ background:var(--panel); border:1px solid var(--border); border-radius:4mm; padding:6mm 7mm; margin-bottom:5mm; page-break-inside:avoid; position:relative; }
-  .wf .head{ display:flex; align-items:center; gap:5mm; margin-bottom:3.5mm; }
+  .wf{ background:var(--panel); border:1px solid var(--border); border-radius:4mm; padding:4.5mm 7mm; margin-bottom:3.5mm; page-break-inside:avoid; position:relative; }
+  .wf .head{ display:flex; align-items:center; gap:5mm; margin-bottom:2.5mm; }
   .wf .badge{ flex:0 0 13mm; height:13mm; border-radius:3mm; background:rgba(39,244,210,0.1); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
   .wf .badge svg{ width:7mm; height:7mm; }
   .wf .htext{ flex:1; }
@@ -76,12 +76,18 @@
   .wf .hours{ flex:0 0 auto; text-align:right; }
   .wf .hours .v{ font-family:var(--jura); font-weight:700; color:var(--turq); font-size:14pt; }
   .wf .hours .l{ display:block; font-family:var(--mono); font-size:6.5pt; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); }
-  .wf .what{ font-size:10pt; color:var(--silver); margin-bottom:3mm; }
+  .wf .what{ font-size:10pt; color:var(--silver); margin-bottom:2mm; }
   .wf .row{ display:flex; gap:6mm; font-size:9pt; }
   .wf .row .lbl{ font-family:var(--mono); font-size:7pt; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); display:block; margin-bottom:1mm; }
   .wf .tools{ flex:1; color:var(--text); }
   .wf .start{ flex:1; color:var(--dim); }
   .wf .start b{ color:var(--text); font-weight:600; }
+
+  /* tip strip (fills page, adds value) */
+  .tip{ display:flex; gap:5mm; align-items:center; background:rgba(39,244,210,0.05); border:1px solid var(--border-soft); border-radius:3mm; padding:5mm 7mm; margin-top:4mm; }
+  .tip svg{ width:7mm; height:7mm; flex:0 0 auto; fill:none; stroke:var(--turq); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+  .tip p{ font-size:10pt; color:var(--silver); }
+  .tip b{ font-family:var(--mono); font-size:8pt; letter-spacing:0.12em; text-transform:uppercase; color:var(--turq); }
 
   /* ---------- BAR CHART ---------- */
   .chart{ margin:6mm 0; }
@@ -243,6 +249,7 @@
     <p class="what">Turn a one-line description into a formatted quote or invoice, ready to review and send.</p>
     <div class="row"><div class="tools"><span class="lbl">Tools</span>Document automation + Stripe / QuickBooks / your accounting tool</div><div class="start"><span class="lbl">Start</span><b>Build one template</b> with variables (client, items, totals), wire it to your product list.</div></div>
   </div>
+  <div class="tip"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 1 4 10.5c-.7.6-1 1-1 2H9c0-1-.3-1.4-1-2A6 6 0 0 1 12 3z"/></svg><p><b>Tip &nbsp;·&nbsp;</b> Start with the workflow that annoys you most on a Monday morning. Momentum beats perfection — you can refine any of these later.</p></div>
   <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
 </section>
 
@@ -279,6 +286,7 @@
     <p class="what">Ask for a review at the exact right moment, watch new ones land, and draft a reply to each.</p>
     <div class="row"><div class="tools"><span class="lbl">Tools</span>Automation platform + Google Business Profile</div><div class="start"><span class="lbl">Start</span><b>Trigger a review request</b> a few days after a completed job or delivery.</div></div>
   </div>
+  <div class="tip"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 1 4 10.5c-.7.6-1 1-1 2H9c0-1-.3-1.4-1-2A6 6 0 0 1 12 3z"/></svg><p><b>Tip &nbsp;·&nbsp;</b> You don't need all ten. Three or four compounding wins already reshape your week — and each one funds the time to set up the next.</p></div>
   <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
 </section>
 
