@@ -22,10 +22,12 @@
         .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         .brand img { height: 52px; width: auto; }
         .brand .nm { font-family: 'Jura', sans-serif; font-weight: 600; letter-spacing: 6px; color: var(--teal); font-size: 1.05rem; }
+        .lang { display: inline-flex; border: 1px solid rgba(39,244,210,.4); border-radius: 40px; overflow: hidden; }
+        .lang-btn { background: transparent; border: none; color: var(--muted); font-family: 'Jura', sans-serif; font-weight: 600; letter-spacing: 1px; padding: 6px 13px; cursor: pointer; font-size: .8rem; }
+        .lang-btn[aria-pressed="true"] { background: var(--teal); color: #000; }
         main { padding: 50px 0 70px; }
         h1 { color: var(--teal); font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 6px; }
-        .updated { color: var(--muted); font-size: .9rem; margin-bottom: 22px; }
-        .draft { background: rgba(39,244,210,.08); border: 1px solid rgba(39,244,210,.3); border-radius: 10px; padding: 14px 18px; color: var(--muted); font-size: .9rem; margin-bottom: 36px; }
+        .updated { color: var(--muted); font-size: .9rem; margin-bottom: 30px; }
         h2 { color: var(--white); font-size: 1.28rem; margin: 36px 0 12px; font-weight: 800; }
         p { margin-bottom: 14px; }
         ul { margin: 0 0 14px 22px; }
@@ -33,6 +35,7 @@
         .back { display: inline-block; margin-bottom: 30px; color: var(--teal); text-decoration: none; font-weight: 600; }
         .foot { border-top: 1px solid rgba(39,244,210,.15); padding: 26px 0; color: var(--muted); font-size: .85rem; text-align: center; }
         .foot a { margin: 0 8px; text-decoration: none; }
+        :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
     </style>
 </head>
 <body>
@@ -42,53 +45,101 @@
                 <img src="assets/lxry-mark-solid.png" alt="">
                 <span class="nm">LXRY DESIGNS</span>
             </a>
+            <div class="lang" role="group" aria-label="Language / Langue">
+                <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+                <button class="lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+            </div>
         </div>
     </header>
 
     <main>
         <div class="wrap">
-            <a class="back" href="/">← Back to site</a>
-            <h1>Legal Notice</h1>
-            <p class="updated">Last updated: 29 September 2026</p>
-            <div class="draft">⚠️ Draft for review. This notice is provided for transparency and is pending final review by a qualified lawyer before publication.</div>
+            <a class="back" href="/" data-i18n="back">← Back to site</a>
+            <h1 data-i18n="h1">Legal Notice</h1>
+            <p class="updated" data-i18n="updated">Last updated: 29 September 2026</p>
 
-            <h2>1. Company identity</h2>
-            <p>This website is published by:</p>
+            <h2 data-i18n="h2_1">1. Company identity</h2>
+            <p data-i18n="p1">This website is published by:</p>
             <ul>
-                <li><strong>LXRY Designs Ltd</strong>, a company registered in England &amp; Wales</li>
-                <li>Company registration number: <strong>14265179</strong></li>
-                <li>VAT number: <strong>GB 444 5192 92</strong></li>
-                <li>Registered office: 17 Victoria Road East, Thornton Cleveleys, FY5 5HT, United Kingdom</li>
-                <li>Operating address: Divonne-les-Bains, France (serving Geneva, Vaud and the Pays de Gex)</li>
-                <li>Email: <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a></li>
-                <li>Telephone: <a href="tel:+447808782871">+44 7808 78 28 71</a></li>
+                <li data-i18n="c1"><strong>LXRY Designs Ltd</strong>, a company registered in England &amp; Wales</li>
+                <li data-i18n="c2">Company registration number: <strong>14265179</strong></li>
+                <li data-i18n="c3">VAT number: <strong>GB 444 5192 92</strong></li>
+                <li data-i18n="c4">Registered office: 17 Victoria Road East, Thornton Cleveleys, FY5 5HT, United Kingdom</li>
+                <li data-i18n="c5">Operating address: Divonne-les-Bains, France (serving Geneva, Vaud and the Pays de Gex)</li>
+                <li data-i18n="c6">Email: <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a></li>
+                <li data-i18n="c7">Telephone: <a href="tel:+447808782871">+44 7808 78 28 71</a></li>
             </ul>
 
-            <h2>2. Director of publication</h2>
-            <p>Ian Goodison, on behalf of LXRY Designs Ltd.</p>
+            <h2 data-i18n="h2_2">2. Director of publication</h2>
+            <p data-i18n="p2">Ian Goodison, on behalf of LXRY Designs Ltd.</p>
 
-            <h2>3. Hosting</h2>
-            <p>This website is hosted by <strong>Netlify, Inc.</strong>, 512 2nd Street, Suite 200, San Francisco, CA 94107, United States — <a href="https://www.netlify.com" target="_blank" rel="noopener">www.netlify.com</a>.</p>
+            <h2 data-i18n="h2_3">3. Hosting</h2>
+            <p data-i18n="p3">This website is hosted by <strong>Netlify, Inc.</strong>, 512 2nd Street, Suite 200, San Francisco, CA 94107, United States — <a href="https://www.netlify.com" target="_blank" rel="noopener">www.netlify.com</a>.</p>
 
-            <h2>4. Intellectual property</h2>
-            <p>Unless otherwise stated, the content of this website — including text, graphics, the LXRY Designs name and logo, layout and code — is the property of LXRY Designs Ltd or is used with permission, and is protected by applicable intellectual-property law. You may not reproduce, distribute or adapt any part of it without our prior written consent.</p>
+            <h2 data-i18n="h2_4">4. Intellectual property</h2>
+            <p data-i18n="p4">Unless otherwise stated, the content of this website — including text, graphics, the LXRY Designs name and logo, layout and code — is the property of LXRY Designs Ltd or is used with permission, and is protected by applicable intellectual-property law. You may not reproduce, distribute or adapt any part of it without our prior written consent.</p>
 
-            <h2>5. Liability</h2>
-            <p>We take care to keep the information on this website accurate and up to date, but we make no warranty that it is complete, current or error-free. LXRY Designs Ltd accepts no liability for any loss arising from the use of, or reliance on, this website. Links to third-party sites are provided for convenience; we are not responsible for their content.</p>
+            <h2 data-i18n="h2_5">5. Liability</h2>
+            <p data-i18n="p5">We take care to keep the information on this website accurate and up to date, but we make no warranty that it is complete, current or error-free. LXRY Designs Ltd accepts no liability for any loss arising from the use of, or reliance on, this website. Links to third-party sites are provided for convenience; we are not responsible for their content.</p>
 
-            <h2>6. Personal data</h2>
-            <p>Our handling of personal data is described in our <a href="/privacy">Privacy Policy</a>.</p>
+            <h2 data-i18n="h2_6">6. Personal data</h2>
+            <p data-i18n="p6">Our handling of personal data is described in our <a href="/privacy">Privacy Policy</a>.</p>
 
-            <h2>7. Governing law</h2>
-            <p>This legal notice is governed by the laws of England &amp; Wales, without prejudice to any mandatory consumer-protection or data-protection rules applicable where you are based.</p>
+            <h2 data-i18n="h2_7">7. Governing law</h2>
+            <p data-i18n="p7">This legal notice is governed by the laws of England &amp; Wales, without prejudice to any mandatory consumer-protection or data-protection rules applicable where you are based.</p>
         </div>
     </main>
 
     <footer class="foot">
         <div class="wrap">
-            <a href="/">Home</a> · <a href="/privacy">Privacy Policy</a> · <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>
+            <a href="/" data-i18n="f_home">Home</a> · <a href="/privacy" data-i18n="f_privacy">Privacy Policy</a> · <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>
             <p style="margin-top:12px;">© 2026 LXRY Designs Ltd · Divonne-les-Bains, France</p>
         </div>
     </footer>
+
+    <script>
+        const I18N = { fr: {
+            "back": "← Retour au site",
+            "h1": "Mentions Légales",
+            "updated": "Dernière mise à jour : 29 septembre 2026",
+            "h2_1": "1. Identité de l’entreprise",
+            "p1": "Ce site est édité par :",
+            "c1": "<strong>LXRY Designs Ltd</strong>, société immatriculée en Angleterre et au Pays de Galles",
+            "c2": "Numéro d’enregistrement : <strong>14265179</strong>",
+            "c3": "Numéro de TVA : <strong>GB 444 5192 92</strong>",
+            "c4": "Siège social : 17 Victoria Road East, Thornton Cleveleys, FY5 5HT, Royaume-Uni",
+            "c5": "Adresse d’exploitation : Divonne-les-Bains, France (au service de Genève, Vaud et du Pays de Gex)",
+            "c6": "E-mail : <a href=\"mailto:hello@lxrydesigns.com\">hello@lxrydesigns.com</a>",
+            "c7": "Téléphone : <a href=\"tel:+447808782871\">+44 7808 78 28 71</a>",
+            "h2_2": "2. Directeur de la publication",
+            "p2": "Ian Goodison, pour le compte de LXRY Designs Ltd.",
+            "h2_3": "3. Hébergement",
+            "p3": "Ce site est hébergé par <strong>Netlify, Inc.</strong>, 512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis — <a href=\"https://www.netlify.com\" target=\"_blank\" rel=\"noopener\">www.netlify.com</a>.",
+            "h2_4": "4. Propriété intellectuelle",
+            "p4": "Sauf mention contraire, le contenu de ce site — textes, graphismes, le nom et le logo LXRY Designs, la mise en page et le code — est la propriété de LXRY Designs Ltd ou est utilisé avec autorisation, et est protégé par le droit de la propriété intellectuelle applicable. Vous ne pouvez reproduire, distribuer ou adapter aucune partie de ce site sans notre accord écrit préalable.",
+            "h2_5": "5. Responsabilité",
+            "p5": "Nous veillons à ce que les informations de ce site soient exactes et à jour, mais nous ne garantissons pas qu’elles soient complètes, actuelles ou exemptes d’erreurs. LXRY Designs Ltd décline toute responsabilité en cas de préjudice résultant de l’utilisation de ce site ou de la confiance qui lui est accordée. Les liens vers des sites tiers sont fournis par commodité ; nous ne sommes pas responsables de leur contenu.",
+            "h2_6": "6. Données personnelles",
+            "p6": "Notre traitement des données personnelles est décrit dans notre <a href=\"/privacy\">Politique de confidentialité</a>.",
+            "h2_7": "7. Droit applicable",
+            "p7": "Les présentes mentions légales sont régies par le droit d’Angleterre et du Pays de Galles, sans préjudice des règles impératives de protection des consommateurs ou des données applicables dans votre pays de résidence.",
+            "f_home": "Accueil",
+            "f_privacy": "Politique de confidentialité"
+        }};
+        (function () {
+            const nodes = Array.from(document.querySelectorAll('[data-i18n]'));
+            const en = new Map(); nodes.forEach(n => en.set(n, n.innerHTML));
+            const btns = Array.from(document.querySelectorAll('.lang-btn'));
+            function setLang(l) {
+                nodes.forEach(n => { const k = n.getAttribute('data-i18n'); n.innerHTML = (l === 'fr' && I18N.fr[k]) ? I18N.fr[k] : en.get(n); });
+                document.documentElement.lang = l;
+                btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
+                try { localStorage.setItem('lxry-lang', l); } catch (e) {}
+            }
+            let s = null; try { s = localStorage.getItem('lxry-lang'); } catch (e) {}
+            if (s === 'fr') setLang('fr');
+            btns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+        })();
+    </script>
 </body>
 </html>

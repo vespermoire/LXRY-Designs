@@ -101,6 +101,24 @@
         ],
         "createdAt": "2026-09-28T19:08:03.628Z",
         "reason": "Inter is the established LXRY brand body font"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          "lxrydesigns/legal.html"
+        ],
+        "createdAt": "2026-09-29T00:00:00.000Z",
+        "reason": "Inter is the established LXRY brand body font, used site-wide for consistency"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          "lxrydesigns/privacy.html"
+        ],
+        "createdAt": "2026-09-29T00:00:00.000Z",
+        "reason": "Inter is the established LXRY brand body font, used site-wide for consistency"
       }
     ]
   }

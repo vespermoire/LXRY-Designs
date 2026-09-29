@@ -22,10 +22,12 @@
         .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
         .brand img { height: 52px; width: auto; }
         .brand .nm { font-family: 'Jura', sans-serif; font-weight: 600; letter-spacing: 6px; color: var(--teal); font-size: 1.05rem; }
+        .lang { display: inline-flex; border: 1px solid rgba(39,244,210,.4); border-radius: 40px; overflow: hidden; }
+        .lang-btn { background: transparent; border: none; color: var(--muted); font-family: 'Jura', sans-serif; font-weight: 600; letter-spacing: 1px; padding: 6px 13px; cursor: pointer; font-size: .8rem; }
+        .lang-btn[aria-pressed="true"] { background: var(--teal); color: #000; }
         main { padding: 50px 0 70px; }
         h1 { color: var(--teal); font-size: 2.2rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 6px; }
-        .updated { color: var(--muted); font-size: .9rem; margin-bottom: 22px; }
-        .draft { background: rgba(39,244,210,.08); border: 1px solid rgba(39,244,210,.3); border-radius: 10px; padding: 14px 18px; color: var(--muted); font-size: .9rem; margin-bottom: 36px; }
+        .updated { color: var(--muted); font-size: .9rem; margin-bottom: 30px; }
         h2 { color: var(--white); font-size: 1.28rem; margin: 36px 0 12px; font-weight: 800; }
         p { margin-bottom: 14px; }
         ul { margin: 0 0 14px 22px; }
@@ -36,6 +38,7 @@
         .back { display: inline-block; margin-bottom: 30px; color: var(--teal); text-decoration: none; font-weight: 600; }
         .foot { border-top: 1px solid rgba(39,244,210,.15); padding: 26px 0; color: var(--muted); font-size: .85rem; text-align: center; }
         .foot a { margin: 0 8px; text-decoration: none; }
+        :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
     </style>
 </head>
 <body>
@@ -45,69 +48,128 @@
                 <img src="assets/lxry-mark-solid.png" alt="">
                 <span class="nm">LXRY DESIGNS</span>
             </a>
+            <div class="lang" role="group" aria-label="Language / Langue">
+                <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+                <button class="lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+            </div>
         </div>
     </header>
 
     <main>
         <div class="wrap">
-            <a class="back" href="/">← Back to site</a>
-            <h1>Privacy Policy</h1>
-            <p class="updated">Last updated: 29 September 2026</p>
-            <div class="draft">⚠️ Draft for review. This policy is provided for transparency and is pending final review by a qualified lawyer before publication. It describes how this website currently works.</div>
+            <a class="back" href="/" data-i18n="back">← Back to site</a>
+            <h1 data-i18n="h1">Privacy Policy</h1>
+            <p class="updated" data-i18n="updated">Last updated: 29 September 2026</p>
 
-            <h2>1. Who we are</h2>
-            <p>The data controller for this website is <strong>LXRY Designs Ltd</strong> (registered in England &amp; Wales, company no. 14265179), registered office 17 Victoria Road East, Thornton Cleveleys, FY5 5HT, United Kingdom, operating from Divonne-les-Bains, France.</p>
-            <p>For any privacy question or to exercise your rights, contact us at <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>.</p>
+            <h2 data-i18n="h2_1">1. Who we are</h2>
+            <p data-i18n="p1a">The data controller for this website is <strong>LXRY Designs Ltd</strong> (registered in England &amp; Wales, company no. 14265179), registered office 17 Victoria Road East, Thornton Cleveleys, FY5 5HT, United Kingdom, operating from Divonne-les-Bains, France.</p>
+            <p data-i18n="p1b">For any privacy question or to exercise your rights, contact us at <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>.</p>
 
-            <h2>2. What data we collect</h2>
-            <p>This is a simple marketing website. We keep data collection to a minimum:</p>
+            <h2 data-i18n="h2_2">2. What data we collect</h2>
+            <p data-i18n="p2a">This is a simple marketing website. We keep data collection to a minimum:</p>
             <ul>
-                <li><strong>When you contact us</strong> (by email, telephone or WhatsApp): your name, contact details and whatever you choose to put in your message. The site's contact buttons open your own email, phone or WhatsApp app — we only receive what you send us.</li>
-                <li><strong>Technical/server data:</strong> our host records standard server logs (including IP address and browser type) to deliver and secure the site.</li>
-                <li><strong>Language preference:</strong> if you switch between English and French, your choice is stored locally in your browser (not sent to us).</li>
+                <li data-i18n="d1"><strong>When you contact us</strong> (by email, telephone or WhatsApp): your name, contact details and whatever you choose to put in your message. The site's contact buttons open your own email, phone or WhatsApp app — we only receive what you send us.</li>
+                <li data-i18n="d2"><strong>Technical/server data:</strong> our host records standard server logs (including IP address and browser type) to deliver and secure the site.</li>
+                <li data-i18n="d3"><strong>Language preference:</strong> if you switch between English and French, your choice is stored locally in your browser (not sent to us).</li>
             </ul>
-            <p>We do <strong>not</strong> use advertising or analytics cookies, and there is no tracking pixel or advertising network on this site.</p>
+            <p data-i18n="p2b">We do <strong>not</strong> use advertising or analytics cookies, and there is no tracking pixel or advertising network on this site.</p>
 
-            <h2>3. Why we use it and our legal basis</h2>
+            <h2 data-i18n="h2_3">3. Why we use it and our legal basis</h2>
             <ul>
-                <li><strong>To respond to your enquiry</strong> and provide our services — on the basis of steps taken at your request / our legitimate interest in answering you.</li>
-                <li><strong>To operate and secure the website</strong> — on the basis of our legitimate interest in running a safe, functioning site.</li>
+                <li data-i18n="w1"><strong>To respond to your enquiry</strong> and provide our services — on the basis of steps taken at your request / our legitimate interest in answering you.</li>
+                <li data-i18n="w2"><strong>To operate and secure the website</strong> — on the basis of our legitimate interest in running a safe, functioning site.</li>
             </ul>
 
-            <h2>4. Third-party services (processors &amp; transfers)</h2>
-            <p>To run the site we rely on the following providers. Some load content directly in your browser, which necessarily discloses your IP address to them:</p>
+            <h2 data-i18n="h2_4">4. Third-party services (processors &amp; transfers)</h2>
+            <p data-i18n="p4a">To run the site we rely on the following providers. Some load content directly in your browser, which necessarily discloses your IP address to them:</p>
             <table>
-                <tr><th>Service</th><th>Purpose</th><th>Location</th></tr>
-                <tr><td>Netlify, Inc.</td><td>Website hosting &amp; server logs</td><td>USA</td></tr>
-                <tr><td>Zoho Corporation (zoho.eu)</td><td>Our business email</td><td>EU</td></tr>
-                <tr><td>OpenStreetMap</td><td>Map shown in the footer</td><td>EU</td></tr>
-                <tr><td>Google Fonts</td><td>Web fonts</td><td>USA</td></tr>
-                <tr><td>Cloudflare (cdnjs)</td><td>Animation library</td><td>Global CDN</td></tr>
-                <tr><td>Google (Maps / Business Profile)</td><td>Only if you click through to our reviews</td><td>USA</td></tr>
-                <tr><td>WhatsApp (Meta)</td><td>Only if you choose to message us</td><td>USA / global</td></tr>
+                <tr><th data-i18n="th1">Service</th><th data-i18n="th2">Purpose</th><th data-i18n="th3">Location</th></tr>
+                <tr><td>Netlify, Inc.</td><td data-i18n="rp1">Website hosting &amp; server logs</td><td data-i18n="rl1">USA</td></tr>
+                <tr><td>Zoho Corporation (zoho.eu)</td><td data-i18n="rp2">Our business email</td><td data-i18n="rl2">EU</td></tr>
+                <tr><td>OpenStreetMap</td><td data-i18n="rp3">Map shown in the footer</td><td data-i18n="rl3">EU</td></tr>
+                <tr><td>Google Fonts</td><td data-i18n="rp4">Web fonts</td><td data-i18n="rl4">USA</td></tr>
+                <tr><td>Cloudflare (cdnjs)</td><td data-i18n="rp5">Animation library</td><td data-i18n="rl5">Global CDN</td></tr>
+                <tr><td>Google (Maps / Business Profile)</td><td data-i18n="rp6">Only if you click through to our reviews</td><td data-i18n="rl6">USA</td></tr>
+                <tr><td>WhatsApp (Meta)</td><td data-i18n="rp7">Only if you choose to message us</td><td data-i18n="rl7">USA / global</td></tr>
             </table>
-            <p>Where data is transferred outside the UK/EEA (e.g. to the USA), those transfers rely on the providers' appropriate safeguards, such as standard contractual clauses.</p>
+            <p data-i18n="p4b">Where data is transferred outside the UK/EEA (e.g. to the USA), those transfers rely on the providers' appropriate safeguards, such as standard contractual clauses.</p>
 
-            <h2>5. How long we keep it</h2>
-            <p>We keep enquiry correspondence for up to <strong>24 months</strong> after our last contact, unless we enter into a project together (in which case we keep records for as long as needed for the engagement and any legal or accounting obligations). Server logs are retained for a short period by our host.</p>
+            <h2 data-i18n="h2_5">5. How long we keep it</h2>
+            <p data-i18n="p5">We keep enquiry correspondence for up to <strong>24 months</strong> after our last contact, unless we enter into a project together (in which case we keep records for as long as needed for the engagement and any legal or accounting obligations). Server logs are retained for a short period by our host.</p>
 
-            <h2>6. Your rights</h2>
-            <p>Depending on where you are based (UK GDPR, EU GDPR and applicable Swiss law), you have the right to access, correct, delete or restrict the use of your personal data, to object to certain processing, and to data portability. To exercise any of these, email <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>.</p>
-            <p>You also have the right to complain to a supervisory authority — in the UK, the Information Commissioner's Office (ICO); in France, the CNIL; or your local authority.</p>
+            <h2 data-i18n="h2_6">6. Your rights</h2>
+            <p data-i18n="p6a">Depending on where you are based (UK GDPR, EU GDPR and applicable Swiss law), you have the right to access, correct, delete or restrict the use of your personal data, to object to certain processing, and to data portability. To exercise any of these, email <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>.</p>
+            <p data-i18n="p6b">You also have the right to complain to a supervisory authority — in the UK, the Information Commissioner's Office (ICO); in France, the CNIL; or your local authority.</p>
 
-            <h2>7. Cookies</h2>
-            <p>This site does not set advertising or analytics cookies. It uses your browser's local storage only to remember your language choice — a functional preference you can clear at any time in your browser settings.</p>
+            <h2 data-i18n="h2_7">7. Cookies</h2>
+            <p data-i18n="p7">This site does not set advertising or analytics cookies. It uses your browser's local storage only to remember your language choice — a functional preference you can clear at any time in your browser settings.</p>
 
-            <h2>8. Changes to this policy</h2>
-            <p>We may update this policy from time to time. The "last updated" date above shows the current version.</p>
+            <h2 data-i18n="h2_8">8. Changes to this policy</h2>
+            <p data-i18n="p8">We may update this policy from time to time. The "last updated" date above shows the current version.</p>
         </div>
     </main>
 
     <footer class="foot">
         <div class="wrap">
-            <a href="/">Home</a> · <a href="/legal">Legal Notice</a> · <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>
+            <a href="/" data-i18n="f_home">Home</a> · <a href="/legal" data-i18n="f_legal">Legal Notice</a> · <a href="mailto:hello@lxrydesigns.com">hello@lxrydesigns.com</a>
             <p style="margin-top:12px;">© 2026 LXRY Designs Ltd · Divonne-les-Bains, France</p>
         </div>
     </footer>
+
+    <script>
+        const I18N = { fr: {
+            "back": "← Retour au site",
+            "h1": "Politique de Confidentialité",
+            "updated": "Dernière mise à jour : 29 septembre 2026",
+            "h2_1": "1. Qui sommes-nous",
+            "p1a": "Le responsable du traitement des données pour ce site est <strong>LXRY Designs Ltd</strong> (immatriculée en Angleterre et au Pays de Galles, n° 14265179), siège social 17 Victoria Road East, Thornton Cleveleys, FY5 5HT, Royaume-Uni, exerçant depuis Divonne-les-Bains, France.",
+            "p1b": "Pour toute question relative à la confidentialité ou pour exercer vos droits, contactez-nous à <a href=\"mailto:hello@lxrydesigns.com\">hello@lxrydesigns.com</a>.",
+            "h2_2": "2. Quelles données nous collectons",
+            "p2a": "Il s’agit d’un simple site vitrine. Nous réduisons la collecte de données au minimum :",
+            "d1": "<strong>Lorsque vous nous contactez</strong> (par e-mail, téléphone ou WhatsApp) : votre nom, vos coordonnées et ce que vous choisissez d’écrire dans votre message. Les boutons de contact du site ouvrent votre propre application e-mail, téléphone ou WhatsApp — nous ne recevons que ce que vous nous envoyez.",
+            "d2": "<strong>Données techniques/serveur :</strong> notre hébergeur enregistre des journaux serveur standard (dont l’adresse IP et le type de navigateur) pour fournir et sécuriser le site.",
+            "d3": "<strong>Préférence de langue :</strong> si vous basculez entre l’anglais et le français, votre choix est stocké localement dans votre navigateur (il ne nous est pas transmis).",
+            "p2b": "Nous n’utilisons <strong>aucun</strong> cookie publicitaire ou de mesure d’audience, et il n’y a ni pixel de suivi ni régie publicitaire sur ce site.",
+            "h2_3": "3. Pourquoi nous les utilisons et notre base légale",
+            "w1": "<strong>Pour répondre à votre demande</strong> et fournir nos services — sur la base des mesures prises à votre demande / de notre intérêt légitime à vous répondre.",
+            "w2": "<strong>Pour exploiter et sécuriser le site</strong> — sur la base de notre intérêt légitime à faire fonctionner un site sûr et opérationnel.",
+            "h2_4": "4. Services tiers (sous-traitants &amp; transferts)",
+            "p4a": "Pour faire fonctionner le site, nous faisons appel aux prestataires suivants. Certains chargent du contenu directement dans votre navigateur, ce qui leur divulgue nécessairement votre adresse IP :",
+            "th1": "Service", "th2": "Finalité", "th3": "Localisation",
+            "rp1": "Hébergement du site &amp; journaux serveur", "rl1": "États-Unis",
+            "rp2": "Notre messagerie professionnelle", "rl2": "UE",
+            "rp3": "Carte affichée dans le pied de page", "rl3": "UE",
+            "rp4": "Polices web", "rl4": "États-Unis",
+            "rp5": "Bibliothèque d’animation", "rl5": "CDN mondial",
+            "rp6": "Uniquement si vous cliquez vers nos avis", "rl6": "États-Unis",
+            "rp7": "Uniquement si vous choisissez de nous écrire", "rl7": "États-Unis / mondial",
+            "p4b": "Lorsque des données sont transférées hors du Royaume-Uni/EEE (par ex. vers les États-Unis), ces transferts reposent sur les garanties appropriées des prestataires, telles que les clauses contractuelles types.",
+            "h2_5": "5. Combien de temps nous les conservons",
+            "p5": "Nous conservons la correspondance relative aux demandes jusqu’à <strong>24 mois</strong> après notre dernier contact, sauf si nous entamons un projet ensemble (auquel cas nous conservons les dossiers aussi longtemps que nécessaire pour la mission et nos obligations légales ou comptables). Les journaux serveur sont conservés brièvement par notre hébergeur.",
+            "h2_6": "6. Vos droits",
+            "p6a": "Selon votre lieu de résidence (RGPD UK, RGPD UE et droit suisse applicable), vous disposez d’un droit d’accès, de rectification, d’effacement ou de limitation de l’utilisation de vos données, d’un droit d’opposition à certains traitements et d’un droit à la portabilité. Pour exercer l’un de ces droits, écrivez à <a href=\"mailto:hello@lxrydesigns.com\">hello@lxrydesigns.com</a>.",
+            "p6b": "Vous avez également le droit d’introduire une réclamation auprès d’une autorité de contrôle — au Royaume-Uni, l’Information Commissioner’s Office (ICO) ; en France, la CNIL ; ou votre autorité locale.",
+            "h2_7": "7. Cookies",
+            "p7": "Ce site ne dépose aucun cookie publicitaire ou de mesure d’audience. Il utilise le stockage local de votre navigateur uniquement pour mémoriser votre choix de langue — une préférence fonctionnelle que vous pouvez effacer à tout moment dans les réglages de votre navigateur.",
+            "h2_8": "8. Modifications de cette politique",
+            "p8": "Nous pouvons mettre à jour cette politique de temps à autre. La date de « dernière mise à jour » ci-dessus indique la version en vigueur.",
+            "f_home": "Accueil",
+            "f_legal": "Mentions légales"
+        }};
+        (function () {
+            const nodes = Array.from(document.querySelectorAll('[data-i18n]'));
+            const en = new Map(); nodes.forEach(n => en.set(n, n.innerHTML));
+            const btns = Array.from(document.querySelectorAll('.lang-btn'));
+            function setLang(l) {
+                nodes.forEach(n => { const k = n.getAttribute('data-i18n'); n.innerHTML = (l === 'fr' && I18N.fr[k]) ? I18N.fr[k] : en.get(n); });
+                document.documentElement.lang = l;
+                btns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === l)));
+                try { localStorage.setItem('lxry-lang', l); } catch (e) {}
+            }
+            let s = null; try { s = localStorage.getItem('lxry-lang'); } catch (e) {}
+            if (s === 'fr') setLang('fr');
+            btns.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+        })();
+    </script>
 </body>
 </html>
