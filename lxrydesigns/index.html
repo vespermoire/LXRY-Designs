@@ -1126,7 +1126,9 @@
             font-size: 0.85em;
         }
 
-        .footer-bottom .legal-note { color: var(--text-muted); max-width: 620px; }
+        .footer-bottom .legal-note { color: var(--text-muted); max-width: 640px; }
+        .footer-bottom .legal-note a { color: var(--accent-teal); text-decoration: none; }
+        .footer-bottom .legal-note a:hover { text-decoration: underline; }
         .footer-bottom .copyright { color: var(--text-muted); }
 
         /* Responsive */
@@ -2086,8 +2088,8 @@
         </div>
 
         <div class="footer-bottom">
-            <span class="legal-note" data-i18n="foot.legal">Privacy statement &amp; legal notice in preparation — contact us for our data-processing details. Map © OpenStreetMap contributors.</span>
-            <span class="copyright">© 2026 LXRY Designs · Divonne-les-Bains, France</span>
+            <span class="legal-note"><a href="/privacy" data-i18n="foot.privacy">Privacy Policy</a> · <a href="/legal" data-i18n="foot.legalnotice">Legal Notice</a> · <span data-i18n="foot.mapcredit">Map © OpenStreetMap contributors</span></span>
+            <span class="copyright">© 2026 LXRY Designs Ltd · Divonne-les-Bains, France</span>
         </div>
     </footer>
 
@@ -2286,7 +2288,9 @@
                 "foot.services": "Services",
                 "foot.contact": "Contact",
                 "foot.addr": "Divonne-les-Bains, France<br>Au service de Genève &amp; du Pays de Gex<br>CHF · EUR",
-                "foot.legal": "Politique de confidentialité &amp; mentions légales en préparation — contactez-nous pour le détail du traitement des données. Carte © contributeurs OpenStreetMap.",
+                "foot.privacy": "Politique de confidentialité",
+                "foot.legalnotice": "Mentions légales",
+                "foot.mapcredit": "Carte © contributeurs OpenStreetMap",
                 "process.h2b": ""
             }
         };
