@@ -10,11 +10,12 @@
 //   GET  draft           (x-admin-token)                           → { draftId, draft }
 //   POST approve         (x-admin-token) { draftId, approvedItems, editedContent }
 //                                                                  → { success, result }
+//   GET  publish-log     (x-admin-token)                           → { entries }
 
 import { verifyPassword, getSessionTTL } from './utils/admin-helpers.js';
 import { connectStore, listDraftFiles, readDraftFile } from './utils/admin-store.js';
 import { saveToken, validateToken, clearExpired } from './utils/token-storage.js';
-import { findBlockingEntry, appendEntry, replaceEntry } from './utils/publish-log.js';
+import { readLog, findBlockingEntry, appendEntry, replaceEntry } from './utils/publish-log.js';
 import { publishAll, sendNewsletter, queueSocial } from './utils/publisher.js';
 
 const JSON_HEADERS = {
@@ -220,6 +221,13 @@ async function handleGetDraft(event) {
   return json(200, { draftId, draft });
 }
 
+// Publish history for the dashboard table. Newest first, as stored.
+async function handleGetPublishLog(event) {
+  if (!(await requireToken(event))) return json(401, { error: 'Invalid or expired session' });
+  const { entries } = await readLog();
+  return json(200, { entries });
+}
+
 async function handleApprove(event, publish) {
   if (!(await requireToken(event))) return json(401, { error: 'Invalid or expired session' });
   await clearExpired();
@@ -300,6 +308,7 @@ export function createHandler({ publish = publishSelected } = {}) {
       await connectStore(event);
 
       if (method === 'POST' && path.endsWith('check-password')) return await handleCheckPassword(event);
+      if (method === 'GET' && path.endsWith('publish-log')) return await handleGetPublishLog(event);
       if (method === 'GET' && path.endsWith('draft')) return await handleGetDraft(event);
       if (method === 'POST' && path.endsWith('approve')) return await handleApprove(event, publish);
     } catch (err) {

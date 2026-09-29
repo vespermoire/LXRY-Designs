@@ -582,6 +582,196 @@
 
         .publish-message.is-info { color: var(--text-dim); }
 
+        /* ---- publish history ---- */
+        .history-section .sec-head { margin-bottom: 12px; }
+
+        .history-note {
+            margin: 0 0 12px;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .history-note:empty { display: none; }
+
+        .history-note.is-error { color: var(--danger); }
+
+        .history-wrap {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .history-table th {
+            text-align: left;
+            font-size: 11px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--turq);
+            background: var(--panel-2);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .history-table td {
+            padding: 12px 16px;
+            vertical-align: top;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .history-table tbody tr:last-child td { border-bottom: 0; }
+
+        .history-row:hover td { background: rgba(39, 244, 210, .04); }
+
+        .history-row.is-open td { border-bottom-color: transparent; }
+
+        .history-date {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        .history-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+
+        .history-status .sym { font-size: 14px; line-height: 1; }
+
+        .history-status.is-ok {
+            color: var(--ok);
+            border-color: rgba(61, 220, 151, .45);
+            background: rgba(61, 220, 151, .1);
+        }
+
+        .history-status.is-partial {
+            color: var(--warn);
+            border-color: rgba(245, 185, 74, .45);
+            background: rgba(245, 185, 74, .1);
+        }
+
+        .history-status.is-fail {
+            color: var(--danger);
+            border-color: rgba(255, 107, 107, .45);
+            background: rgba(255, 107, 107, .1);
+        }
+
+        .history-items { color: var(--text); }
+
+        .history-sub {
+            display: block;
+            margin-top: 2px;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        .history-sub:empty { display: none; }
+
+        .history-toggle {
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--turq);
+            background: none;
+            border: 0;
+            padding: 2px 0;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .history-toggle:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+        .history-toggle .chev {
+            display: inline-block;
+            margin-left: 4px;
+            transition: transform .15s;
+        }
+
+        .history-toggle[aria-expanded="true"] .chev { transform: rotate(90deg); }
+
+        .history-detail td {
+            padding-top: 0;
+            background: rgba(39, 244, 210, .03);
+        }
+
+        .history-log {
+            margin: 0;
+            padding: 12px 14px;
+            font-family: var(--mono);
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: var(--silver);
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        .history-copy {
+            margin-top: 8px;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .history-empty { margin: 0; padding: 18px 16px; color: var(--text-dim); }
+
+        @media (max-width: 640px) {
+            /* Stack each publish as a card: label on the left, value on the right. */
+            .history-table thead {
+                position: absolute;
+                width: 1px; height: 1px;
+                overflow: hidden; clip: rect(0, 0, 0, 0);
+            }
+            .history-table,
+            .history-table tbody,
+            .history-table tr,
+            .history-table td { display: block; width: 100%; }
+            .history-row { padding: 10px 0 6px; border-top: 1px solid var(--border-soft); }
+            .history-table tbody tr:first-child { border-top: 0; }
+            .history-row td {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                gap: 16px;
+                padding: 4px 16px;
+                border-bottom: 0;
+                text-align: right;
+            }
+            .history-row td::before {
+                content: attr(data-label);
+                flex: none;
+                font-size: 11px;
+                letter-spacing: .16em;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: var(--turq);
+                text-align: left;
+            }
+            .history-toggle { padding: 6px 0; }
+            .history-detail td { padding: 4px 16px 14px; border-bottom: 0; }
+        }
+
         @media (max-width: 640px) {
             /* >=16px stops iOS zooming into focused fields */
             .fld textarea,
@@ -887,8 +1077,32 @@
             </div>
         </section>
 
-        <!-- Publish history: hidden until authenticated. Content rendered in later tasks. -->
-        <section id="publish-history" class="dash-section" aria-label="Publish history" hidden></section>
+        <!-- Publish history: hidden until authenticated. Rows rendered by loadHistory(). -->
+        <div id="publish-history" class="dash-section" hidden>
+            <section class="history-section" aria-labelledby="history-title">
+                <div class="sec-head">
+                    <h2 id="history-title">Publish History</h2>
+                    <span class="rule" aria-hidden="true"></span>
+                </div>
+                <p id="history-note" class="history-note" role="status" aria-live="polite">Loading publish history...</p>
+                <div class="history-wrap">
+                    <table class="history-table" id="history-table" hidden>
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Items</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-rows">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                    <p id="history-empty" class="empty-state history-empty" hidden>No publishes yet</p>
+                </div>
+            </section>
+        </div>
     </main>
 
     <script>
@@ -1622,6 +1836,8 @@
                 return null;
             }).then(function (r) {
                 setPublishing(false);
+                // Show the new publish-log entry straight away rather than on the next poll.
+                if (typeof window.loadHistory === 'function') window.loadHistory();
                 return r;
             });
         }
@@ -1682,6 +1898,508 @@
         // The auth script runs first and may already have shown the dashboard.
         if (!dashboardEl.hidden && window.adminSession && window.adminSession.getToken()) {
             loadDraft();
+        }
+    })();
+    </script>
+
+    <!-- Publish history: formatting, merging and fetching. No DOM access (unit-tested by
+         tests/integration/admin-history.test.js, which runs this block in node:vm). -->
+    <script id="history-rules">
+    (function (root) {
+        'use strict';
+
+        var SOCIAL = ['instagram', 'tiktok', 'linkedin', 'x', 'facebook', 'youtube'];
+        var ORDER = ['blog', 'newsletter'].concat(SOCIAL);
+        var LABELS = {
+            blog: 'Blog',
+            newsletter: 'Newsletter',
+            instagram: 'Instagram',
+            tiktok: 'TikTok',
+            linkedin: 'LinkedIn',
+            x: 'X',
+            facebook: 'Facebook',
+            youtube: 'YouTube'
+        };
+        var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        // success/partial -> ✓, failure -> ✗, publishing -> in progress.
+        var STATUS = {
+            success: { symbol: '✓', label: 'Success', tone: 'ok' },
+            partial: { symbol: '✓', label: 'Partial', tone: 'partial' },
+            failure: { symbol: '✗', label: 'Failed', tone: 'fail' },
+            publishing: { symbol: '…', label: 'In progress', tone: 'pending' }
+        };
+
+        function str(v) { return v == null ? '' : String(v); }
+        function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+        function label(item) {
+            var k = str(item);
+            return LABELS[k] || (k ? k.charAt(0).toUpperCase() + k.slice(1) : 'Unknown');
+        }
+
+        function toDate(ts) {
+            var d = new Date(ts);
+            return ts == null || isNaN(d.getTime()) ? null : d;
+        }
+
+        // Built by hand, not with toLocaleString: newer ICU puts a narrow no-break
+        // space before AM/PM, which pastes badly into tickets and search boxes.
+        function clock(d) {
+            var h = d.getUTCHours();
+            return (h % 12 || 12) + ':' + pad(d.getUTCMinutes()) + ' ' + (h < 12 ? 'AM' : 'PM') + ' UTC';
+        }
+
+        // "Sep 22, 10:30 AM UTC"; the year is added when it is not the current one.
+        function formatShort(ts, now) {
+            var d = toDate(ts);
+            if (!d) return ts ? str(ts) : 'Unknown date';
+            var year = new Date(now == null ? Date.now() : now).getUTCFullYear();
+            var day = MONTHS[d.getUTCMonth()] + ' ' + d.getUTCDate();
+            if (d.getUTCFullYear() !== year) day += ' ' + d.getUTCFullYear();
+            return day + ', ' + clock(d);
+        }
+
+        // "2026-09-22 10:30 AM UTC"
+        function formatLong(ts) {
+            var d = toDate(ts);
+            if (!d) return ts ? str(ts) : 'Unknown date';
+            return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()) + ' ' + clock(d);
+        }
+
+        function statusInfo(status) {
+            return STATUS[status] || { symbol: '?', label: status ? str(status) : 'Unknown', tone: 'pending' };
+        }
+
+        function list(v) { return Array.isArray(v) ? v : []; }
+
+        function byOrder(a, b) {
+            var ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
+            return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+        }
+
+        // Accepts [{ item, error }] (what admin-action.js writes) or plain strings.
+        function errorsOf(entry) {
+            return list(entry && entry.errors).map(function (e) {
+                if (e && typeof e === 'object') return { item: str(e.item), error: str(e.error || e.message) || 'Unknown error' };
+                return { item: '', error: str(e) || 'Unknown error' };
+            });
+        }
+
+        // "Blog, Newsletter, 3 social" (or "None").
+        function itemsSummary(entry) {
+            if (entry && entry.status === 'publishing') return 'Publishing...';
+            var items = list(entry && entry.itemsPublished).map(str).slice().sort(byOrder);
+            if (!items.length) return 'None';
+            var parts = [];
+            var social = 0;
+            items.forEach(function (i) {
+                if (SOCIAL.indexOf(i) !== -1) social++;
+                else parts.push(label(i));
+            });
+            if (social) parts.push(social + ' social');
+            return parts.join(', ');
+        }
+
+        // "2 failed · 1 skipped"
+        function itemsSubline(entry) {
+            var bits = [];
+            var failed = errorsOf(entry).length;
+            var skipped = list(entry && entry.itemsSkipped).length;
+            if (failed) bits.push(failed + ' failed');
+            if (skipped) bits.push(skipped + ' skipped');
+            return bits.join(' · ');
+        }
+
+        function clip(text, max) {
+            text = str(text).replace(/\s+/g, ' ').trim();
+            return text.length > max ? text.slice(0, max - 3) + '...' : text;
+        }
+
+        // Plain text for the expanded row. Rendered with textContent into a <pre>,
+        // so it copies exactly as shown.
+        function detailsText(entry) {
+            var e = entry || {};
+            var info = statusInfo(e.status);
+            var errors = errorsOf(e);
+            var published = list(e.itemsPublished).map(str).slice().sort(byOrder);
+            var skipped = list(e.itemsSkipped).map(str).slice().sort(byOrder);
+            var lines = [
+                'Publishing: ' + formatLong(e.timestamp),
+                'Draft: ' + (e.draftId ? str(e.draftId) : 'unknown'),
+                'Status: ' + info.label,
+                ''
+            ];
+
+            lines.push('Published: ' + (published.length
+                ? published.map(function (i) { return label(i) + ' ✓'; }).join(', ')
+                : (e.status === 'publishing' ? 'none yet' : 'none')));
+            if (errors.length) {
+                lines.push('Failed: ' + errors.map(function (x) {
+                    return (x.item ? label(x.item) : 'General') + ' ✗ (' + clip(x.error, 40) + ')';
+                }).join(', '));
+            }
+            if (skipped.length) {
+                lines.push('Skipped: ' + skipped.map(label).join(', '));
+            }
+
+            lines.push('');
+            if (errors.length) {
+                lines.push('Errors:');
+                errors.forEach(function (x) {
+                    lines.push((x.item ? label(x.item) : 'General') + ': ' + x.error);
+                });
+            } else {
+                lines.push(e.status === 'publishing' ? 'Errors: none so far' : 'Errors: none');
+            }
+            return lines.join('\n');
+        }
+
+        function entryKey(entry) {
+            return str(entry && entry.draftId) + '|' + str(entry && entry.timestamp);
+        }
+
+        function time(entry) {
+            var d = toDate(entry && entry.timestamp);
+            return d ? d.getTime() : -Infinity;
+        }
+
+        // Newest first; entries with an unreadable timestamp go last.
+        function sortEntries(entries) {
+            return list(entries).slice().sort(function (a, b) { return time(b) - time(a); });
+        }
+
+        function isEntry(e) {
+            return !!e && typeof e === 'object' && !Array.isArray(e) && (e.timestamp != null || e.draftId != null);
+        }
+
+        // Adds new entries and updates changed ones without dropping entries the client
+        // already has. The exception is an in-progress marker that the server no longer
+        // lists: admin-action.js replaces it with the final entry, so keeping it would
+        // leave a stale "In progress" row.
+        function mergeEntries(previous, incoming) {
+            var byKey = {};
+            var keys = [];
+            list(incoming).filter(isEntry).forEach(function (e) {
+                var k = entryKey(e);
+                if (!(k in byKey)) keys.push(k);
+                byKey[k] = e;
+            });
+            list(previous).forEach(function (e) {
+                var k = entryKey(e);
+                if (k in byKey || e.status === 'publishing') return;
+                keys.push(k);
+                byKey[k] = e;
+            });
+            return sortEntries(keys.map(function (k) { return byKey[k]; }));
+        }
+
+        function parsePayload(payload) {
+            if (Array.isArray(payload)) return payload;
+            if (payload && Array.isArray(payload.entries)) return payload.entries;
+            return null;
+        }
+
+        // Builds loadHistory(). deps:
+        //   fetch(url, init)       window.fetch
+        //   getToken()             session token or null
+        //   onUnauthenticated()    clears the session and shows the login form
+        //   render(entries, info)  draws the table; info = { error } on failure
+        //   endpoint               defaults to /admin-action/publish-log
+        // load() resolves to { status: 'loaded' | 'empty' | 'error' | 'unauthenticated', ... }
+        // and never rejects. Overlapping calls share one request.
+        function createHistoryLoader(deps) {
+            var endpoint = deps.endpoint || '/admin-action/publish-log';
+            var entries = [];
+            var inflight = null;
+
+            function render(info) {
+                if (deps.render) deps.render(entries, info || {});
+            }
+
+            function unauthenticated() {
+                entries = [];
+                render({});
+                if (deps.onUnauthenticated) deps.onUnauthenticated();
+                return { status: 'unauthenticated' };
+            }
+
+            function failed(reason) {
+                render({ error: reason });
+                return { status: 'error', error: reason, count: entries.length };
+            }
+
+            function run() {
+                var token = deps.getToken ? deps.getToken() : null;
+                if (!token) return Promise.resolve(unauthenticated());
+
+                return Promise.resolve().then(function () {
+                    return deps.fetch(endpoint, {
+                        method: 'GET',
+                        headers: { 'Accept': 'application/json', 'x-admin-token': token },
+                        credentials: 'same-origin',
+                        cache: 'no-store'
+                    });
+                }).then(function (res) {
+                    if (res.status === 401 || res.status === 403) return unauthenticated();
+                    if (!res.ok) return failed('Server error ' + res.status + '.');
+                    return res.json().then(function (payload) {
+                        var incoming = parsePayload(payload);
+                        if (!incoming) return failed('The server sent a publish log that could not be read.');
+                        entries = mergeEntries(entries, incoming);
+                        render({});
+                        return { status: entries.length ? 'loaded' : 'empty', count: entries.length };
+                    }, function () {
+                        return failed('The server sent a publish log that could not be read.');
+                    });
+                }, function () {
+                    return failed('Could not reach the server.');
+                });
+            }
+
+            function load() {
+                if (inflight) return inflight;
+                inflight = run().then(function (r) {
+                    inflight = null;
+                    return r;
+                }, function (err) {
+                    inflight = null;
+                    return failed('Unexpected error: ' + (err && err.message ? err.message : err) + '.');
+                });
+                return inflight;
+            }
+
+            return {
+                load: load,
+                getEntries: function () { return entries.slice(); }
+            };
+        }
+
+        root.AdminHistory = {
+            STATUS: STATUS,
+            LABELS: LABELS,
+            formatShort: formatShort,
+            formatLong: formatLong,
+            statusInfo: statusInfo,
+            itemsSummary: itemsSummary,
+            itemsSubline: itemsSubline,
+            detailsText: detailsText,
+            entryKey: entryKey,
+            sortEntries: sortEntries,
+            mergeEntries: mergeEntries,
+            createHistoryLoader: createHistoryLoader
+        };
+    })(window);
+    </script>
+
+    <!-- Publish history table: rendering, expand/collapse, copy. -->
+    <script>
+    (function () {
+        'use strict';
+
+        var H = window.AdminHistory;
+        var historyEl = document.getElementById('publish-history');
+        var table = document.getElementById('history-table');
+        var tbody = document.getElementById('history-rows');
+        var emptyEl = document.getElementById('history-empty');
+        var noteEl = document.getElementById('history-note');
+
+        var rows = {};   // key -> { main, detail, sig }
+        var seq = 0;
+        var loadedOnce = false;
+
+        function make(tag, className, text) {
+            var node = document.createElement(tag);
+            if (className) node.className = className;
+            if (text != null) node.textContent = text;
+            return node;
+        }
+
+        function fillMain(row, entry) {
+            var info = H.statusInfo(entry.status);
+            var cells = row.main.children;
+
+            var date = cells[0].firstChild;
+            date.textContent = H.formatShort(entry.timestamp);
+            date.setAttribute('datetime', String(entry.timestamp || ''));
+            date.title = H.formatLong(entry.timestamp);
+
+            var badge = cells[1].firstChild;
+            badge.className = 'history-status is-' + info.tone;
+            badge.firstChild.textContent = info.symbol;
+            badge.lastChild.textContent = info.label;
+
+            cells[2].querySelector('.history-items').textContent = H.itemsSummary(entry);
+            cells[2].querySelector('.history-sub').textContent = H.itemsSubline(entry);
+
+            row.detail.querySelector('.history-log').textContent = H.detailsText(entry);
+        }
+
+        function buildRow(entry) {
+            var id = 'history-detail-' + (++seq);
+            var main = make('tr', 'history-row');
+
+            var tdDate = make('td');
+            tdDate.setAttribute('data-label', 'Date');
+            tdDate.appendChild(make('time', 'history-date'));
+
+            var tdStatus = make('td');
+            tdStatus.setAttribute('data-label', 'Status');
+            var badge = make('span', 'history-status');
+            var sym = make('span', 'sym');
+            sym.setAttribute('aria-hidden', 'true');
+            badge.appendChild(sym);
+            badge.appendChild(make('span', 'txt'));
+            tdStatus.appendChild(badge);
+
+            var tdItems = make('td');
+            tdItems.setAttribute('data-label', 'Items');
+            var val = make('span', 'history-val');
+            val.appendChild(make('span', 'history-items'));
+            val.appendChild(make('span', 'history-sub'));
+            tdItems.appendChild(val);
+
+            var tdDetails = make('td');
+            tdDetails.setAttribute('data-label', 'Details');
+            var toggle = make('button', 'history-toggle');
+            toggle.type = 'button';
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-controls', id);
+            toggle.appendChild(make('span', 'lbl', 'Click to expand'));
+            var chev = make('span', 'chev', '›');
+            chev.setAttribute('aria-hidden', 'true');
+            toggle.appendChild(chev);
+            tdDetails.appendChild(toggle);
+
+            main.appendChild(tdDate);
+            main.appendChild(tdStatus);
+            main.appendChild(tdItems);
+            main.appendChild(tdDetails);
+
+            var detail = make('tr', 'history-detail');
+            detail.id = id;
+            detail.hidden = true;
+            var td = make('td');
+            td.colSpan = 4;
+            td.appendChild(make('pre', 'history-log'));
+            var copy = make('button', 'btn btn-ghost history-copy', 'Copy details');
+            copy.type = 'button';
+            td.appendChild(copy);
+            detail.appendChild(td);
+
+            return { main: main, detail: detail, sig: null };
+        }
+
+        // Reconciles rows by entry key instead of rebuilding the table, so a 5 s poll
+        // keeps expanded rows open and does not wipe a text selection in progress.
+        function render(entries, info) {
+            var live = {};
+            var cursor = tbody.firstChild;
+
+            entries.forEach(function (entry) {
+                var key = H.entryKey(entry);
+                var row = rows[key] || (rows[key] = buildRow(entry));
+                var sig = JSON.stringify(entry);
+                if (row.sig !== sig) {
+                    fillMain(row, entry);
+                    row.sig = sig;
+                }
+                live[key] = true;
+                [row.main, row.detail].forEach(function (node) {
+                    if (node === cursor) cursor = cursor.nextSibling;
+                    else tbody.insertBefore(node, cursor);
+                });
+            });
+
+            Object.keys(rows).forEach(function (key) {
+                if (live[key]) return;
+                tbody.removeChild(rows[key].main);
+                tbody.removeChild(rows[key].detail);
+                delete rows[key];
+            });
+
+            if (!info.error) loadedOnce = true;
+            table.hidden = entries.length === 0;
+            emptyEl.hidden = entries.length > 0 || !loadedOnce;
+
+            if (info.error) {
+                noteEl.textContent = entries.length
+                    ? info.error + ' Showing the last loaded history.'
+                    : 'Could not load publish history. ' + info.error;
+                noteEl.classList.add('is-error');
+            } else {
+                noteEl.textContent = '';
+                noteEl.classList.remove('is-error');
+            }
+        }
+
+        function setOpen(toggle, open) {
+            var detail = document.getElementById(toggle.getAttribute('aria-controls'));
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.querySelector('.lbl').textContent = open ? 'Hide details' : 'Click to expand';
+            toggle.closest('tr').classList.toggle('is-open', open);
+            if (detail) detail.hidden = !open;
+        }
+
+        function selectText(node) {
+            try {
+                var range = document.createRange();
+                range.selectNodeContents(node);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            } catch (e) { /* ignore */ }
+        }
+
+        function copyDetails(btn) {
+            var pre = btn.parentNode.querySelector('.history-log');
+            var text = pre.textContent;
+            var done = function (msg) {
+                btn.textContent = msg;
+                setTimeout(function () { btn.textContent = 'Copy details'; }, 1600);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function () { done('Copied'); }, function () {
+                    selectText(pre);
+                    done('Selected: press Ctrl+C');
+                });
+            } else {
+                selectText(pre);
+                done('Selected: press Ctrl+C');
+            }
+        }
+
+        tbody.addEventListener('click', function (event) {
+            var toggle = event.target.closest('.history-toggle');
+            if (toggle) {
+                setOpen(toggle, toggle.getAttribute('aria-expanded') !== 'true');
+                return;
+            }
+            var copy = event.target.closest('.history-copy');
+            if (copy) copyDetails(copy);
+        });
+
+        var loader = H.createHistoryLoader({
+            fetch: function (url, init) { return window.fetch(url, init); },
+            getToken: function () { return window.adminSession ? window.adminSession.getToken() : null; },
+            onUnauthenticated: function () { if (window.adminSession) window.adminSession.logout(); },
+            render: render
+        });
+
+        // ---- public API (Task 6 polls this every 5 s) ----
+
+        window.loadHistory = loader.load;
+
+        // ---- start ----
+
+        var previousAuth = window.onAdminAuthenticated;
+        window.onAdminAuthenticated = function (token) {
+            if (typeof previousAuth === 'function') previousAuth(token);
+            loader.load();
+        };
+        // The auth script runs first and may already have shown the dashboard.
+        if (!historyEl.hidden && window.adminSession && window.adminSession.getToken()) {
+            loader.load();
         }
     })();
     </script>
