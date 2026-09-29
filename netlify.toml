@@ -51,3 +51,8 @@
   from = "/ai-kit"
   to = "/ai-kit.html"
   status = 200
+
+# Scheduled function: AI content engine (Monday 9 AM UTC)
+[[scheduled_functions]]
+  name = "content-engine"
+  schedule = "0 9 * * 1"
