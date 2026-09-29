@@ -123,6 +123,50 @@
             margin: 7px 0 0;
         }
 
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-left: auto;
+        }
+
+        /* ---- refresh status (Task 6) ---- */
+        .refresh-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: .04em;
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+
+        .refresh-status[hidden] { display: none; }
+
+        #last-refresh-time {
+            color: var(--silver);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .refresh-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--turq);
+            box-shadow: 0 0 8px rgba(39, 244, 210, .55);
+            flex: none;
+        }
+
+        /* The last refresh failed: the time shown is the last good one, and polling retries. */
+        .refresh-status.is-stale .refresh-dot {
+            background: var(--warn);
+            box-shadow: 0 0 8px rgba(245, 185, 74, .45);
+        }
+
+        .refresh-status.is-stale #last-refresh-time { color: var(--warn); }
+
         .btn {
             font-family: var(--font);
             font-size: 13px;
@@ -804,7 +848,14 @@
                 <span class="brand-title">Operations Dashboard</span>
             </span>
         </a>
-        <button type="button" id="logout-btn" class="btn btn-ghost" hidden>Log out</button>
+        <div class="header-actions">
+            <!-- Shown while polling (Task 6). Time of the last refresh that fully succeeded. -->
+            <p id="refresh-status" class="refresh-status" hidden>
+                <span class="refresh-dot" aria-hidden="true"></span>
+                <span>Last updated: <span id="last-refresh-time">Just now</span></span>
+            </p>
+            <button type="button" id="logout-btn" class="btn btn-ghost" hidden>Log out</button>
+        </div>
     </header>
 
     <main>
@@ -1250,19 +1301,21 @@
 
         // ---- logout ----
 
-        logoutBtn.addEventListener('click', function () {
+        // Stops the Task 6 refresh loop (defined in a later script) before leaving,
+        // so no poll fires with the cleared session while the page unloads.
+        function logout() {
+            if (typeof window.stopPolling === 'function') window.stopPolling();
             clearSession();
             window.location.href = '/admin';
-        });
+        }
+
+        logoutBtn.addEventListener('click', logout);
 
         // Expose a minimal session API for later tasks (dashboard fetches, polling).
         window.adminSession = {
             getToken: getSessionToken,
             clear: clearSession,
-            logout: function () {
-                clearSession();
-                window.location.href = '/admin';
-            }
+            logout: logout
         };
 
         // ---- initial state ----
@@ -2400,6 +2453,171 @@
         // The auth script runs first and may already have shown the dashboard.
         if (!historyEl.hidden && window.adminSession && window.adminSession.getToken()) {
             loader.load();
+        }
+    })();
+    </script>
+
+    <!-- Auto-refresh polling (Task 6): the loop itself. No DOM access (unit-tested by
+         tests/integration/admin-polling.test.js, which runs this block in node:vm). -->
+    <script id="polling-rules">
+    (function (root) {
+        'use strict';
+
+        var INTERVAL_MS = 5000;
+
+        function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+        // "10:35:05", local time. Built by hand: toLocaleTimeString output varies by ICU build.
+        function formatClock(d) {
+            return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+        }
+
+        // Runs a loader and turns a throw or rejection into an error result, so one broken
+        // loader never stops the other or the loop.
+        function safeCall(fn) {
+            return Promise.resolve().then(function () {
+                return typeof fn === 'function' ? fn() : { status: 'error', error: 'Loader missing.' };
+            }).then(function (r) {
+                return r || { status: 'loaded' };
+            }, function (err) {
+                return { status: 'error', error: err && err.message ? err.message : String(err) };
+            });
+        }
+
+        // Builds the refresh loop. deps:
+        //   loadDraft(), loadHistory()   resolve to { status: 'loaded'|'empty'|'error'|'unauthenticated' }
+        //   getToken()                   session token or null
+        //   onRefresh(date, info)        called after each poll that did not end the session;
+        //                                info = { ok, results: [draft, history] }
+        //   setInterval, clearInterval   injectable for tests (default: global timers)
+        //   now()                        defaults to new Date()
+        //   intervalMs                   defaults to 5000
+        function createPoller(deps) {
+            var intervalMs = deps.intervalMs || INTERVAL_MS;
+            var setIntervalFn = deps.setInterval || function (f, ms) { return setInterval(f, ms); };
+            var clearIntervalFn = deps.clearInterval || function (id) { clearInterval(id); };
+            var now = deps.now || function () { return new Date(); };
+            var timer = null;
+            var busy = null;
+
+            function stop() {
+                if (timer !== null) clearIntervalFn(timer);
+                timer = null;
+            }
+
+            // One poll. A tick that lands while the previous poll is still out is skipped
+            // (returns that poll's promise) rather than stacking requests.
+            function refresh() {
+                if (busy) return busy;
+                if (!deps.getToken || !deps.getToken()) {
+                    stop();
+                    return Promise.resolve({ status: 'unauthenticated' });
+                }
+                busy = Promise.all([safeCall(deps.loadDraft), safeCall(deps.loadHistory)])
+                    .then(function (results) {
+                        busy = null;
+                        var ended = results.some(function (r) { return r.status === 'unauthenticated'; });
+                        if (ended) {
+                            // The loaders already cleared the session and showed the login form.
+                            stop();
+                            return { status: 'unauthenticated', results: results };
+                        }
+                        var ok = results.every(function (r) { return r.status !== 'error'; });
+                        try {
+                            if (deps.onRefresh) deps.onRefresh(now(), { ok: ok, results: results });
+                        } catch (e) { /* a display glitch must not stop the loop */ }
+                        return { status: ok ? 'ok' : 'error', results: results };
+                    });
+                return busy;
+            }
+
+            // Polls now, then every intervalMs. Calling it again restarts the loop.
+            function start() {
+                stop();
+                timer = setIntervalFn(refresh, intervalMs);
+                return refresh();
+            }
+
+            return {
+                start: start,
+                stop: stop,
+                refresh: refresh,
+                isRunning: function () { return timer !== null; }
+            };
+        }
+
+        root.AdminPolling = {
+            INTERVAL_MS: INTERVAL_MS,
+            formatClock: formatClock,
+            createPoller: createPoller
+        };
+    })(window);
+    </script>
+
+    <!-- Auto-refresh polling: timestamp display and start/stop wiring. -->
+    <script>
+    (function () {
+        'use strict';
+
+        var P = window.AdminPolling;
+        var statusEl = document.getElementById('refresh-status');
+        var timeEl = document.getElementById('last-refresh-time');
+        var lastGood = null;
+
+        function showStatus(visible) {
+            statusEl.hidden = !visible;
+        }
+
+        // The time shown is the last refresh where both loaders succeeded. If a poll fails,
+        // that time stays, the dot turns amber, and the loaders show their own error notes.
+        function updateLastRefreshTime(date, info) {
+            if (info.ok) {
+                lastGood = date;
+                timeEl.textContent = P.formatClock(date);
+                statusEl.classList.remove('is-stale');
+                statusEl.title = 'Refreshes every ' + (P.INTERVAL_MS / 1000) + ' seconds';
+            } else {
+                statusEl.classList.add('is-stale');
+                statusEl.title = 'The last refresh failed. Retrying every ' + (P.INTERVAL_MS / 1000) + ' seconds.' +
+                    (lastGood ? '' : ' No refresh has succeeded yet.');
+                if (!lastGood) timeEl.textContent = 'Not yet';
+            }
+        }
+
+        var poller = P.createPoller({
+            loadDraft: function () { return window.loadDraft(); },
+            loadHistory: function () { return window.loadHistory(); },
+            getToken: function () { return window.adminSession ? window.adminSession.getToken() : null; },
+            onRefresh: updateLastRefreshTime
+        });
+
+        function startPolling() {
+            showStatus(true);
+            return poller.start();
+        }
+
+        function stopPolling() {
+            poller.stop();
+            showStatus(false);
+        }
+
+        window.startPolling = startPolling;
+        window.stopPolling = stopPolling;
+        window.refreshDashboard = poller.refresh;
+
+        // ---- start ----
+
+        var previousAuth = window.onAdminAuthenticated;
+        window.onAdminAuthenticated = function (token) {
+            // The earlier handlers load the draft and history; the first poll shares
+            // those in-flight requests rather than sending new ones.
+            if (typeof previousAuth === 'function') previousAuth(token);
+            startPolling();
+        };
+        // The auth script runs first and may already have shown the dashboard.
+        if (!document.getElementById('dashboard').hidden &&
+            window.adminSession && window.adminSession.getToken()) {
+            startPolling();
         }
     })();
     </script>
