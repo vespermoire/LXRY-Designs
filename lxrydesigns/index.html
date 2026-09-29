@@ -2533,7 +2533,8 @@
                 btn.disabled = true; btn.textContent = '…';
                 const data = new URLSearchParams(new FormData(form)).toString();
                 fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
-                    .then(() => {
+                    .then((response) => {
+                        if (!response.ok) throw new Error('Form submission failed: ' + response.status);
                         form.style.display = 'none';
                         success.classList.add('show');
                         success.scrollIntoView({ behavior: 'smooth', block: 'center' });
