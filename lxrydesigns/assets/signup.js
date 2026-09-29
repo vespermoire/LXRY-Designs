@@ -51,13 +51,21 @@
           setStatus(
             statusEl,
             form.getAttribute('data-success') ||
-              'Almost there — check your inbox to confirm your subscription.',
+              'You’re in! Grab your Starter Kit below — and check your inbox to confirm your newsletter subscription.',
             'is-success'
           );
-          if (button) {
-            button.disabled = false;
-            button.textContent = originalLabel;
+          // Deliver the lead magnet instantly on the success screen.
+          var dl = form.getAttribute('data-download');
+          if (dl && statusEl && !form.querySelector('.sg-download')) {
+            var a = document.createElement('a');
+            a.className = 'sg-download';
+            a.href = dl;
+            a.textContent = form.getAttribute('data-download-label') || 'Download the Starter Kit';
+            a.target = '_blank';
+            a.rel = 'noopener';
+            statusEl.insertAdjacentElement('afterend', a);
           }
+          if (button) { button.style.display = 'none'; }
         })
         .catch(function () {
           if (button) {

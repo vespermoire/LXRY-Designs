@@ -151,8 +151,10 @@
             <div class="signup-card">
                 <form class="lxry-signup" data-signup
                       data-loading="Sending…"
-                      data-success="Almost there — check your inbox to confirm and get the Kit."
-                      data-error="Something went wrong — please email hello@lxrydesigns.com.">
+                      data-success="You're in! Grab your Starter Kit below — and check your inbox to confirm your newsletter subscription."
+                      data-error="Something went wrong — please email hello@lxrydesigns.com."
+                      data-download="/assets/lxry-ai-automation-starter-kit.pdf"
+                      data-download-label="Download the Starter Kit">
                     <p class="sg-hp" aria-hidden="true"><label>Leave this blank <input type="text" name="website" tabindex="-1" autocomplete="off"></label></p>
                     <div class="sg-row">
                         <label for="cf-name" data-i18n="k.f.name">First name</label>
@@ -212,8 +214,8 @@
                 "k.foot.privacy": "Politique de confidentialité", "k.foot.legal": "Mentions légales", "k.foot.home": "Accueil"
             } };
             var FORMCOPY = {
-                en: { loading: "Sending…", success: "Almost there — check your inbox to confirm and get the Kit.", error: "Something went wrong — please email hello@lxrydesigns.com." },
-                fr: { loading: "Envoi…", success: "Presque terminé — vérifiez votre boîte mail pour confirmer et recevoir le Kit.", error: "Une erreur est survenue — écrivez à hello@lxrydesigns.com." }
+                en: { loading: "Sending…", success: "You're in! Grab your Starter Kit below — and check your inbox to confirm your newsletter subscription.", error: "Something went wrong — please email hello@lxrydesigns.com.", download: "Download the Starter Kit" },
+                fr: { loading: "Envoi…", success: "Vous y êtes ! Récupérez votre Kit ci-dessous — et vérifiez votre boîte mail pour confirmer votre abonnement.", error: "Une erreur est survenue — écrivez à hello@lxrydesigns.com.", download: "Télécharger le Kit" }
             };
             var nodes = Array.from(document.querySelectorAll('[data-i18n]'));
             var en = new Map();
@@ -231,6 +233,7 @@
                     form.setAttribute('data-loading', c.loading);
                     form.setAttribute('data-success', c.success);
                     form.setAttribute('data-error', c.error);
+                    form.setAttribute('data-download-label', c.download);
                 }
                 document.documentElement.lang = lang;
                 buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.lang === lang)); });
