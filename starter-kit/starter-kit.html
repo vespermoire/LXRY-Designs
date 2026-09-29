@@ -105,12 +105,49 @@
   .social a{ width:11mm; height:11mm; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; }
   .social svg{ width:5.5mm; height:5.5mm; fill:var(--turq); }
   .social .handle{ text-align:center; }
+
+  /* cover top logo bar */
+  .cover-top{ position:absolute; top:13mm; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:4mm; z-index:2; }
+  .cover-top img{ height:9mm; }
+  .cover-top span{ font-family:var(--jura); font-weight:700; letter-spacing:0.18em; text-transform:uppercase; font-size:9pt; color:var(--silver); }
+
+  /* AI automation hub graphic (recreated on-brand) */
+  .aihub-line{ fill:none; stroke:var(--turq); stroke-width:2; stroke-dasharray:6 8; opacity:0.5; }
+  .aihub-node{ fill:rgba(39,244,210,0.08); stroke:var(--turq); stroke-width:2; }
+  .aihub-ico{ fill:none; stroke:var(--turq); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+  .aihub-fill{ fill:var(--turq); stroke:none; }
+  .aihub-ai{ fill:var(--turq); font-family:var(--jura); font-weight:700; }
+  .aihub-ring{ fill:none; stroke:var(--turq); stroke-width:14; stroke-dasharray:22 15; }
+  .aihub-feature{ display:block; width:118mm; margin:9mm auto 0; }
+  .aihub-cap{ text-align:center; font-family:var(--mono); font-size:8pt; letter-spacing:0.12em; text-transform:uppercase; color:var(--dim); margin-top:4mm; }
+  .aihub-bg{ position:absolute; top:50%; left:50%; width:172mm; transform:translate(-50%,-50%); opacity:0.1; z-index:0; }
+  .close > *:not(.aihub-bg){ position:relative; z-index:1; }
 </style>
 </head>
 <body>
 
+<!-- Reusable AI-automation hub (recreated on-brand, static) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="aihub" viewBox="0 0 1000 600">
+  <line class="aihub-line" x1="500" y1="204" x2="500" y2="120"/>
+  <line class="aihub-line" x1="583" y1="252" x2="656" y2="210"/>
+  <line class="aihub-line" x1="583" y1="348" x2="656" y2="390"/>
+  <line class="aihub-line" x1="500" y1="396" x2="500" y2="480"/>
+  <line class="aihub-line" x1="417" y1="348" x2="344" y2="390"/>
+  <line class="aihub-line" x1="417" y1="252" x2="344" y2="210"/>
+  <circle class="aihub-ring" cx="500" cy="300" r="84"/>
+  <circle cx="500" cy="300" r="62" fill="#0C1416" stroke="#27F4D2" stroke-width="2.5"/>
+  <text class="aihub-ai" x="500" y="301" font-size="52" text-anchor="middle" dominant-baseline="central">AI</text>
+  <g><rect class="aihub-node" x="454" y="24" width="92" height="92" rx="18"/><circle class="aihub-ico" cx="500" cy="70" r="12"/><circle class="aihub-fill" cx="500" cy="70" r="3.5"/><path class="aihub-ico" stroke-width="2.5" d="M500 53 v-6 M500 87 v6 M483 70 h-6 M517 70 h6 M488 58 l-4 -4 M512 82 l4 4 M512 58 l4 -4 M488 82 l-4 4"/></g>
+  <g><rect class="aihub-node" x="653" y="139" width="92" height="92" rx="18"/><path class="aihub-ico" d="M699 168 v-8"/><circle class="aihub-fill" cx="699" cy="158" r="3.5"/><rect class="aihub-ico" x="682" y="172" width="34" height="27" rx="7"/><circle class="aihub-fill" cx="692" cy="185" r="2.8"/><circle class="aihub-fill" cx="706" cy="185" r="2.8"/><path class="aihub-ico" stroke-width="2.5" d="M680 182 h-4 M718 182 h4"/></g>
+  <g><rect class="aihub-node" x="653" y="369" width="92" height="92" rx="18"/><path class="aihub-ico" d="M683 401 h32 a6 6 0 0 1 6 6 v14 a6 6 0 0 1 -6 6 h-16 l-9 8 v-8 h-1 a6 6 0 0 1 -6 -6 v-14 a6 6 0 0 1 6 -6 z"/><path class="aihub-ico" stroke-width="2.4" d="M690 411 h22 M690 419 h15"/></g>
+  <g><rect class="aihub-node" x="454" y="484" width="92" height="92" rx="18"/><path class="aihub-ico" d="M487 511 h18 l8 8 v20 a3 3 0 0 1 -3 3 h-23 a3 3 0 0 1 -3 -3 v-25 a3 3 0 0 1 3 -3 z"/><path class="aihub-ico" stroke-width="2.4" d="M505 511 v8 h8 M491 528 h18 M491 536 h13"/></g>
+  <g><rect class="aihub-node" x="255" y="369" width="92" height="92" rx="18"/><path class="aihub-ico" d="M288 415 a13 13 0 0 1 22 -9"/><path class="aihub-fill" d="M310 397 l2 9 l-9 -2 z"/><path class="aihub-ico" d="M314 415 a13 13 0 0 1 -22 9"/><path class="aihub-fill" d="M292 433 l-2 -9 l9 2 z"/><circle class="aihub-fill" cx="301" cy="415" r="3"/></g>
+  <g><rect class="aihub-node" x="255" y="139" width="92" height="92" rx="18"/><path class="aihub-ico" d="M286 197 h30"/><rect class="aihub-fill" x="289" y="189" width="6" height="8"/><rect class="aihub-fill" x="298" y="182" width="6" height="15"/><rect class="aihub-fill" x="307" y="176" width="6" height="21"/></g>
+</symbol></svg>
+
 <!-- 1 · COVER -->
 <section class="page cover">
+  <div class="cover-top"><img src="../lxrydesigns/assets/lxry-wave-mark.webp" alt=""><span>LXRY Designs</span></div>
   <img class="bgmark" src="../lxrydesigns/assets/lxry-wave-mark.webp" alt="">
   <img class="logo" src="../lxrydesigns/assets/lxry-logo-lockup.webp" alt="LXRY Designs">
   <p class="eyebrow">Free digital guide · 2026</p>
@@ -335,11 +372,14 @@
       <li>Review AI outputs before they go out — you're accountable for them.</li>
     </ul>
   </div>
+  <svg class="aihub-feature" viewBox="0 0 1000 600" role="img" aria-label="AI automation hub connecting documents, settings, robots, chat, data and workflows"><use href="#aihub"/></svg>
+  <p class="aihub-cap">One hub · every workflow · human-supervised</p>
   <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
 </section>
 
 <!-- 9 · CLOSE / CTA -->
 <section class="page close">
+  <svg class="aihub-bg" viewBox="0 0 1000 600" aria-hidden="true"><use href="#aihub"/></svg>
   <img class="mark" src="../lxrydesigns/assets/lxry-wave-mark.webp" alt="LXRY Designs">
   <h2>Want this <span class="a">done for you?</span></h2>
   <p>We audit your stack, find the hours hiding in manual work, and build the automations — compliantly, on both sides of the Geneva border. Every engagement starts with an audit and a straight answer.</p>
@@ -354,6 +394,7 @@
     <a aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.3v13.1a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.78.12v-3.4a5.99 5.99 0 0 0-.78-.05A5.99 5.99 0 1 0 15.64 16V9.4a7.5 7.5 0 0 0 4.36 1.4V7.4a4.28 4.28 0 0 1-3.4-1.58z"/></svg></a>
     <a aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24h-4V8z"/></svg></a>
     <a aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
+    <a aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.9 1.5h3.7l-8.1 9.2 9.5 12.6h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.9L0 1.5h7.6l5.2 6.9 6.1-6.9zm-1.3 19.7h2L6.5 3.6H4.4l13.2 17.6z"/></svg></a>
   </div>
   <p class="contact" style="margin-top:5mm;">Follow @LXRYDesigns</p>
 </section>
