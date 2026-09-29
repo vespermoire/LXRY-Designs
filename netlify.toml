@@ -46,3 +46,8 @@
   from = "/brand-pack"
   to = "/brand-pack.html"
   status = 200
+
+[[redirects]]
+  from = "/ai-kit"
+  to = "/ai-kit.html"
+  status = 200
