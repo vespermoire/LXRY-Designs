@@ -1,0 +1,2625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#0D0D0D">
+    <title>Operations Dashboard | LXRY Designs</title>
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <style>
+        /* ---- LXRY brand pack tokens (see brand-pack.html) ---- */
+        :root {
+            color-scheme: dark;
+            --black: #000000;
+            --dark-bg: #0D0D0D;
+            --panel: #0F1514;
+            --panel-2: #121A19;
+            --border: #20302D;
+            --border-soft: #182420;
+            --teal: #00A19B;
+            --turq: #27F4D2;
+            --silver: #C8CCCE;
+            --gray: #565F64;
+            --white: #FFFFFF;
+            --text: #E9EDEC;
+            --text-dim: #8C9694;
+            --danger: #FF6B6B;
+            --ok: #3DDC97;
+            --warn: #F5B94A;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --jura: 'Jura', 'Inter', sans-serif;
+            --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        [hidden] { display: none !important; }
+
+        html, body { min-height: 100%; }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(120% 80% at 85% -10%, rgba(39, 244, 210, .10), transparent 60%),
+                radial-gradient(90% 70% at 5% 0%, rgba(39, 244, 210, .05), transparent 55%),
+                var(--dark-bg);
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 15px;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--turq);
+            outline-offset: 2px;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0);
+            white-space: nowrap; border: 0;
+        }
+
+        /* ---- header ---- */
+        .admin-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 16px clamp(16px, 4vw, 40px);
+            background: rgba(13, 13, 13, .92);
+            border-bottom: 1px solid var(--border-soft);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            height: 44px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 4px 18px rgba(39, 244, 210, .22));
+        }
+
+        .brand-words {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+            min-width: 0;
+        }
+
+        .brand-name {
+            font-family: var(--jura);
+            font-weight: 600;
+            font-size: 20px;
+            letter-spacing: .15em;
+            color: var(--turq);
+        }
+
+        .brand-title {
+            font-family: var(--jura);
+            font-weight: 500;
+            font-size: 12px;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin: 7px 0 0;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-left: auto;
+        }
+
+        /* ---- refresh status (Task 6) ---- */
+        .refresh-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: .04em;
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+
+        .refresh-status[hidden] { display: none; }
+
+        #last-refresh-time {
+            color: var(--silver);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .refresh-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--turq);
+            box-shadow: 0 0 8px rgba(39, 244, 210, .55);
+            flex: none;
+        }
+
+        /* The last refresh failed: the time shown is the last good one, and polling retries. */
+        .refresh-status.is-stale .refresh-dot {
+            background: var(--warn);
+            box-shadow: 0 0 8px rgba(245, 185, 74, .45);
+        }
+
+        .refresh-status.is-stale #last-refresh-time { color: var(--warn); }
+
+        .btn {
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .06em;
+            border-radius: 10px;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: background-color .15s, border-color .15s, color .15s, opacity .15s;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover { border-color: var(--turq); color: var(--turq); }
+
+        .btn-primary {
+            background: var(--turq);
+            color: var(--black);
+            border: 1px solid var(--turq);
+            width: 100%;
+            padding: 13px 18px;
+            font-size: 14px;
+        }
+
+        .btn-primary:hover { background: #5ff7de; }
+
+        .btn[disabled] { opacity: .55; cursor: progress; }
+
+        /* ---- layout ---- */
+        main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: clamp(28px, 6vw, 56px) clamp(16px, 4vw, 40px);
+        }
+
+        .panel {
+            background: var(--panel);
+            border: 1px solid var(--border-soft);
+            border-radius: 16px;
+            padding: clamp(20px, 4vw, 32px);
+        }
+
+        /* ---- login ---- */
+        .login {
+            max-width: 420px;
+            margin: clamp(24px, 8vh, 80px) auto 0;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            letter-spacing: .32em;
+            text-transform: uppercase;
+            color: var(--turq);
+            font-weight: 600;
+            margin: 0 0 12px;
+        }
+
+        .login h1 {
+            font-family: var(--jura);
+            font-weight: 600;
+            font-size: 24px;
+            letter-spacing: .06em;
+            margin: 0 0 8px;
+            color: var(--text);
+        }
+
+        .login .lede {
+            margin: 0 0 24px;
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+
+        .field { margin-bottom: 18px; }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--text-dim);
+            margin-bottom: 8px;
+        }
+
+        .field input {
+            width: 100%;
+            font-family: var(--mono);
+            font-size: 16px; /* >=16px prevents iOS zoom on focus */
+            color: var(--text);
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            transition: border-color .15s;
+        }
+
+        .field input:focus { border-color: var(--turq); outline: none; }
+
+        .field input[aria-invalid="true"] { border-color: var(--danger); }
+
+        .form-error {
+            min-height: 1.4em;
+            margin: 0 0 14px;
+            font-size: 13px;
+            color: var(--danger);
+        }
+
+        /* ---- dashboard shells (filled by later tasks) ---- */
+        .dash-section + .dash-section { margin-top: 32px; }
+
+        .sec-head {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .sec-head h2 {
+            font-size: 13px;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin: 0;
+            color: var(--text);
+        }
+
+        .sec-head .rule {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border), transparent);
+            min-width: 40px;
+        }
+
+        .draft-meta {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 55%;
+        }
+
+        .draft-note {
+            margin: 0 0 16px;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .draft-note:empty { display: none; }
+
+        .draft-note.is-error { color: var(--danger); }
+
+        /* ---- empty state ---- */
+        .empty-state { max-width: 560px; }
+
+        .empty-state h3 {
+            font-family: var(--jura);
+            font-weight: 600;
+            font-size: 22px;
+            letter-spacing: .04em;
+            margin: 0 0 8px;
+        }
+
+        .empty-state p:last-child { margin: 0; color: var(--text-dim); }
+
+        /* ---- content grid (8 items) ---- */
+        .content-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+            gap: 20px;
+        }
+
+        .content-card {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-width: 0;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            transition: border-color .15s, box-shadow .15s;
+        }
+
+        .content-card:focus-within { border-color: rgba(39, 244, 210, .45); }
+
+        .content-card[data-status="approved"] {
+            border-color: var(--turq);
+            box-shadow: 0 0 0 1px rgba(39, 244, 210, .18), 0 10px 30px -18px rgba(39, 244, 210, .5);
+        }
+
+        .content-card[data-status="rejected"] { border-color: rgba(255, 107, 107, .45); }
+
+        .content-card[data-status="rejected"] .card-content { opacity: .6; }
+
+        .content-card[data-missing="true"] .card-content { opacity: .45; }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-family: var(--jura);
+            font-weight: 600;
+            font-size: 17px;
+            letter-spacing: .06em;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .status-badge {
+            flex: none;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(245, 185, 74, .4);
+            background: rgba(245, 185, 74, .1);
+            color: var(--warn);
+        }
+
+        [data-status="approved"] .status-badge {
+            border-color: rgba(61, 220, 151, .45);
+            background: rgba(61, 220, 151, .1);
+            color: var(--ok);
+        }
+
+        [data-status="rejected"] .status-badge {
+            border-color: rgba(255, 107, 107, .45);
+            background: rgba(255, 107, 107, .1);
+            color: var(--danger);
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            height: 104px;
+            border: 1px dashed rgba(39, 244, 210, .35);
+            border-radius: 10px;
+            background:
+                linear-gradient(135deg, rgba(39, 244, 210, .07), transparent 60%),
+                var(--panel-2);
+            color: var(--text-dim);
+        }
+
+        .ph-label {
+            font-size: 11px;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--turq);
+        }
+
+        .ph-dims { font-family: var(--mono); font-size: 12px; }
+
+        .fld { display: block; }
+
+        .fld-label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+
+        .fld textarea,
+        .fld input {
+            display: block;
+            width: 100%;
+            font-family: var(--font);
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 11px;
+            transition: border-color .15s;
+        }
+
+        .fld textarea { resize: vertical; min-height: 96px; }
+
+        .fld .hashtags-field { font-family: var(--mono); font-size: 13px; }
+
+        .fld textarea:focus,
+        .fld input:focus { border-color: var(--turq); outline: none; }
+
+        .fld textarea:disabled,
+        .fld input:disabled { cursor: not-allowed; }
+
+        .card-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .rule-hint { font-size: 12px; color: var(--text-dim); }
+
+        .validation-badge {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        .validation-badge:empty { display: none; }
+
+        .validation-badge.is-valid {
+            color: var(--ok);
+            border-color: rgba(61, 220, 151, .4);
+            background: rgba(61, 220, 151, .08);
+        }
+
+        .validation-badge.is-invalid {
+            color: var(--danger);
+            border-color: rgba(255, 107, 107, .45);
+            background: rgba(255, 107, 107, .08);
+        }
+
+        .preview-title {
+            margin: 0;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.35;
+            color: var(--white);
+        }
+
+        .preview-meta {
+            margin: 0;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        .preview {
+            margin: 0;
+            font-size: 14px;
+            color: var(--silver);
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .card-actions .btn { padding: 9px 12px; }
+
+        .btn-approve {
+            background: transparent;
+            color: var(--turq);
+            border: 1px solid var(--turq);
+        }
+
+        .btn-approve:hover:not(:disabled) { background: rgba(39, 244, 210, .1); }
+
+        .btn-approve.is-active {
+            background: var(--turq);
+            color: var(--black);
+        }
+
+        .btn-reject {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-reject:hover:not(:disabled) { border-color: var(--danger); color: var(--danger); }
+
+        .btn-reject.is-active {
+            background: rgba(255, 107, 107, .12);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .card-actions .btn:disabled { cursor: not-allowed; opacity: .4; }
+
+        .card-actions .btn.is-active:disabled { cursor: default; opacity: 1; }
+
+        /* ---- publish bar ---- */
+        .publish-bar {
+            position: sticky;
+            bottom: 12px;
+            z-index: 5;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px 20px;
+            flex-wrap: wrap;
+            padding: 14px 18px;
+            background: rgba(15, 21, 20, .96);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 12px 32px -12px rgba(0, 0, 0, .8);
+        }
+
+        .publish-summary { min-width: 0; }
+
+        .publish-summary strong {
+            display: block;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .publish-summary span { font-size: 12px; color: var(--text-dim); }
+
+        .publish-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .publish-actions .btn-primary { width: auto; padding: 10px 18px; font-size: 13px; }
+
+        .publish-actions .btn:disabled { cursor: not-allowed; opacity: .45; }
+
+        .publish-message {
+            flex-basis: 100%;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .publish-message:empty { display: none; }
+
+        .publish-message.is-ok { color: var(--ok); }
+
+        .publish-message.is-error { color: var(--danger); }
+
+        .publish-message.is-info { color: var(--text-dim); }
+
+        /* ---- publish history ---- */
+        .history-section .sec-head { margin-bottom: 12px; }
+
+        .history-note {
+            margin: 0 0 12px;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .history-note:empty { display: none; }
+
+        .history-note.is-error { color: var(--danger); }
+
+        .history-wrap {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .history-table th {
+            text-align: left;
+            font-size: 11px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--turq);
+            background: var(--panel-2);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .history-table td {
+            padding: 12px 16px;
+            vertical-align: top;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .history-table tbody tr:last-child td { border-bottom: 0; }
+
+        .history-row:hover td { background: rgba(39, 244, 210, .04); }
+
+        .history-row.is-open td { border-bottom-color: transparent; }
+
+        .history-date {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        .history-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+
+        .history-status .sym { font-size: 14px; line-height: 1; }
+
+        .history-status.is-ok {
+            color: var(--ok);
+            border-color: rgba(61, 220, 151, .45);
+            background: rgba(61, 220, 151, .1);
+        }
+
+        .history-status.is-partial {
+            color: var(--warn);
+            border-color: rgba(245, 185, 74, .45);
+            background: rgba(245, 185, 74, .1);
+        }
+
+        .history-status.is-fail {
+            color: var(--danger);
+            border-color: rgba(255, 107, 107, .45);
+            background: rgba(255, 107, 107, .1);
+        }
+
+        .history-items { color: var(--text); }
+
+        .history-sub {
+            display: block;
+            margin-top: 2px;
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        .history-sub:empty { display: none; }
+
+        .history-toggle {
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--turq);
+            background: none;
+            border: 0;
+            padding: 2px 0;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .history-toggle:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+        .history-toggle .chev {
+            display: inline-block;
+            margin-left: 4px;
+            transition: transform .15s;
+        }
+
+        .history-toggle[aria-expanded="true"] .chev { transform: rotate(90deg); }
+
+        .history-detail td {
+            padding-top: 0;
+            background: rgba(39, 244, 210, .03);
+        }
+
+        .history-log {
+            margin: 0;
+            padding: 12px 14px;
+            font-family: var(--mono);
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: var(--silver);
+            background: var(--dark-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        .history-copy {
+            margin-top: 8px;
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+
+        .history-empty { margin: 0; padding: 18px 16px; color: var(--text-dim); }
+
+        @media (max-width: 640px) {
+            /* Stack each publish as a card: label on the left, value on the right. */
+            .history-table thead {
+                position: absolute;
+                width: 1px; height: 1px;
+                overflow: hidden; clip: rect(0, 0, 0, 0);
+            }
+            .history-table,
+            .history-table tbody,
+            .history-table tr,
+            .history-table td { display: block; width: 100%; }
+            .history-row { padding: 10px 0 6px; border-top: 1px solid var(--border-soft); }
+            .history-table tbody tr:first-child { border-top: 0; }
+            .history-row td {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                gap: 16px;
+                padding: 4px 16px;
+                border-bottom: 0;
+                text-align: right;
+            }
+            .history-row td::before {
+                content: attr(data-label);
+                flex: none;
+                font-size: 11px;
+                letter-spacing: .16em;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: var(--turq);
+                text-align: left;
+            }
+            .history-toggle { padding: 6px 0; }
+            .history-detail td { padding: 4px 16px 14px; border-bottom: 0; }
+        }
+
+        @media (max-width: 640px) {
+            /* >=16px stops iOS zooming into focused fields */
+            .fld textarea,
+            .fld input,
+            .fld .hashtags-field { font-size: 16px; }
+            .draft-meta { display: none; }
+            /* A sticky two-row bar would cover a third of a phone screen. */
+            .publish-bar { position: static; }
+            .publish-actions { width: 100%; }
+            .publish-actions .btn { flex: 1; }
+        }
+
+        @media (max-width: 480px) {
+            .brand-mark { height: 36px; }
+            .brand-name { font-size: 17px; }
+            .brand-title { font-size: 10px; letter-spacing: .22em; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <header class="admin-header">
+        <a class="brand" href="/admin" aria-label="LXRY Designs Operations Dashboard">
+            <img src="assets/lxry-mark-solid.png" alt="" class="brand-mark">
+            <span class="brand-words">
+                <span class="brand-name">LXRY</span>
+                <span class="brand-title">Operations Dashboard</span>
+            </span>
+        </a>
+        <div class="header-actions">
+            <!-- Shown while polling (Task 6). Time of the last refresh that fully succeeded. -->
+            <p id="refresh-status" class="refresh-status" hidden>
+                <span class="refresh-dot" aria-hidden="true"></span>
+                <span>Last updated: <span id="last-refresh-time">Just now</span></span>
+            </p>
+            <button type="button" id="logout-btn" class="btn btn-ghost" hidden>Log out</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Password form: shown when there is no valid session -->
+        <section id="login-section" class="login panel" aria-labelledby="login-title" hidden>
+            <p class="eyebrow">Restricted</p>
+            <h1 id="login-title">Sign in</h1>
+            <p class="lede">Enter the admin password to review and publish this week's content.</p>
+            <form id="login-form" novalidate>
+                <div class="field">
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" name="password"
+                           autocomplete="current-password" required
+                           aria-describedby="login-error">
+                </div>
+                <p id="login-error" class="form-error" role="alert" aria-live="assertive"></p>
+                <button type="submit" id="login-submit" class="btn btn-primary">Unlock dashboard</button>
+            </form>
+        </section>
+
+        <!-- Dashboard: hidden until authenticated. Filled from the current draft by loadDraft(). -->
+        <section id="dashboard" class="dash-section" aria-labelledby="dashboard-title" hidden>
+            <div class="sec-head">
+                <h2 id="dashboard-title">Current draft</h2>
+                <span class="rule" aria-hidden="true"></span>
+                <span id="draft-meta" class="draft-meta"></span>
+            </div>
+
+            <p id="draft-note" class="draft-note" role="status" aria-live="polite">Loading draft...</p>
+
+            <div id="draft-empty" class="empty-state panel" hidden>
+                <p class="eyebrow">No draft yet</p>
+                <h3>Nothing to review</h3>
+                <p>The content engine drafts the week's blog post, newsletter and social posts every Monday at 09:00 UTC. They appear here when it finishes.</p>
+            </div>
+
+            <div id="draft-body" hidden>
+                <div class="content-cards">
+                    <!-- Blog: read-only preview -->
+                    <article class="content-card" data-type="blog" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">Blog post</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <p class="preview-meta" data-bind="meta"></p>
+                            <p class="preview-title" data-bind="title"></p>
+                            <p class="preview" data-bind="excerpt"></p>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">Read-only preview</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <!-- Newsletter: editable subject -->
+                    <article class="content-card" data-type="newsletter" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">Newsletter</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <label class="fld">
+                                <span class="fld-label">Subject</span>
+                                <input type="text" class="subject-field" autocomplete="off">
+                            </label>
+                            <p class="preview" data-bind="body"></p>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">Subject line required</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <!-- Social: image tile + editable caption and hashtags -->
+                    <article class="content-card" data-type="instagram" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">Instagram</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1080x1350</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">15&ndash;25 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="tiktok" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">TikTok</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1080x1920</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">5&ndash;10 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="linkedin" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">LinkedIn</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1200x627</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">5&ndash;10 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="x" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">X</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1200x675</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">280 chars max, hashtags included</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="facebook" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">Facebook</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1200x627</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">3&ndash;5 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="youtube" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">YouTube</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1080x1920</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">5&ndash;10 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="publish-bar">
+                    <div class="publish-summary">
+                        <strong id="approval-summary">0 approved &middot; 8 pending &middot; 0 rejected</strong>
+                        <span>Only approved items are published. Pending and rejected items are skipped.</span>
+                    </div>
+                    <div class="publish-actions">
+                        <button type="button" id="reset-btn" class="btn btn-ghost">Reset</button>
+                        <button type="button" id="publish-all-btn" class="btn btn-primary" disabled>Approve &amp; Publish All</button>
+                    </div>
+                    <p id="publish-message" class="publish-message" role="status" aria-live="polite"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publish history: hidden until authenticated. Rows rendered by loadHistory(). -->
+        <div id="publish-history" class="dash-section" hidden>
+            <section class="history-section" aria-labelledby="history-title">
+                <div class="sec-head">
+                    <h2 id="history-title">Publish History</h2>
+                    <span class="rule" aria-hidden="true"></span>
+                </div>
+                <p id="history-note" class="history-note" role="status" aria-live="polite">Loading publish history...</p>
+                <div class="history-wrap">
+                    <table class="history-table" id="history-table" hidden>
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Items</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-rows">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                    <p id="history-empty" class="empty-state history-empty" hidden>No publishes yet</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var SESSION_KEY = 'admin_session';
+        var SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+        var AUTH_ENDPOINT = '/admin-check-password';
+
+        var loginSection = document.getElementById('login-section');
+        var loginForm = document.getElementById('login-form');
+        var passwordInput = document.getElementById('admin-password');
+        var loginError = document.getElementById('login-error');
+        var loginSubmit = document.getElementById('login-submit');
+        var logoutBtn = document.getElementById('logout-btn');
+        var dashboard = document.getElementById('dashboard');
+        var publishHistory = document.getElementById('publish-history');
+
+        // ---- session storage helpers ----
+
+        function readSession() {
+            var raw;
+            try {
+                raw = window.localStorage.getItem(SESSION_KEY);
+            } catch (e) {
+                return null; // storage blocked (private mode, disabled cookies)
+            }
+            if (!raw) return null;
+            try {
+                var s = JSON.parse(raw);
+                if (!s || typeof s.token !== 'string' || !s.token ||
+                    typeof s.timestamp !== 'number' || typeof s.ttl !== 'number') {
+                    return null;
+                }
+                return s;
+            } catch (e) {
+                return null; // corrupted value
+            }
+        }
+
+        function isSessionValid(s) {
+            return !!s && (s.timestamp + s.ttl) > Date.now();
+        }
+
+        function saveSession(token) {
+            var session = { token: token, timestamp: Date.now(), ttl: SESSION_TTL_MS };
+            try {
+                window.localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+            } catch (e) {
+                // Storage unavailable: session lasts for this page view only.
+            }
+            return session;
+        }
+
+        function clearSession() {
+            try {
+                window.localStorage.removeItem(SESSION_KEY);
+            } catch (e) { /* ignore */ }
+        }
+
+        // Returns the current valid token, or null. Clears an expired/corrupt session.
+        function getSessionToken() {
+            var s = readSession();
+            if (isSessionValid(s)) return s.token;
+            clearSession();
+            return null;
+        }
+
+        // ---- view switching ----
+
+        function showLogin() {
+            dashboard.hidden = true;
+            publishHistory.hidden = true;
+            logoutBtn.hidden = true;
+            loginSection.hidden = false;
+            passwordInput.focus();
+        }
+
+        function showDashboard() {
+            loginSection.hidden = true;
+            dashboard.hidden = false;
+            publishHistory.hidden = false;
+            logoutBtn.hidden = false;
+            // Hook for later tasks (draft rendering, history, polling).
+            if (typeof window.onAdminAuthenticated === 'function') {
+                window.onAdminAuthenticated(getSessionToken());
+            }
+        }
+
+        function setError(message) {
+            loginError.textContent = message || '';
+            passwordInput.setAttribute('aria-invalid', message ? 'true' : 'false');
+        }
+
+        // ---- login ----
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            var password = passwordInput.value;
+
+            if (!password) {
+                setError('Enter the password.');
+                passwordInput.focus();
+                return;
+            }
+
+            setError('');
+            loginSubmit.disabled = true;
+            loginSubmit.textContent = 'Checking...';
+
+            fetch(AUTH_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: password }),
+                credentials: 'same-origin'
+            })
+                .then(function (res) {
+                    return res.json()
+                        .catch(function () { return {}; })
+                        .then(function (data) { return { status: res.status, data: data }; });
+                })
+                .then(function (result) {
+                    var data = result.data || {};
+                    if (result.status === 200 && data.valid === true &&
+                        typeof data.token === 'string' && data.token) {
+                        saveSession(data.token);
+                        passwordInput.value = '';
+                        showDashboard();
+                    } else if (result.status === 401 || data.valid === false) {
+                        setError('Incorrect password');
+                        passwordInput.select();
+                    } else {
+                        setError('Sign-in failed (server error ' + result.status + '). Try again.');
+                    }
+                })
+                .catch(function () {
+                    setError('Could not reach the server. Check your connection and try again.');
+                })
+                .then(function () {
+                    loginSubmit.disabled = false;
+                    loginSubmit.textContent = 'Unlock dashboard';
+                });
+        });
+
+        // ---- logout ----
+
+        // Stops the Task 6 refresh loop (defined in a later script) before leaving,
+        // so no poll fires with the cleared session while the page unloads.
+        function logout() {
+            if (typeof window.stopPolling === 'function') window.stopPolling();
+            clearSession();
+            window.location.href = '/admin';
+        }
+
+        logoutBtn.addEventListener('click', logout);
+
+        // Expose a minimal session API for later tasks (dashboard fetches, polling).
+        window.adminSession = {
+            getToken: getSessionToken,
+            clear: clearSession,
+            logout: logout
+        };
+
+        // ---- initial state ----
+
+        if (getSessionToken()) {
+            showDashboard();
+        } else {
+            showLogin();
+        }
+    })();
+    </script>
+
+    <!-- Validation rules. Pure functions, no DOM access (unit-tested by
+         tests/integration/admin-dashboard.test.js, which runs this block in node:vm). -->
+    <script id="dashboard-rules">
+    (function (root) {
+        'use strict';
+
+        var SOCIAL = ['instagram', 'tiktok', 'linkedin', 'x', 'facebook', 'youtube'];
+        var ITEMS = ['blog', 'newsletter'].concat(SOCIAL);
+
+        var LABELS = {
+            blog: 'Blog post',
+            newsletter: 'Newsletter',
+            instagram: 'Instagram',
+            tiktok: 'TikTok',
+            linkedin: 'LinkedIn',
+            x: 'X',
+            facebook: 'Facebook',
+            youtube: 'YouTube'
+        };
+
+        // Plan Global Constraints. X is limited by characters, the rest by hashtag count.
+        var RULES = {
+            instagram: { kind: 'hashtags', min: 15, max: 25 },
+            tiktok: { kind: 'hashtags', min: 5, max: 10 },
+            linkedin: { kind: 'hashtags', min: 5, max: 10 },
+            x: { kind: 'chars', max: 280 },
+            facebook: { kind: 'hashtags', min: 3, max: 5 },
+            youtube: { kind: 'hashtags', min: 5, max: 10 }
+        };
+
+        function str(v) { return v == null ? '' : String(v); }
+
+        // Accepts "#a #b", "a, b", "#a#b" or an array like ["a", "#b"].
+        // Returns bare tags without "#", e.g. ["a", "b"].
+        function parseHashtags(value) {
+            var list = Array.isArray(value) ? value : [value];
+            var tags = [];
+            for (var i = 0; i < list.length; i++) {
+                var parts = str(list[i]).split(/[\s,#]+/);
+                for (var j = 0; j < parts.length; j++) {
+                    if (parts[j]) tags.push(parts[j]);
+                }
+            }
+            return tags;
+        }
+
+        function formatHashtags(value) {
+            return parseHashtags(value).map(function (t) { return '#' + t; }).join(' ');
+        }
+
+        // Length of the post as published: caption, a space, then the hashtags.
+        function postLength(caption, hashtags) {
+            var text = str(caption).trim();
+            var tags = formatHashtags(hashtags);
+            if (!tags) return text.length;
+            return text.length + (text ? 1 : 0) + tags.length;
+        }
+
+        // fields: { title } for blog, { subject } for newsletter, { caption, hashtags } for social.
+        // Returns { valid, message }.
+        function validateFields(type, fields) {
+            var f = fields || {};
+
+            if (type === 'blog') {
+                return str(f.title).trim()
+                    ? { valid: true, message: 'Ready ✓' }
+                    : { valid: false, message: '❌ Missing title' };
+            }
+
+            if (type === 'newsletter') {
+                var subject = str(f.subject).trim();
+                return subject
+                    ? { valid: true, message: subject.length + ' chars ✓' }
+                    : { valid: false, message: '❌ Subject required' };
+            }
+
+            var rule = RULES[type];
+            if (!rule) return { valid: false, message: '❌ Unknown item' };
+
+            if (!str(f.caption).trim()) {
+                return { valid: false, message: '❌ Caption required' };
+            }
+
+            if (rule.kind === 'chars') {
+                var len = postLength(f.caption, f.hashtags);
+                return len <= rule.max
+                    ? { valid: true, message: len + '/' + rule.max + ' ✓' }
+                    : { valid: false, message: '❌ Exceeds ' + rule.max + ' (' + len + ')' };
+            }
+
+            var n = parseHashtags(f.hashtags).length;
+            return (n >= rule.min && n <= rule.max)
+                ? { valid: true, message: n + '/' + rule.max + ' ✓' }
+                : { valid: false, message: '❌ Need ' + rule.min + '-' + rule.max + ' (' + n + ')' };
+        }
+
+        root.AdminDashboardRules = {
+            SOCIAL: SOCIAL,
+            ITEMS: ITEMS,
+            LABELS: LABELS,
+            RULES: RULES,
+            parseHashtags: parseHashtags,
+            formatHashtags: formatHashtags,
+            postLength: postLength,
+            validateFields: validateFields
+        };
+    })(window);
+    </script>
+
+    <!-- Dashboard grid: draft loading, live validation, approval state, publish. -->
+    <script>
+    (function () {
+        'use strict';
+
+        var R = window.AdminDashboardRules;
+
+        // GET returns { draftId, draft } (or a bare draft object); 404 means no draft yet.
+        // Served by netlify/functions/admin-action.js via the /admin-action/* redirect.
+        var DRAFT_ENDPOINT = '/admin-action/draft';
+        var APPROVE_ENDPOINT = '/admin-action/approve';
+
+        var STATUS_TEXT = {
+            approved: '✓ Approved',
+            pending: '⊘ Pending',
+            rejected: '✗ Rejected'
+        };
+
+        var dashboardEl = document.getElementById('dashboard');
+        var draftBody = document.getElementById('draft-body');
+        var draftEmpty = document.getElementById('draft-empty');
+        var draftNote = document.getElementById('draft-note');
+        var draftMeta = document.getElementById('draft-meta');
+        var summaryEl = document.getElementById('approval-summary');
+        var publishBtn = document.getElementById('publish-all-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var publishMsg = document.getElementById('publish-message');
+
+        // Live object: mutated in place so window.approvalState always reflects the UI.
+        var approvalState = {};
+        R.ITEMS.forEach(function (k) { approvalState[k] = 'pending'; });
+        window.approvalState = approvalState;
+
+        var current = { draftId: null, draft: null };
+        var dirty = {};     // "type.field" -> true once the user has edited that field
+        var missing = {};   // type -> true when the draft has no data for it
+        var validity = {};  // type -> last validation result
+        var inflight = null;
+        var publishing = false;
+
+        // ---- DOM helpers ----
+
+        function card(type) {
+            return dashboardEl.querySelector('.content-card[data-type="' + type + '"]');
+        }
+
+        function el(type, selector) {
+            var c = card(type);
+            return c ? c.querySelector(selector) : null;
+        }
+
+        function bind(type, name, text) {
+            var node = el(type, '[data-bind="' + name + '"]');
+            if (node) node.textContent = text == null ? '' : String(text);
+        }
+
+        function isSocial(type) {
+            return R.SOCIAL.indexOf(type) !== -1;
+        }
+
+        function fieldsOf(type) {
+            if (type === 'newsletter') return [['subject', '.subject-field']];
+            if (isSocial(type)) return [['caption', '.caption-field'], ['hashtags', '.hashtags-field']];
+            return [];
+        }
+
+        // Writes a server value into a field unless the user is editing it.
+        function setField(type, name, selector, value, force) {
+            var input = el(type, selector);
+            if (!input) return;
+            var key = type + '.' + name;
+            if (force || (!dirty[key] && document.activeElement !== input)) {
+                input.value = value == null ? '' : String(value);
+            }
+        }
+
+        // ---- text helpers ----
+
+        function markdownToText(md) {
+            return String(md || '')
+                .replace(/```[\s\S]*?```/g, ' ')
+                .replace(/^\s{0,3}#{1,6}\s.*$/gm, ' ')      // drop headings (title repeats)
+                .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')        // images
+                .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')      // links -> text
+                .replace(/^\s{0,3}(>|[-*+]|\d+\.)\s+/gm, '')  // quotes, list markers
+                .replace(/[*_`~]+/g, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function htmlToText(html) {
+            try {
+                // DOMParser does not run scripts or load resources. Closing block tags get
+                // a trailing space so "<h2>A</h2><p>B</p>" reads "A B", not "AB".
+                var spaced = String(html || '').replace(/<\/(p|div|h[1-6]|li|tr|td|blockquote)>|<br\s*\/?>/gi, '$& ');
+                var doc = new DOMParser().parseFromString(spaced, 'text/html');
+                return (doc.body.textContent || '').replace(/\s+/g, ' ').trim();
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function formatDay(value) {
+            var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value || ''));
+            if (!m) return value ? String(value) : '';
+            var d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]));
+            return d.toLocaleDateString('en-GB', {
+                weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'
+            });
+        }
+
+        function generatedAt(draftId, draft) {
+            var m = /(\d{13})/.exec(draftId || '');
+            var when = m ? new Date(+m[1])
+                : (draft && draft._validation && draft._validation.timestamp
+                    ? new Date(draft._validation.timestamp) : null);
+            if (!when || isNaN(when.getTime())) return '';
+            return when.toLocaleString('en-GB', {
+                weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        // ---- draft data ----
+
+        function itemData(draft, type) {
+            if (!draft) return null;
+            if (type === 'blog' || type === 'newsletter') {
+                return draft[type] && typeof draft[type] === 'object' ? draft[type] : null;
+            }
+            var post = draft.social && draft.social[type];
+            return post && typeof post === 'object' ? post : null;
+        }
+
+        function populate(type, force) {
+            var data = itemData(current.draft, type);
+            var c = card(type);
+            missing[type] = !data;
+            c.setAttribute('data-missing', data ? 'false' : 'true');
+            fieldsOf(type).forEach(function (f) {
+                var input = el(type, f[1]);
+                if (input) input.disabled = !data;
+            });
+            data = data || {};
+
+            if (type === 'blog') {
+                var fm = data.frontmatter || {};
+                var words = String(data.content || '').split(/\s+/).filter(Boolean).length;
+                var meta = [formatDay(fm.date || data.date)];
+                if (words) meta.push(words.toLocaleString('en-GB') + ' words');
+                bind('blog', 'meta', meta.filter(Boolean).join(' · '));
+                bind('blog', 'title', data.title || 'Untitled');
+                bind('blog', 'excerpt', markdownToText(data.content).slice(0, 600));
+            } else if (type === 'newsletter') {
+                setField(type, 'subject', '.subject-field', data.subject, force);
+                bind('newsletter', 'body', htmlToText(data.body).slice(0, 600));
+            } else {
+                // Captions: the engine writes "caption"; older drafts used "text".
+                setField(type, 'caption', '.caption-field', data.caption != null ? data.caption : data.text, force);
+                setField(type, 'hashtags', '.hashtags-field', R.formatHashtags(data.hashtags || []), force);
+                if (data.dimensions) bind(type, 'dimensions', String(data.dimensions).replace(/\s+/g, ''));
+            }
+        }
+
+        function readFields(type) {
+            if (type === 'blog') {
+                var blog = itemData(current.draft, 'blog') || {};
+                return { title: blog.title };
+            }
+            if (type === 'newsletter') {
+                return { subject: el(type, '.subject-field').value };
+            }
+            return {
+                caption: el(type, '.caption-field').value,
+                hashtags: el(type, '.hashtags-field').value
+            };
+        }
+
+        // ---- validation + approval state ----
+
+        // Validates one item from its current field values and updates its badge.
+        // An approved item that becomes invalid drops back to pending.
+        function validateItem(type) {
+            var result = missing[type]
+                ? { valid: false, message: '❌ Not in this draft' }
+                : R.validateFields(type, readFields(type));
+            validity[type] = result;
+
+            var badge = el(type, '.validation-badge');
+            if (badge) {
+                badge.textContent = result.message;
+                badge.classList.toggle('is-valid', result.valid);
+                badge.classList.toggle('is-invalid', !result.valid);
+            }
+
+            if (!result.valid && approvalState[type] === 'approved') {
+                approvalState[type] = 'pending';
+            }
+            syncCard(type);
+            return result;
+        }
+
+        function syncCard(type) {
+            var status = approvalState[type];
+            var c = card(type);
+            var ok = validity[type] && validity[type].valid;
+            c.setAttribute('data-status', status);
+            el(type, '.status-badge').textContent = STATUS_TEXT[status];
+
+            var approve = el(type, '.btn-approve');
+            approve.textContent = status === 'approved' ? STATUS_TEXT.approved : 'Approve';
+            approve.classList.toggle('is-active', status === 'approved');
+            approve.disabled = publishing || status === 'approved' || !ok;
+            approve.title = ok ? '' : 'Fix the validation error before approving';
+
+            var reject = el(type, '.btn-reject');
+            reject.textContent = status === 'rejected' ? STATUS_TEXT.rejected : 'Reject';
+            reject.classList.toggle('is-active', status === 'rejected');
+            reject.disabled = publishing || status === 'rejected' || !!missing[type];
+        }
+
+        function counts() {
+            var c = { approved: 0, pending: 0, rejected: 0 };
+            R.ITEMS.forEach(function (k) { c[approvalState[k]]++; });
+            return c;
+        }
+
+        function syncSummary() {
+            var c = counts();
+            summaryEl.textContent = c.approved + ' approved · ' + c.pending + ' pending · ' +
+                c.rejected + ' rejected';
+            publishBtn.disabled = publishing || !current.draft || c.approved === 0;
+            resetBtn.disabled = publishing || !current.draft;
+        }
+
+        function setStatus(type, status) {
+            if (status === 'approved' && !validateItem(type).valid) return;
+            approvalState[type] = status;
+            syncCard(type);
+            syncSummary();
+        }
+
+        function syncAll() {
+            R.ITEMS.forEach(validateItem);
+            syncSummary();
+        }
+
+        // ---- rendering ----
+
+        function setNote(text, isError) {
+            draftNote.textContent = text || '';
+            draftNote.classList.toggle('is-error', !!isError);
+        }
+
+        function setPublishMessage(text, kind) {
+            publishMsg.textContent = text || '';
+            publishMsg.className = 'publish-message' + (kind ? ' is-' + kind : '');
+        }
+
+        function resetApprovals() {
+            R.ITEMS.forEach(function (k) { approvalState[k] = 'pending'; });
+        }
+
+        function render(draftId, draft) {
+            var isNew = draftId !== current.draftId;
+            current = { draftId: draftId, draft: draft };
+            if (isNew) {
+                dirty = {};
+                resetApprovals();
+                setPublishMessage('');
+            }
+            R.ITEMS.forEach(function (t) { populate(t, isNew); });
+            R.ITEMS.forEach(function (t) {
+                if (missing[t]) approvalState[t] = 'pending';
+            });
+            syncAll();
+
+            var when = generatedAt(draftId, draft);
+            draftMeta.textContent = (when ? 'Generated ' + when + ' · ' : '') + draftId;
+            draftEmpty.hidden = true;
+            draftBody.hidden = false;
+        }
+
+        function showEmpty() {
+            current = { draftId: null, draft: null };
+            dirty = {};
+            resetApprovals();
+            draftMeta.textContent = '';
+            draftBody.hidden = true;
+            draftEmpty.hidden = false;
+            setNote('');
+            syncSummary();
+        }
+
+        function refreshFailed(reason) {
+            if (current.draft) {
+                setNote(reason + ' Showing the last loaded draft.', true);
+            } else {
+                draftBody.hidden = true;
+                draftEmpty.hidden = true;
+                setNote('Could not load the draft. ' + reason, true);
+            }
+            return { status: 'error', error: reason };
+        }
+
+        function normalizeDraft(payload) {
+            if (!payload || typeof payload !== 'object') return null;
+            var draft = payload.draft && typeof payload.draft === 'object' ? payload.draft : payload;
+            if (!draft.blog && !draft.newsletter && !draft.social) return null;
+            var id = payload.draftId || payload.id || draft.draftId || draft.id ||
+                (draft._meta && draft._meta.draftId) || 'current';
+            return { draftId: String(id), draft: draft };
+        }
+
+        function expireSession() {
+            if (window.adminSession) window.adminSession.logout();
+        }
+
+        // ---- loadDraft ----
+
+        // Fetches the current draft and renders it. Safe to call repeatedly (Task 6 polls it
+        // every 5 s): overlapping calls share one request, and a re-render of the same draft
+        // never overwrites fields the user has edited or is focused on, nor approval state.
+        // Resolves to { status: 'loaded' | 'empty' | 'error' | 'unauthenticated', ... }.
+        function loadDraft() {
+            if (inflight) return inflight;
+            inflight = fetchDraft().then(function (r) {
+                inflight = null;
+                return r;
+            }, function (err) {
+                inflight = null;
+                return refreshFailed('Unexpected error: ' + (err && err.message ? err.message : err) + '.');
+            });
+            return inflight;
+        }
+
+        function fetchDraft() {
+            var token = window.adminSession && window.adminSession.getToken();
+            if (!token) {
+                expireSession();
+                return Promise.resolve({ status: 'unauthenticated' });
+            }
+
+            return fetch(DRAFT_ENDPOINT, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json', 'x-admin-token': token },
+                credentials: 'same-origin',
+                cache: 'no-store'
+            }).then(function (res) {
+                if (res.status === 401 || res.status === 403) {
+                    expireSession();
+                    return { status: 'unauthenticated' };
+                }
+                if (res.status === 404) {
+                    showEmpty();
+                    return { status: 'empty' };
+                }
+                if (!res.ok) return refreshFailed('Server error ' + res.status + '.');
+
+                return res.json().then(function (payload) {
+                    var n = normalizeDraft(payload);
+                    if (!n) {
+                        showEmpty();
+                        return { status: 'empty' };
+                    }
+                    render(n.draftId, n.draft);
+                    setNote('');
+                    return { status: 'loaded', draftId: n.draftId };
+                }, function () {
+                    return refreshFailed('The server sent a draft that could not be read.');
+                });
+            }, function () {
+                return refreshFailed('Could not reach the server.');
+            });
+        }
+
+        // ---- output for Task 4 ----
+
+        function getApprovedItems() {
+            return R.ITEMS.filter(function (k) { return approvalState[k] === 'approved'; });
+        }
+
+        // Current field values, shaped like the draft so the endpoint can deep-merge them.
+        // Hashtags are bare strings (no "#"), matching what the content engine writes.
+        function getEditedContent() {
+            var out = { social: {} };
+            if (!missing.newsletter) {
+                out.newsletter = { subject: el('newsletter', '.subject-field').value.trim() };
+            }
+            R.SOCIAL.forEach(function (t) {
+                if (missing[t]) return;
+                out.social[t] = {
+                    caption: el(t, '.caption-field').value.trim(),
+                    hashtags: R.parseHashtags(el(t, '.hashtags-field').value)
+                };
+            });
+            return out;
+        }
+
+        function setPublishing(on) {
+            publishing = on;
+            publishBtn.textContent = on ? 'Publishing...' : 'Approve & Publish All';
+            R.ITEMS.forEach(syncCard);
+            syncSummary();
+        }
+
+        function publishApproved() {
+            var items = getApprovedItems();
+            if (!items.length || publishing || !current.draftId) return Promise.resolve(null);
+
+            var names = items.map(function (k) { return R.LABELS[k]; }).join(', ');
+            var ok = window.confirm('Publish ' + items.length + ' approved item' +
+                (items.length === 1 ? '' : 's') + '?\n\n' + names +
+                '\n\nPending and rejected items are skipped.');
+            if (!ok) return Promise.resolve(null);
+
+            var token = window.adminSession && window.adminSession.getToken();
+            if (!token) {
+                expireSession();
+                return Promise.resolve(null);
+            }
+
+            setPublishing(true);
+            setPublishMessage('Publishing ' + items.length + ' item' + (items.length === 1 ? '' : 's') + '...', 'info');
+
+            return fetch(APPROVE_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+                credentials: 'same-origin',
+                body: JSON.stringify({
+                    draftId: current.draftId,
+                    approvedItems: items,
+                    editedContent: getEditedContent()
+                })
+            }).then(function (res) {
+                return res.json().catch(function () { return {}; }).then(function (data) {
+                    if (res.status === 401 || res.status === 403) {
+                        expireSession();
+                    } else if (res.ok && data.success) {
+                        setPublishMessage('Published ' + items.length + ' item' +
+                            (items.length === 1 ? '' : 's') + ': ' + names + '.', 'ok');
+                    } else if (res.status === 404 && !data.error) {
+                        setPublishMessage('The publish endpoint is not available yet. Nothing was published.', 'error');
+                    } else {
+                        setPublishMessage('Publish failed: ' + (data.error || 'server error ' + res.status) + '.', 'error');
+                    }
+                    return { status: res.status, data: data };
+                });
+            }, function () {
+                setPublishMessage('Could not reach the server. Check the publish history before trying again.', 'error');
+                return null;
+            }).then(function (r) {
+                setPublishing(false);
+                // Show the new publish-log entry straight away rather than on the next poll.
+                if (typeof window.loadHistory === 'function') window.loadHistory();
+                return r;
+            });
+        }
+
+        function resetAll() {
+            if (!current.draft || publishing) return;
+            var changed = Object.keys(dirty).length > 0 ||
+                R.ITEMS.some(function (k) { return approvalState[k] !== 'pending'; });
+            if (changed && !window.confirm('Discard your edits and set every item back to pending?')) return;
+            dirty = {};
+            resetApprovals();
+            R.ITEMS.forEach(function (t) { populate(t, true); });
+            syncAll();
+            setPublishMessage('');
+        }
+
+        // ---- events ----
+
+        dashboardEl.addEventListener('input', function (event) {
+            var target = event.target;
+            var c = target.closest('.content-card');
+            if (!c) return;
+            var type = c.getAttribute('data-type');
+            fieldsOf(type).forEach(function (f) {
+                if (target.matches(f[1])) dirty[type + '.' + f[0]] = true;
+            });
+            validateItem(type);
+            syncSummary();
+        });
+
+        dashboardEl.addEventListener('click', function (event) {
+            var btn = event.target.closest('.btn-approve, .btn-reject');
+            if (!btn || btn.disabled) return;
+            var type = btn.closest('.content-card').getAttribute('data-type');
+            setStatus(type, btn.classList.contains('btn-approve') ? 'approved' : 'rejected');
+        });
+
+        publishBtn.addEventListener('click', publishApproved);
+        resetBtn.addEventListener('click', resetAll);
+
+        // ---- public API (Tasks 4 and 6) ----
+
+        window.loadDraft = loadDraft;
+        window.adminDashboard = {
+            loadDraft: loadDraft,
+            validateItem: validateItem,
+            getDraftId: function () { return current.draftId; },
+            getApprovedItems: getApprovedItems,
+            getEditedContent: getEditedContent,
+            publishApproved: publishApproved,
+            reset: resetAll
+        };
+
+        // ---- start ----
+
+        syncSummary();
+        window.onAdminAuthenticated = function () { loadDraft(); };
+        // The auth script runs first and may already have shown the dashboard.
+        if (!dashboardEl.hidden && window.adminSession && window.adminSession.getToken()) {
+            loadDraft();
+        }
+    })();
+    </script>
+
+    <!-- Publish history: formatting, merging and fetching. No DOM access (unit-tested by
+         tests/integration/admin-history.test.js, which runs this block in node:vm). -->
+    <script id="history-rules">
+    (function (root) {
+        'use strict';
+
+        var SOCIAL = ['instagram', 'tiktok', 'linkedin', 'x', 'facebook', 'youtube'];
+        var ORDER = ['blog', 'newsletter'].concat(SOCIAL);
+        var LABELS = {
+            blog: 'Blog',
+            newsletter: 'Newsletter',
+            instagram: 'Instagram',
+            tiktok: 'TikTok',
+            linkedin: 'LinkedIn',
+            x: 'X',
+            facebook: 'Facebook',
+            youtube: 'YouTube'
+        };
+        var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        // success/partial -> ✓, failure -> ✗, publishing -> in progress.
+        var STATUS = {
+            success: { symbol: '✓', label: 'Success', tone: 'ok' },
+            partial: { symbol: '✓', label: 'Partial', tone: 'partial' },
+            failure: { symbol: '✗', label: 'Failed', tone: 'fail' },
+            publishing: { symbol: '…', label: 'In progress', tone: 'pending' }
+        };
+
+        function str(v) { return v == null ? '' : String(v); }
+        function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+        function label(item) {
+            var k = str(item);
+            return LABELS[k] || (k ? k.charAt(0).toUpperCase() + k.slice(1) : 'Unknown');
+        }
+
+        function toDate(ts) {
+            var d = new Date(ts);
+            return ts == null || isNaN(d.getTime()) ? null : d;
+        }
+
+        // Built by hand, not with toLocaleString: newer ICU puts a narrow no-break
+        // space before AM/PM, which pastes badly into tickets and search boxes.
+        function clock(d) {
+            var h = d.getUTCHours();
+            return (h % 12 || 12) + ':' + pad(d.getUTCMinutes()) + ' ' + (h < 12 ? 'AM' : 'PM') + ' UTC';
+        }
+
+        // "Sep 22, 10:30 AM UTC"; the year is added when it is not the current one.
+        function formatShort(ts, now) {
+            var d = toDate(ts);
+            if (!d) return ts ? str(ts) : 'Unknown date';
+            var year = new Date(now == null ? Date.now() : now).getUTCFullYear();
+            var day = MONTHS[d.getUTCMonth()] + ' ' + d.getUTCDate();
+            if (d.getUTCFullYear() !== year) day += ' ' + d.getUTCFullYear();
+            return day + ', ' + clock(d);
+        }
+
+        // "2026-09-22 10:30 AM UTC"
+        function formatLong(ts) {
+            var d = toDate(ts);
+            if (!d) return ts ? str(ts) : 'Unknown date';
+            return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()) + ' ' + clock(d);
+        }
+
+        function statusInfo(status) {
+            return STATUS[status] || { symbol: '?', label: status ? str(status) : 'Unknown', tone: 'pending' };
+        }
+
+        function list(v) { return Array.isArray(v) ? v : []; }
+
+        function byOrder(a, b) {
+            var ia = ORDER.indexOf(a), ib = ORDER.indexOf(b);
+            return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+        }
+
+        // Accepts [{ item, error }] (what admin-action.js writes) or plain strings.
+        function errorsOf(entry) {
+            return list(entry && entry.errors).map(function (e) {
+                if (e && typeof e === 'object') return { item: str(e.item), error: str(e.error || e.message) || 'Unknown error' };
+                return { item: '', error: str(e) || 'Unknown error' };
+            });
+        }
+
+        // "Blog, Newsletter, 3 social" (or "None").
+        function itemsSummary(entry) {
+            if (entry && entry.status === 'publishing') return 'Publishing...';
+            var items = list(entry && entry.itemsPublished).map(str).slice().sort(byOrder);
+            if (!items.length) return 'None';
+            var parts = [];
+            var social = 0;
+            items.forEach(function (i) {
+                if (SOCIAL.indexOf(i) !== -1) social++;
+                else parts.push(label(i));
+            });
+            if (social) parts.push(social + ' social');
+            return parts.join(', ');
+        }
+
+        // "2 failed · 1 skipped"
+        function itemsSubline(entry) {
+            var bits = [];
+            var failed = errorsOf(entry).length;
+            var skipped = list(entry && entry.itemsSkipped).length;
+            if (failed) bits.push(failed + ' failed');
+            if (skipped) bits.push(skipped + ' skipped');
+            return bits.join(' · ');
+        }
+
+        function clip(text, max) {
+            text = str(text).replace(/\s+/g, ' ').trim();
+            return text.length > max ? text.slice(0, max - 3) + '...' : text;
+        }
+
+        // Plain text for the expanded row. Rendered with textContent into a <pre>,
+        // so it copies exactly as shown.
+        function detailsText(entry) {
+            var e = entry || {};
+            var info = statusInfo(e.status);
+            var errors = errorsOf(e);
+            var published = list(e.itemsPublished).map(str).slice().sort(byOrder);
+            var skipped = list(e.itemsSkipped).map(str).slice().sort(byOrder);
+            var lines = [
+                'Publishing: ' + formatLong(e.timestamp),
+                'Draft: ' + (e.draftId ? str(e.draftId) : 'unknown'),
+                'Status: ' + info.label,
+                ''
+            ];
+
+            lines.push('Published: ' + (published.length
+                ? published.map(function (i) { return label(i) + ' ✓'; }).join(', ')
+                : (e.status === 'publishing' ? 'none yet' : 'none')));
+            if (errors.length) {
+                lines.push('Failed: ' + errors.map(function (x) {
+                    return (x.item ? label(x.item) : 'General') + ' ✗ (' + clip(x.error, 40) + ')';
+                }).join(', '));
+            }
+            if (skipped.length) {
+                lines.push('Skipped: ' + skipped.map(label).join(', '));
+            }
+
+            lines.push('');
+            if (errors.length) {
+                lines.push('Errors:');
+                errors.forEach(function (x) {
+                    lines.push((x.item ? label(x.item) : 'General') + ': ' + x.error);
+                });
+            } else {
+                lines.push(e.status === 'publishing' ? 'Errors: none so far' : 'Errors: none');
+            }
+            return lines.join('\n');
+        }
+
+        function entryKey(entry) {
+            return str(entry && entry.draftId) + '|' + str(entry && entry.timestamp);
+        }
+
+        function time(entry) {
+            var d = toDate(entry && entry.timestamp);
+            return d ? d.getTime() : -Infinity;
+        }
+
+        // Newest first; entries with an unreadable timestamp go last.
+        function sortEntries(entries) {
+            return list(entries).slice().sort(function (a, b) { return time(b) - time(a); });
+        }
+
+        function isEntry(e) {
+            return !!e && typeof e === 'object' && !Array.isArray(e) && (e.timestamp != null || e.draftId != null);
+        }
+
+        // Adds new entries and updates changed ones without dropping entries the client
+        // already has. The exception is an in-progress marker that the server no longer
+        // lists: admin-action.js replaces it with the final entry, so keeping it would
+        // leave a stale "In progress" row.
+        function mergeEntries(previous, incoming) {
+            var byKey = {};
+            var keys = [];
+            list(incoming).filter(isEntry).forEach(function (e) {
+                var k = entryKey(e);
+                if (!(k in byKey)) keys.push(k);
+                byKey[k] = e;
+            });
+            list(previous).forEach(function (e) {
+                var k = entryKey(e);
+                if (k in byKey || e.status === 'publishing') return;
+                keys.push(k);
+                byKey[k] = e;
+            });
+            return sortEntries(keys.map(function (k) { return byKey[k]; }));
+        }
+
+        function parsePayload(payload) {
+            if (Array.isArray(payload)) return payload;
+            if (payload && Array.isArray(payload.entries)) return payload.entries;
+            return null;
+        }
+
+        // Builds loadHistory(). deps:
+        //   fetch(url, init)       window.fetch
+        //   getToken()             session token or null
+        //   onUnauthenticated()    clears the session and shows the login form
+        //   render(entries, info)  draws the table; info = { error } on failure
+        //   endpoint               defaults to /admin-action/publish-log
+        // load() resolves to { status: 'loaded' | 'empty' | 'error' | 'unauthenticated', ... }
+        // and never rejects. Overlapping calls share one request.
+        function createHistoryLoader(deps) {
+            var endpoint = deps.endpoint || '/admin-action/publish-log';
+            var entries = [];
+            var inflight = null;
+
+            function render(info) {
+                if (deps.render) deps.render(entries, info || {});
+            }
+
+            function unauthenticated() {
+                entries = [];
+                render({});
+                if (deps.onUnauthenticated) deps.onUnauthenticated();
+                return { status: 'unauthenticated' };
+            }
+
+            function failed(reason) {
+                render({ error: reason });
+                return { status: 'error', error: reason, count: entries.length };
+            }
+
+            function run() {
+                var token = deps.getToken ? deps.getToken() : null;
+                if (!token) return Promise.resolve(unauthenticated());
+
+                return Promise.resolve().then(function () {
+                    return deps.fetch(endpoint, {
+                        method: 'GET',
+                        headers: { 'Accept': 'application/json', 'x-admin-token': token },
+                        credentials: 'same-origin',
+                        cache: 'no-store'
+                    });
+                }).then(function (res) {
+                    if (res.status === 401 || res.status === 403) return unauthenticated();
+                    if (!res.ok) return failed('Server error ' + res.status + '.');
+                    return res.json().then(function (payload) {
+                        var incoming = parsePayload(payload);
+                        if (!incoming) return failed('The server sent a publish log that could not be read.');
+                        entries = mergeEntries(entries, incoming);
+                        render({});
+                        return { status: entries.length ? 'loaded' : 'empty', count: entries.length };
+                    }, function () {
+                        return failed('The server sent a publish log that could not be read.');
+                    });
+                }, function () {
+                    return failed('Could not reach the server.');
+                });
+            }
+
+            function load() {
+                if (inflight) return inflight;
+                inflight = run().then(function (r) {
+                    inflight = null;
+                    return r;
+                }, function (err) {
+                    inflight = null;
+                    return failed('Unexpected error: ' + (err && err.message ? err.message : err) + '.');
+                });
+                return inflight;
+            }
+
+            return {
+                load: load,
+                getEntries: function () { return entries.slice(); }
+            };
+        }
+
+        root.AdminHistory = {
+            STATUS: STATUS,
+            LABELS: LABELS,
+            formatShort: formatShort,
+            formatLong: formatLong,
+            statusInfo: statusInfo,
+            itemsSummary: itemsSummary,
+            itemsSubline: itemsSubline,
+            detailsText: detailsText,
+            entryKey: entryKey,
+            sortEntries: sortEntries,
+            mergeEntries: mergeEntries,
+            createHistoryLoader: createHistoryLoader
+        };
+    })(window);
+    </script>
+
+    <!-- Publish history table: rendering, expand/collapse, copy. -->
+    <script>
+    (function () {
+        'use strict';
+
+        var H = window.AdminHistory;
+        var historyEl = document.getElementById('publish-history');
+        var table = document.getElementById('history-table');
+        var tbody = document.getElementById('history-rows');
+        var emptyEl = document.getElementById('history-empty');
+        var noteEl = document.getElementById('history-note');
+
+        var rows = {};   // key -> { main, detail, sig }
+        var seq = 0;
+        var loadedOnce = false;
+
+        function make(tag, className, text) {
+            var node = document.createElement(tag);
+            if (className) node.className = className;
+            if (text != null) node.textContent = text;
+            return node;
+        }
+
+        function fillMain(row, entry) {
+            var info = H.statusInfo(entry.status);
+            var cells = row.main.children;
+
+            var date = cells[0].firstChild;
+            date.textContent = H.formatShort(entry.timestamp);
+            date.setAttribute('datetime', String(entry.timestamp || ''));
+            date.title = H.formatLong(entry.timestamp);
+
+            var badge = cells[1].firstChild;
+            badge.className = 'history-status is-' + info.tone;
+            badge.firstChild.textContent = info.symbol;
+            badge.lastChild.textContent = info.label;
+
+            cells[2].querySelector('.history-items').textContent = H.itemsSummary(entry);
+            cells[2].querySelector('.history-sub').textContent = H.itemsSubline(entry);
+
+            row.detail.querySelector('.history-log').textContent = H.detailsText(entry);
+        }
+
+        function buildRow(entry) {
+            var id = 'history-detail-' + (++seq);
+            var main = make('tr', 'history-row');
+
+            var tdDate = make('td');
+            tdDate.setAttribute('data-label', 'Date');
+            tdDate.appendChild(make('time', 'history-date'));
+
+            var tdStatus = make('td');
+            tdStatus.setAttribute('data-label', 'Status');
+            var badge = make('span', 'history-status');
+            var sym = make('span', 'sym');
+            sym.setAttribute('aria-hidden', 'true');
+            badge.appendChild(sym);
+            badge.appendChild(make('span', 'txt'));
+            tdStatus.appendChild(badge);
+
+            var tdItems = make('td');
+            tdItems.setAttribute('data-label', 'Items');
+            var val = make('span', 'history-val');
+            val.appendChild(make('span', 'history-items'));
+            val.appendChild(make('span', 'history-sub'));
+            tdItems.appendChild(val);
+
+            var tdDetails = make('td');
+            tdDetails.setAttribute('data-label', 'Details');
+            var toggle = make('button', 'history-toggle');
+            toggle.type = 'button';
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-controls', id);
+            toggle.appendChild(make('span', 'lbl', 'Click to expand'));
+            var chev = make('span', 'chev', '›');
+            chev.setAttribute('aria-hidden', 'true');
+            toggle.appendChild(chev);
+            tdDetails.appendChild(toggle);
+
+            main.appendChild(tdDate);
+            main.appendChild(tdStatus);
+            main.appendChild(tdItems);
+            main.appendChild(tdDetails);
+
+            var detail = make('tr', 'history-detail');
+            detail.id = id;
+            detail.hidden = true;
+            var td = make('td');
+            td.colSpan = 4;
+            td.appendChild(make('pre', 'history-log'));
+            var copy = make('button', 'btn btn-ghost history-copy', 'Copy details');
+            copy.type = 'button';
+            td.appendChild(copy);
+            detail.appendChild(td);
+
+            return { main: main, detail: detail, sig: null };
+        }
+
+        // Reconciles rows by entry key instead of rebuilding the table, so a 5 s poll
+        // keeps expanded rows open and does not wipe a text selection in progress.
+        function render(entries, info) {
+            var live = {};
+            var cursor = tbody.firstChild;
+
+            entries.forEach(function (entry) {
+                var key = H.entryKey(entry);
+                var row = rows[key] || (rows[key] = buildRow(entry));
+                var sig = JSON.stringify(entry);
+                if (row.sig !== sig) {
+                    fillMain(row, entry);
+                    row.sig = sig;
+                }
+                live[key] = true;
+                [row.main, row.detail].forEach(function (node) {
+                    if (node === cursor) cursor = cursor.nextSibling;
+                    else tbody.insertBefore(node, cursor);
+                });
+            });
+
+            Object.keys(rows).forEach(function (key) {
+                if (live[key]) return;
+                tbody.removeChild(rows[key].main);
+                tbody.removeChild(rows[key].detail);
+                delete rows[key];
+            });
+
+            if (!info.error) loadedOnce = true;
+            table.hidden = entries.length === 0;
+            emptyEl.hidden = entries.length > 0 || !loadedOnce;
+
+            if (info.error) {
+                noteEl.textContent = entries.length
+                    ? info.error + ' Showing the last loaded history.'
+                    : 'Could not load publish history. ' + info.error;
+                noteEl.classList.add('is-error');
+            } else {
+                noteEl.textContent = '';
+                noteEl.classList.remove('is-error');
+            }
+        }
+
+        function setOpen(toggle, open) {
+            var detail = document.getElementById(toggle.getAttribute('aria-controls'));
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.querySelector('.lbl').textContent = open ? 'Hide details' : 'Click to expand';
+            toggle.closest('tr').classList.toggle('is-open', open);
+            if (detail) detail.hidden = !open;
+        }
+
+        function selectText(node) {
+            try {
+                var range = document.createRange();
+                range.selectNodeContents(node);
+                var sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+            } catch (e) { /* ignore */ }
+        }
+
+        function copyDetails(btn) {
+            var pre = btn.parentNode.querySelector('.history-log');
+            var text = pre.textContent;
+            var done = function (msg) {
+                btn.textContent = msg;
+                setTimeout(function () { btn.textContent = 'Copy details'; }, 1600);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function () { done('Copied'); }, function () {
+                    selectText(pre);
+                    done('Selected: press Ctrl+C');
+                });
+            } else {
+                selectText(pre);
+                done('Selected: press Ctrl+C');
+            }
+        }
+
+        tbody.addEventListener('click', function (event) {
+            var toggle = event.target.closest('.history-toggle');
+            if (toggle) {
+                setOpen(toggle, toggle.getAttribute('aria-expanded') !== 'true');
+                return;
+            }
+            var copy = event.target.closest('.history-copy');
+            if (copy) copyDetails(copy);
+        });
+
+        var loader = H.createHistoryLoader({
+            fetch: function (url, init) { return window.fetch(url, init); },
+            getToken: function () { return window.adminSession ? window.adminSession.getToken() : null; },
+            onUnauthenticated: function () { if (window.adminSession) window.adminSession.logout(); },
+            render: render
+        });
+
+        // ---- public API (Task 6 polls this every 5 s) ----
+
+        window.loadHistory = loader.load;
+
+        // ---- start ----
+
+        var previousAuth = window.onAdminAuthenticated;
+        window.onAdminAuthenticated = function (token) {
+            if (typeof previousAuth === 'function') previousAuth(token);
+            loader.load();
+        };
+        // The auth script runs first and may already have shown the dashboard.
+        if (!historyEl.hidden && window.adminSession && window.adminSession.getToken()) {
+            loader.load();
+        }
+    })();
+    </script>
+
+    <!-- Auto-refresh polling (Task 6): the loop itself. No DOM access (unit-tested by
+         tests/integration/admin-polling.test.js, which runs this block in node:vm). -->
+    <script id="polling-rules">
+    (function (root) {
+        'use strict';
+
+        var INTERVAL_MS = 5000;
+
+        function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+        // "10:35:05", local time. Built by hand: toLocaleTimeString output varies by ICU build.
+        function formatClock(d) {
+            return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+        }
+
+        // Runs a loader and turns a throw or rejection into an error result, so one broken
+        // loader never stops the other or the loop.
+        function safeCall(fn) {
+            return Promise.resolve().then(function () {
+                return typeof fn === 'function' ? fn() : { status: 'error', error: 'Loader missing.' };
+            }).then(function (r) {
+                return r || { status: 'loaded' };
+            }, function (err) {
+                return { status: 'error', error: err && err.message ? err.message : String(err) };
+            });
+        }
+
+        // Builds the refresh loop. deps:
+        //   loadDraft(), loadHistory()   resolve to { status: 'loaded'|'empty'|'error'|'unauthenticated' }
+        //   getToken()                   session token or null
+        //   onRefresh(date, info)        called after each poll that did not end the session;
+        //                                info = { ok, results: [draft, history] }
+        //   setInterval, clearInterval   injectable for tests (default: global timers)
+        //   now()                        defaults to new Date()
+        //   intervalMs                   defaults to 5000
+        function createPoller(deps) {
+            var intervalMs = deps.intervalMs || INTERVAL_MS;
+            var setIntervalFn = deps.setInterval || function (f, ms) { return setInterval(f, ms); };
+            var clearIntervalFn = deps.clearInterval || function (id) { clearInterval(id); };
+            var now = deps.now || function () { return new Date(); };
+            var timer = null;
+            var busy = null;
+
+            function stop() {
+                if (timer !== null) clearIntervalFn(timer);
+                timer = null;
+            }
+
+            // One poll. A tick that lands while the previous poll is still out is skipped
+            // (returns that poll's promise) rather than stacking requests.
+            function refresh() {
+                if (busy) return busy;
+                if (!deps.getToken || !deps.getToken()) {
+                    stop();
+                    return Promise.resolve({ status: 'unauthenticated' });
+                }
+                busy = Promise.all([safeCall(deps.loadDraft), safeCall(deps.loadHistory)])
+                    .then(function (results) {
+                        busy = null;
+                        var ended = results.some(function (r) { return r.status === 'unauthenticated'; });
+                        if (ended) {
+                            // The loaders already cleared the session and showed the login form.
+                            stop();
+                            return { status: 'unauthenticated', results: results };
+                        }
+                        var ok = results.every(function (r) { return r.status !== 'error'; });
+                        try {
+                            if (deps.onRefresh) deps.onRefresh(now(), { ok: ok, results: results });
+                        } catch (e) { /* a display glitch must not stop the loop */ }
+                        return { status: ok ? 'ok' : 'error', results: results };
+                    });
+                return busy;
+            }
+
+            // Polls now, then every intervalMs. Calling it again restarts the loop.
+            function start() {
+                stop();
+                timer = setIntervalFn(refresh, intervalMs);
+                return refresh();
+            }
+
+            return {
+                start: start,
+                stop: stop,
+                refresh: refresh,
+                isRunning: function () { return timer !== null; }
+            };
+        }
+
+        root.AdminPolling = {
+            INTERVAL_MS: INTERVAL_MS,
+            formatClock: formatClock,
+            createPoller: createPoller
+        };
+    })(window);
+    </script>
+
+    <!-- Auto-refresh polling: timestamp display and start/stop wiring. -->
+    <script>
+    (function () {
+        'use strict';
+
+        var P = window.AdminPolling;
+        var statusEl = document.getElementById('refresh-status');
+        var timeEl = document.getElementById('last-refresh-time');
+        var lastGood = null;
+
+        function showStatus(visible) {
+            statusEl.hidden = !visible;
+        }
+
+        // The time shown is the last refresh where both loaders succeeded. If a poll fails,
+        // that time stays, the dot turns amber, and the loaders show their own error notes.
+        function updateLastRefreshTime(date, info) {
+            if (info.ok) {
+                lastGood = date;
+                timeEl.textContent = P.formatClock(date);
+                statusEl.classList.remove('is-stale');
+                statusEl.title = 'Refreshes every ' + (P.INTERVAL_MS / 1000) + ' seconds';
+            } else {
+                statusEl.classList.add('is-stale');
+                statusEl.title = 'The last refresh failed. Retrying every ' + (P.INTERVAL_MS / 1000) + ' seconds.' +
+                    (lastGood ? '' : ' No refresh has succeeded yet.');
+                if (!lastGood) timeEl.textContent = 'Not yet';
+            }
+        }
+
+        var poller = P.createPoller({
+            loadDraft: function () { return window.loadDraft(); },
+            loadHistory: function () { return window.loadHistory(); },
+            getToken: function () { return window.adminSession ? window.adminSession.getToken() : null; },
+            onRefresh: updateLastRefreshTime
+        });
+
+        function startPolling() {
+            showStatus(true);
+            return poller.start();
+        }
+
+        function stopPolling() {
+            poller.stop();
+            showStatus(false);
+        }
+
+        window.startPolling = startPolling;
+        window.stopPolling = stopPolling;
+        window.refreshDashboard = poller.refresh;
+
+        // ---- start ----
+
+        var previousAuth = window.onAdminAuthenticated;
+        window.onAdminAuthenticated = function (token) {
+            // The earlier handlers load the draft and history; the first poll shares
+            // those in-flight requests rather than sending new ones.
+            if (typeof previousAuth === 'function') previousAuth(token);
+            startPolling();
+        };
+        // The auth script runs first and may already have shown the dashboard.
+        if (!document.getElementById('dashboard').hidden &&
+            window.adminSession && window.adminSession.getToken()) {
+            startPolling();
+        }
+    })();
+    </script>
+</body>
+</html>

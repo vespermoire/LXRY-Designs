@@ -1225,6 +1225,13 @@
         .footer-bottom .legal-note a { color: var(--accent-teal); text-decoration: none; }
         .footer-bottom .legal-note a:hover { text-decoration: underline; }
         .footer-bottom .copyright { color: var(--text-muted); }
+        /* Admin-only "Operations" link (shown by the script after the footer). The
+           separator lives in ::before so it disappears with the link. */
+        .footer-bottom .legal-note .admin-link::before {
+            content: "\00a0·\00a0";
+            display: inline-block;
+            color: var(--text-muted);
+        }
 
         /* Responsive */
         @media (max-width: 1024px) {
@@ -2320,10 +2327,32 @@
         </div>
 
         <div class="footer-bottom">
-            <span class="legal-note"><a href="/privacy" data-i18n="foot.privacy">Privacy Policy</a> · <a href="/legal" data-i18n="foot.legalnotice">Legal Notice</a> · <span data-i18n="foot.mapcredit">Map © OpenStreetMap contributors</span></span>
+            <span class="legal-note"><a href="/privacy" data-i18n="foot.privacy">Privacy Policy</a> · <a href="/legal" data-i18n="foot.legalnotice">Legal Notice</a><a href="/admin" id="admin-link" class="admin-link" style="display: none;" data-i18n="foot.admin">Operations</a> · <span data-i18n="foot.mapcredit">Map © OpenStreetMap contributors</span></span>
             <span class="copyright">© 2026 LXRY Designs Ltd · Divonne-les-Bains, France</span>
         </div>
     </footer>
+
+    <!-- Footer "Operations" link: visible only while the admin session saved by
+         /admin (admin.html, key "admin_session") is present and unexpired. This is
+         a convenience, not access control: /admin still asks for the password and
+         every admin API call checks the token server-side.
+         Tested by tests/integration/admin-e2e.test.js, which runs this block in node:vm. -->
+    <script id="admin-link-script">
+    (function () {
+        var link = document.getElementById('admin-link');
+        if (!link) return;
+        var s = null;
+        try {
+            s = JSON.parse(window.localStorage.getItem('admin_session') || 'null');
+        } catch (e) {
+            s = null; // storage blocked or corrupted value
+        }
+        var loggedIn = !!s && typeof s.token === 'string' && s.token !== '' &&
+            typeof s.timestamp === 'number' && typeof s.ttl === 'number' &&
+            s.timestamp + s.ttl > Date.now();
+        link.style.display = loggedIn ? 'inline' : 'none';
+    })();
+    </script>
 
     <!-- Chat widget -->
     <button class="chat-launcher" id="chatLauncher" aria-expanded="false" aria-controls="chatPanel" aria-label="Chat with us">
@@ -2572,6 +2601,7 @@
                 "foot.addr": "Divonne-les-Bains, France<br>Au service de Genève &amp; du Pays de Gex<br>CHF · EUR",
                 "foot.privacy": "Politique de confidentialité",
                 "foot.legalnotice": "Mentions légales",
+                "foot.admin": "Opérations",
                 "foot.mapcredit": "Carte © contributeurs OpenStreetMap",
                 "process.h2b": ""
             }
