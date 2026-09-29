@@ -2355,6 +2355,12 @@
         /* ---------- Language toggle (FR / EN) ---------- */
         const I18N = {
             fr: {
+                "pop.eyebrow": "Kit gratuit",
+                "pop.h2": "Récupérez 10 h+ par semaine",
+                "pop.intro": "Recevez le Kit de démarrage automatisation IA gratuit et notre newsletter actualités IA — les dernières avancées, résumées. Désabonnement à tout moment.",
+                "pop.email": "E-mail",
+                "pop.consent": "J'accepte la <a href=\"/privacy\">Politique de confidentialité</a>.",
+                "pop.btn": "Envoyez-moi le Kit",
                 "nl.eyebrow": "L'IA, décryptée",
                 "nl.h2": "L'avantage IA pour votre entreprise",
                 "nl.intro": "Rejoignez notre newsletter pour les dernières avancées de l'IA — filtrées pour les dirigeants occupés, sans battage. Abonnez-vous et recevez le Kit de démarrage automatisation IA gratuit.",
@@ -2794,6 +2800,77 @@
                 });
             });
         }
+    </script>
+    <!-- Newsletter popup (subtle, once per visitor) -->
+    <style>
+        .nl-popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.62); backdrop-filter: blur(2px);
+            display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+        .nl-popup-overlay.show { display: flex; }
+        .nl-popup { position: relative; background: #0F1514; border: 1px solid #20302D; border-radius: 16px;
+            max-width: 460px; width: 100%; padding: 36px 28px 30px; text-align: center; animation: nl-pop-in 0.3s ease; }
+        @keyframes nl-pop-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        .nl-popup .nl-eyebrow { font-family:'JetBrains Mono',ui-monospace,monospace; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:#27F4D2; margin-bottom:10px; }
+        .nl-popup h2 { font-family:'Jura','Inter',sans-serif; color:#E9EDEC; font-size:1.5rem; margin-bottom:8px; }
+        .nl-popup p.nl-intro { color:#8C9694; font-size:0.92rem; line-height:1.5; margin-bottom:22px; }
+        .nl-popup-close { position:absolute; top:8px; right:12px; background:none; border:none; color:#8C9694; font-size:1.7rem; line-height:1; cursor:pointer; padding:6px; }
+        .nl-popup-close:hover { color:#27F4D2; }
+        @media (prefers-reduced-motion: reduce) { .nl-popup { animation: none; } }
+    </style>
+    <div class="nl-popup-overlay" id="nlPopup" role="dialog" aria-modal="true" aria-labelledby="nlPopupTitle" aria-hidden="true">
+        <div class="nl-popup">
+            <button class="nl-popup-close" id="nlPopupClose" aria-label="Close">&times;</button>
+            <p class="nl-eyebrow" data-i18n="pop.eyebrow">Free Starter Kit</p>
+            <h2 id="nlPopupTitle" data-i18n="pop.h2">Get 10+ hours back a week</h2>
+            <p class="nl-intro" data-i18n="pop.intro">Grab the free AI Automation Starter Kit and our AI-news newsletter — the latest developments, distilled. Unsubscribe anytime.</p>
+            <form class="lxry-signup" data-signup
+                  data-loading="Sending…"
+                  data-success="Almost there — check your inbox to confirm and get the Kit."
+                  data-error="Something went wrong — please email hello@lxrydesigns.com.">
+                <p class="sg-hp"><label>Leave this blank <input type="text" name="website" tabindex="-1" autocomplete="off"></label></p>
+                <div class="sg-row"><label for="pop-email" data-i18n="pop.email">Email</label><input id="pop-email" type="email" name="email" autocomplete="email" required></div>
+                <label class="sg-consent"><input type="checkbox" name="consent" required><span data-i18n="pop.consent">I agree to the <a href="/privacy">Privacy Policy</a>.</span></label>
+                <input type="hidden" name="source" value="popup">
+                <button type="submit" data-i18n="pop.btn">Send me the Kit</button>
+                <p data-signup-status></p>
+            </form>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var KEY = 'lxry_kit_seen';
+            var seen = false;
+            try { seen = localStorage.getItem(KEY) === '1'; } catch (e) {}
+            if (seen) return;
+            var overlay = document.getElementById('nlPopup');
+            var closeBtn = document.getElementById('nlPopupClose');
+            if (!overlay) return;
+            var shown = false;
+            function markSeen() { try { localStorage.setItem(KEY, '1'); } catch (e) {} }
+            function cleanup() {
+                window.removeEventListener('scroll', onScroll);
+                document.removeEventListener('mouseout', onExit);
+            }
+            function show() {
+                if (shown) return; shown = true;
+                overlay.classList.add('show');
+                overlay.setAttribute('aria-hidden', 'false');
+                markSeen();
+                cleanup();
+                var email = overlay.querySelector('[name=email]'); if (email) email.focus();
+            }
+            function hide() { overlay.classList.remove('show'); overlay.setAttribute('aria-hidden', 'true'); }
+            function onScroll() {
+                var sc = window.scrollY || document.documentElement.scrollTop;
+                var max = document.documentElement.scrollHeight - window.innerHeight;
+                if (max > 0 && sc / max >= 0.5) show();
+            }
+            function onExit(e) { if (e.clientY <= 0) show(); }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            document.addEventListener('mouseout', onExit);
+            closeBtn.addEventListener('click', hide);
+            overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('show')) hide(); });
+        })();
     </script>
 </body>
 </html>
