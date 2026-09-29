@@ -188,6 +188,15 @@
         ],
         "createdAt": "2026-09-29T09:36:21.907Z",
         "reason": "Brand-styled print/marketing artifact: tight leading is correct for large display headings, negative tracking is mild display tightening, wide tracking is only on uppercase mono labels, and the left accent is a conventional editorial callout — not defects."
+      },
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "starter-kit/starter-kit.html"
+        ],
+        "createdAt": "2026-09-29T11:08:37.877Z",
+        "reason": "Turquoise top-accent on the how-to step cards is intentional brand colour on a print infographic (user asked for more colour, on-brand)."
       }
     ]
   }
