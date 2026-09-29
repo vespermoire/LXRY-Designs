@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Review Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .status.loading {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .status.valid {
+      background: #e8f5e9;
+      color: #388e3c;
+    }
+
+    .status.invalid {
+      background: #ffebee;
+      color: #d32f2f;
+    }
+
+    .errors {
+      background: #ffebee;
+      border: 2px solid #ef5350;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      display: none;
+    }
+
+    .errors.show {
+      display: block;
+    }
+
+    .errors h3 {
+      color: #b71c1c;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .errors ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+
+    .errors li {
+      margin: 8px 0;
+      color: #b71c1c;
+    }
+
+    .errors li:before {
+      content: '✕ ';
+      font-weight: bold;
+      margin-right: 8px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 1200px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .panel-header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-content {
+      padding: 20px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .blog-preview {
+      line-height: 1.8;
+      color: #555;
+    }
+
+    .blog-preview h2 {
+      font-size: 1.8rem;
+      margin: 20px 0 10px 0;
+      color: #333;
+    }
+
+    .blog-preview h3 {
+      font-size: 1.3rem;
+      margin: 15px 0 8px 0;
+      color: #444;
+    }
+
+    .blog-preview p {
+      margin-bottom: 15px;
+    }
+
+    .blog-preview ul, .blog-preview ol {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    .blog-preview li {
+      margin-bottom: 8px;
+    }
+
+    .blog-preview code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+
+    .blog-preview blockquote {
+      border-left: 4px solid #667eea;
+      padding-left: 15px;
+      margin: 15px 0;
+      color: #666;
+      font-style: italic;
+    }
+
+    .newsletter-preview {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      line-height: 1.8;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .social-card {
+      border: 2px solid #f0f0f0;
+      border-radius: 8px;
+      padding: 15px;
+      background: #fafafa;
+    }
+
+    .social-card.instagram { border-left: 4px solid #E1306C; }
+    .social-card.tiktok { border-left: 4px solid #000000; }
+    .social-card.youtube { border-left: 4px solid #FF0000; }
+    .social-card.linkedin { border-left: 4px solid #0077B5; }
+    .social-card.facebook { border-left: 4px solid #1877F2; }
+    .social-card.x { border-left: 4px solid #000000; }
+
+    .social-platform {
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .social-field {
+      margin: 10px 0;
+    }
+
+    .social-field label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #34495e;
+      margin-bottom: 5px;
+    }
+
+    .social-field input,
+    .social-field textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+    }
+
+    .social-field input:focus,
+    .social-field textarea:focus {
+      outline: none;
+      border-color: #2c3e50;
+      box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+    }
+
+    .hashtags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 5px;
+      padding: 10px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      min-height: 40px;
+    }
+
+    .hashtag {
+      background: #e3f2fd;
+      color: #0d47a1;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hashtag-remove {
+      cursor: pointer;
+      color: #0d47a1;
+      font-weight: bold;
+      border: none;
+      background: none;
+      padding: 0;
+      font-size: 1rem;
+    }
+
+    .hashtag-input {
+      border: none;
+      padding: 6px 0;
+      font-size: 0.95rem;
+      flex: 1;
+      min-width: 100px;
+      outline: none;
+    }
+
+    .actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-top: 1px solid #e0e0e0;
+      justify-content: flex-end;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-approve {
+      background: #2c3e50;
+      color: white;
+    }
+
+    .btn-approve:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-approve:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-cancel {
+      background: #e0e0e0;
+      color: #333;
+    }
+
+    .btn-cancel:hover {
+      background: #d0d0d0;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 16px 24px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      animation: slideIn 0.3s ease;
+      max-width: 400px;
+      z-index: 1000;
+    }
+
+    .notification.success {
+      background: #4caf50;
+    }
+
+    .notification.error {
+      background: #f44336;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .metadata {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .metadata-item {
+      font-size: 0.9rem;
+    }
+
+    .metadata-label {
+      color: #555;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .metadata-value {
+      color: #333;
+      font-family: monospace;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Content Review Dashboard</h1>
+      <div class="status loading" id="status">
+        <span class="loading-spinner"></span> Loading draft...
+      </div>
+      <div class="errors" id="errors">
+        <h3>Validation Errors</h3>
+        <ul id="error-list"></ul>
+      </div>
+    </header>
+
+    <div class="layout" id="content" style="display: none;">
+      <!-- Blog & Newsletter Panel -->
+      <div class="panel">
+        <div class="panel-header">
+          📝 Blog & Newsletter
+        </div>
+        <div class="panel-content">
+          <!-- Blog Section -->
+          <div class="blog-section">
+            <h2 id="blog-title" style="font-size: 1.5rem; margin-bottom: 10px;"></h2>
+            <div class="metadata">
+              <div class="metadata-item">
+                <div class="metadata-label">Slug</div>
+                <div class="metadata-value" id="blog-slug"></div>
+              </div>
+              <div class="metadata-item">
+                <div class="metadata-label">Date</div>
+                <div class="metadata-value" id="blog-date"></div>
+              </div>
+            </div>
+            <div class="blog-preview" id="blog-content" style="margin-top: 20px;"></div>
+          </div>
+
+          <!-- Newsletter Section -->
+          <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid #e0e0e0;">
+            <h3 style="margin-bottom: 15px;">📧 Newsletter</h3>
+            <div class="metadata">
+              <div class="metadata-item">
+                <div class="metadata-label">Subject</div>
+                <div class="metadata-value" id="newsletter-subject"></div>
+              </div>
+            </div>
+            <div class="newsletter-preview" id="newsletter-body" style="margin-top: 15px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Media Panel -->
+      <div class="panel">
+        <div class="panel-header">
+          📱 Social Media Posts
+        </div>
+        <div class="panel-content">
+          <div class="social-grid" id="social-posts"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions" id="actions" style="display: none;">
+      <button class="btn-cancel" onclick="location.reload()">Refresh</button>
+      <button class="btn-approve" id="approve-btn" onclick="approveDraft()">
+        ✓ Approve & Publish
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Get query parameters
+    const params = new URLSearchParams(window.location.search);
+    const draftId = params.get('draftId');
+    const token = params.get('token');
+    let currentDraft = null;
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!draftId || !token) {
+        showError('Missing draftId or token in URL');
+        return;
+      }
+
+      await fetchAndDisplayDraft();
+    });
+
+    async function fetchAndDisplayDraft() {
+      try {
+        const response = await fetch(`/.netlify/functions/review-handler?draftId=${encodeURIComponent(draftId)}&token=${encodeURIComponent(token)}`);
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || `Error ${response.status}`);
+        }
+
+        const data = await response.json();
+        currentDraft = data.draft;
+
+        if (data.validationErrors.length > 0) {
+          showValidationErrors(data.validationErrors);
+          document.getElementById('status').className = 'status invalid';
+          document.getElementById('status').textContent = `✕ ${data.validationErrors.length} validation error(s)`;
+        } else {
+          document.getElementById('status').className = 'status valid';
+          document.getElementById('status').textContent = '✓ All validations passed';
+        }
+
+        displayDraft(data.draft);
+        document.getElementById('content').style.display = 'grid';
+        document.getElementById('actions').style.display = 'flex';
+      } catch (error) {
+        showError(error.message);
+      }
+    }
+
+    function displayDraft(draft) {
+      // Blog
+      if (draft.blog) {
+        document.getElementById('blog-title').textContent = draft.blog.title;
+        document.getElementById('blog-slug').textContent = draft.blog.frontmatter.slug;
+        document.getElementById('blog-date').textContent = draft.blog.frontmatter.date;
+        document.getElementById('blog-content').innerHTML = markdownToHtml(draft.blog.content);
+      }
+
+      // Newsletter
+      if (draft.newsletter) {
+        document.getElementById('newsletter-subject').textContent = draft.newsletter.subject;
+        document.getElementById('newsletter-body').innerHTML = draft.newsletter.body;
+      }
+
+      // Social Media
+      displaySocialPosts(draft.social);
+    }
+
+    function displaySocialPosts(social) {
+      const container = document.getElementById('social-posts');
+      container.innerHTML = '';
+
+      const platforms = [
+        { key: 'instagram', name: 'Instagram', emoji: '📷' },
+        { key: 'tiktok', name: 'TikTok', emoji: '🎵' },
+        { key: 'youtube', name: 'YouTube', emoji: '▶️' },
+        { key: 'linkedin', name: 'LinkedIn', emoji: '💼' },
+        { key: 'facebook', name: 'Facebook', emoji: '👥' },
+        { key: 'x', name: 'X (Twitter)', emoji: '𝕏' }
+      ];
+
+      platforms.forEach(platform => {
+        const post = social[platform.key];
+        if (!post) return;
+
+        const card = createSocialCard(platform, post);
+        container.appendChild(card);
+      });
+    }
+
+    function createSocialCard(platform, post) {
+      const card = document.createElement('div');
+      card.className = `social-card ${platform.key}`;
+
+      let duration = '';
+      if (post.duration) {
+        duration = `<div class="social-field"><label>Duration</label><input type="text" value="${escapeHtml(post.duration)}" readonly></div>`;
+      }
+
+      const hashtagsHtml = post.hashtags && post.hashtags.length > 0
+        ? `<div class="social-field">
+             <label>Hashtags (${post.hashtags.length})</label>
+             <div class="hashtags-container">
+               ${post.hashtags.map((tag, i) =>
+                 `<span class="hashtag">${escapeHtml(tag)}</span>`
+               ).join('')}
+             </div>
+           </div>`
+        : '';
+
+      card.innerHTML = `
+        <div class="social-platform">${platform.emoji} ${platform.name}</div>
+        <div class="social-field">
+          <label>Caption</label>
+          <textarea data-platform="${platform.key}" data-field="caption" style="height: 80px;">${escapeHtml(post.caption)}</textarea>
+        </div>
+        ${hashtagsHtml}
+        ${duration}
+      `;
+
+      return card;
+    }
+
+    function showValidationErrors(errors) {
+      const errorContainer = document.getElementById('errors');
+      const errorList = document.getElementById('error-list');
+
+      errorList.innerHTML = errors.map(error => `<li>${escapeHtml(error)}</li>`).join('');
+      errorContainer.classList.add('show');
+    }
+
+    function showError(message) {
+      const status = document.getElementById('status');
+      status.className = 'status invalid';
+      status.textContent = `✕ Error: ${message}`;
+      document.getElementById('content').style.display = 'none';
+      document.getElementById('actions').style.display = 'none';
+    }
+
+    async function approveDraft() {
+      const btn = document.getElementById('approve-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loading-spinner"></span> Processing...';
+
+      try {
+        // Collect edited values
+        const editedDraft = JSON.parse(JSON.stringify(currentDraft));
+
+        document.querySelectorAll('textarea[data-platform]').forEach(textarea => {
+          const platform = textarea.dataset.platform;
+          const field = textarea.dataset.field;
+          if (editedDraft.social[platform]) {
+            editedDraft.social[platform][field] = textarea.value;
+          }
+        });
+
+        const response = await fetch('/.netlify/functions/review-handler', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ draftId, token, draft: editedDraft })
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || `Error ${response.status}`);
+        }
+
+        const result = await response.json();
+        showNotification('Draft approved and published! ✓', 'success');
+
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
+      } catch (error) {
+        showNotification(`Error: ${error.message}`, 'error');
+        btn.disabled = false;
+        btn.textContent = '✓ Approve & Publish';
+      }
+    }
+
+    function showNotification(message, type) {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 4000);
+    }
+
+    function markdownToHtml(markdown) {
+      let html = escapeHtml(markdown);
+
+      // Headers
+      html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+      html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+      html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+      // Bold
+      html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+
+      // Italic
+      html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+      html = html.replace(/_(.+?)_/g, '<em>$1</em>');
+
+      // Code blocks
+      html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+      // Line breaks
+      html = html.replace(/\n\n/g, '</p><p>');
+      html = '<p>' + html + '</p>';
+
+      // Lists
+      html = html.replace(/^\- (.+)$/gm, '<li>$1</li>');
+      html = html.replace(/(<li>.+?<\/li>)/s, '<ul>$1</ul>');
+
+      return html;
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>
