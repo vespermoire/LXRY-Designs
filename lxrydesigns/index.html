@@ -713,6 +713,30 @@
             text-transform: none;
         }
 
+        .open-btn {
+            display: inline-block;
+            align-self: flex-start;
+            margin-top: 24px;
+            background: linear-gradient(135deg, var(--accent-teal), #7dfbe6);
+            color: #04110F;
+            font-weight: 800;
+            font-size: 0.88em;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 11px 30px;
+            border-radius: 50px;
+            animation: open-pulse 1.8s ease-in-out infinite;
+        }
+        .open-btn:hover { transform: translateY(-2px); }
+        @keyframes open-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(39, 244, 210, 0.55); transform: scale(1); }
+            50% { box-shadow: 0 0 0 12px rgba(39, 244, 210, 0); transform: scale(1.04); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .open-btn { animation: none; }
+        }
+
         /* AI Automation Section */
         .ai-automation {
             padding: 100px 40px;
@@ -1775,7 +1799,7 @@
                     <li data-i18n="s8.b3">Logo lockups &amp; usage rules</li>
                     <li data-i18n="s8.b4">Look &amp; feel guidelines</li>
                 </ul>
-                <a href="/brand-pack" target="_blank" rel="noopener" class="service-tag" style="text-decoration:none" data-i18n="s8.tag">See an example →</a>
+                <a href="/brand-pack" target="_blank" rel="noopener" class="open-btn" data-i18n="s8.tag">Open ↗</a>
             </div>
 
             <!-- 9 Social Media Management -->
@@ -2274,7 +2298,7 @@
                 "s8.b2": "Typographie &amp; hiérarchie",
                 "s8.b3": "Déclinaisons de logo &amp; règles d’usage",
                 "s8.b4": "Guide de style (look &amp; feel)",
-                "s8.tag": "Voir un exemple →",
+                "s8.tag": "Ouvrir ↗",
                 "s9.badge": "Portée",
                 "s9.title": "Gestion des Réseaux Sociaux",
                 "s9.promise": "Nous gérons vos canaux de A à Z — contenu, publication et campagnes payantes sur Meta et Google — pour rester visible sans lever le petit doigt.",
