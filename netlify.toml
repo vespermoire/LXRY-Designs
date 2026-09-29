@@ -53,6 +53,37 @@
   to = "/ai-kit.html"
   status = 200
 
+# ---- Operations Dashboard (admin) ----
+# Page: /admin → admin.html. Not for search engines, never cached.
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
+[[headers]]
+  for = "/admin"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-store"
+
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-store"
+
+# Admin API: on-demand function netlify/functions/admin-action.js (Task 2+).
+# No schedule — invoked only by the dashboard.
+[[redirects]]
+  from = "/admin-check-password"
+  to = "/.netlify/functions/admin-action/check-password"
+  status = 200
+
+[[redirects]]
+  from = "/admin-action/*"
+  to = "/.netlify/functions/admin-action/:splat"
+  status = 200
+
 # Scheduled function: AI content engine (Monday 9 AM UTC)
 [[scheduled_functions]]
   name = "content-engine"
