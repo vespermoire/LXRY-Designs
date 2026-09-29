@@ -131,6 +131,31 @@
   color: #ff8a80;
 }
 
+/* Instant lead-magnet download button (shown on success) */
+.lxry-signup .sg-download {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 14px 26px;
+  background: var(--sg-turq);
+  color: var(--sg-black);
+  font-family: 'Jura', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.lxry-signup .sg-download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(39, 244, 210, 0.25);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lxry-signup .sg-download { transition: none; }
+  .lxry-signup .sg-download:hover { transform: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .lxry-signup button,
   .lxry-signup input {

@@ -2582,8 +2582,8 @@
             nodes.forEach(n => en.set(n, n.innerHTML));
             const buttons = Array.from(document.querySelectorAll('.lang-btn'));
             const FORMCOPY = {
-                en: { loading: "Sending…", success: "Almost there — check your inbox to confirm.", error: "Something went wrong — please email hello@lxrydesigns.com." },
-                fr: { loading: "Envoi…", success: "Presque terminé — vérifiez votre boîte mail pour confirmer.", error: "Une erreur est survenue — écrivez à hello@lxrydesigns.com." }
+                en: { loading: "Sending…", success: "You're in! Grab your Starter Kit below — and check your inbox to confirm your newsletter subscription.", error: "Something went wrong — please email hello@lxrydesigns.com.", download: "Download the Starter Kit" },
+                fr: { loading: "Envoi…", success: "Vous y êtes ! Récupérez votre Kit ci-dessous — et vérifiez votre boîte mail pour confirmer votre abonnement.", error: "Une erreur est survenue — écrivez à hello@lxrydesigns.com.", download: "Télécharger le Kit" }
             };
 
             function setLang(lang) {
@@ -2600,6 +2600,8 @@
                     f.setAttribute('data-loading', fc.loading);
                     f.setAttribute('data-success', fc.success);
                     f.setAttribute('data-error', fc.error);
+                    f.setAttribute('data-download', '/assets/lxry-ai-automation-starter-kit.pdf');
+                    f.setAttribute('data-download-label', fc.download);
                 });
                 document.documentElement.lang = lang;
                 buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
@@ -2608,7 +2610,7 @@
 
             let saved = null;
             try { saved = localStorage.getItem('lxry-lang'); } catch (e) {}
-            if (saved === 'fr') setLang('fr');
+            setLang(saved === 'fr' ? 'fr' : 'en');
 
             buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
         })();

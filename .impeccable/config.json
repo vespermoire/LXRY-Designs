@@ -206,6 +206,15 @@
         ],
         "createdAt": "2026-09-29T11:18:01.156Z",
         "reason": "Only uppercase used is short mono labels/eyebrows/captions/footers — the established LXRY brand style, not long body passages."
+      },
+      {
+        "rule": "hero-eyebrow-chip",
+        "value": "*",
+        "files": [
+          "lxrydesigns/ai-kit.html"
+        ],
+        "createdAt": "2026-09-29T15:12:01.360Z",
+        "reason": "Mono uppercase kicker is established LXRY brand language (used on the homepage hero, newsletter section and Kit PDF); consistent, not a one-off AI-SaaS default."
       }
     ]
   }
