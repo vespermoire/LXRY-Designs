@@ -1,7 +1,8 @@
 [build]
-  # Static site — no build step. The site lives in the lxrydesigns/ subfolder,
+  # Static site with blog build step. The site lives in the lxrydesigns/ subfolder,
   # so point Netlify's publish directory there (repo root has no index.html).
   publish = "lxrydesigns"
+  command = "node scripts/build-blog.js"
   [build.environment]
     NODE_VERSION = "20"
 
@@ -51,3 +52,8 @@
   from = "/ai-kit"
   to = "/ai-kit.html"
   status = 200
+
+# Scheduled function: AI content engine (Monday 9 AM UTC)
+[[scheduled_functions]]
+  name = "content-engine"
+  schedule = "0 9 * * 1"
