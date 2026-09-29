@@ -125,6 +125,15 @@
         "value": "inter",
         "createdAt": "2026-09-29T07:21:57.872Z",
         "reason": "Established LXRY brand font (defined in brand-pack, used site-wide since the rebuild); this change only self-hosts existing fonts for GDPR, not a new type choice."
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "lxrydesigns/ai-kit.html"
+        ],
+        "createdAt": "2026-09-29T09:32:25.487Z",
+        "reason": "Turquoise CTA glow is established LXRY brand language (HUD/neon aesthetic, matches site CTAs + open-pulse); user asked for the Kit fully on-brand and aesthetic."
       }
     ]
   }

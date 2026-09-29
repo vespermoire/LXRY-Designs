@@ -54,12 +54,25 @@ test('handler subscribes valid submission', async () => {
   assert.match(url, /connect\.mailerlite\.com\/api\/subscribers/);
   assert.match(opts.headers.Authorization, /^Bearer /);
   assert.match(opts.body, /a@b\.co/);
+  // source is NOT forwarded to MailerLite (would require an undocumented custom field)
+  assert.ok(!/source/.test(opts.body));
 });
 
-test('handler treats duplicate as success', async () => {
-  global.fetch = async () => ({ ok: false, status: 422, json: async () => ({}) });
+test('handler treats existing subscriber (200 upsert) as success', async () => {
+  global.fetch = async () => ({ ok: true, status: 200, json: async () => ({}) });
   const res = await handler(evt({ email: 'a@b.co', consent: true }));
   assert.equal(res.statusCode, 200);
+});
+
+test('handler returns 502 on upstream 422 (does not silently claim success)', async () => {
+  global.fetch = async () => ({ ok: false, status: 422, json: async () => ({}) });
+  const res = await handler(evt({ email: 'a@b.co', consent: true }));
+  assert.equal(res.statusCode, 502);
+});
+
+test('handler returns 400 on JSON null body', async () => {
+  const res = await handler(evt('null'));
+  assert.equal(res.statusCode, 400);
 });
 
 test('handler returns 502 on upstream 500', async () => {

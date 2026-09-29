@@ -16,16 +16,12 @@ export function validateSubmission({ email, name, consent } = {}) {
   return { valid: true, email: normalized, name: String(name ?? '').trim() };
 }
 
-export async function addSubscriber(email, name, source) {
+export async function addSubscriber(email, name) {
   const apiKey = process.env.MAILERLITE_API_KEY;
   const groupId = process.env.MAILERLITE_GROUP_ID;
 
-  const fields = {};
-  if (name) fields.name = name;
-  if (source) fields.source = source;
-
   const payload = { email };
-  if (Object.keys(fields).length) payload.fields = fields;
+  if (name) payload.fields = { name };
   if (groupId) payload.groups = [groupId];
 
   const res = await fetch(MAILERLITE_URL, {
@@ -38,8 +34,10 @@ export async function addSubscriber(email, name, source) {
     body: JSON.stringify(payload),
   });
 
-  // 2xx = created/updated; 422 = already subscribed — both are success to the visitor.
-  if (res.ok || res.status === 422) return { ok: true };
+  // MailerLite upserts an existing subscriber as 2xx, so 2xx is the only success.
+  // 422 and other statuses are real failures (invalid email, bad group, etc.) —
+  // surface them so we never claim success while dropping the lead.
+  if (res.ok) return { ok: true };
   throw new Error(`MailerLite responded ${res.status}`);
 }
 
@@ -58,6 +56,8 @@ export const handler = async (event) => {
   } catch {
     return json(400, { error: 'Invalid request.' });
   }
+  // JSON.parse('null')/'5'/'"x"' are valid JSON but not objects — reject them.
+  if (!body || typeof body !== 'object') return json(400, { error: 'Invalid request.' });
 
   // Honeypot: a real user never fills this. Pretend success, contact nothing.
   if (body.website) return json(200, { ok: true });
@@ -66,7 +66,7 @@ export const handler = async (event) => {
   if (!v.valid) return json(400, { error: v.error });
 
   try {
-    await addSubscriber(v.email, v.name, body.source);
+    await addSubscriber(v.email, v.name);
     return json(200, { ok: true });
   } catch {
     return json(502, {
