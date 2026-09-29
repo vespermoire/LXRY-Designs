@@ -29,6 +29,8 @@
             --text: #E9EDEC;
             --text-dim: #8C9694;
             --danger: #FF6B6B;
+            --ok: #3DDC97;
+            --warn: #F5B94A;
             --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             --jura: 'Jura', 'Inter', sans-serif;
             --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
@@ -258,6 +260,340 @@
             min-width: 40px;
         }
 
+        .draft-meta {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 55%;
+        }
+
+        .draft-note {
+            margin: 0 0 16px;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .draft-note:empty { display: none; }
+
+        .draft-note.is-error { color: var(--danger); }
+
+        /* ---- empty state ---- */
+        .empty-state { max-width: 560px; }
+
+        .empty-state h3 {
+            font-family: var(--jura);
+            font-weight: 600;
+            font-size: 22px;
+            letter-spacing: .04em;
+            margin: 0 0 8px;
+        }
+
+        .empty-state p:last-child { margin: 0; color: var(--text-dim); }
+
+        /* ---- content grid (8 items) ---- */
+        .content-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+            gap: 20px;
+        }
+
+        .content-card {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-width: 0;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            transition: border-color .15s, box-shadow .15s;
+        }
+
+        .content-card:focus-within { border-color: rgba(39, 244, 210, .45); }
+
+        .content-card[data-status="approved"] {
+            border-color: var(--turq);
+            box-shadow: 0 0 0 1px rgba(39, 244, 210, .18), 0 10px 30px -18px rgba(39, 244, 210, .5);
+        }
+
+        .content-card[data-status="rejected"] { border-color: rgba(255, 107, 107, .45); }
+
+        .content-card[data-status="rejected"] .card-content { opacity: .6; }
+
+        .content-card[data-missing="true"] .card-content { opacity: .45; }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .card-title {
+            font-family: var(--jura);
+            font-weight: 600;
+            font-size: 17px;
+            letter-spacing: .06em;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .status-badge {
+            flex: none;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(245, 185, 74, .4);
+            background: rgba(245, 185, 74, .1);
+            color: var(--warn);
+        }
+
+        [data-status="approved"] .status-badge {
+            border-color: rgba(61, 220, 151, .45);
+            background: rgba(61, 220, 151, .1);
+            color: var(--ok);
+        }
+
+        [data-status="rejected"] .status-badge {
+            border-color: rgba(255, 107, 107, .45);
+            background: rgba(255, 107, 107, .1);
+            color: var(--danger);
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            height: 104px;
+            border: 1px dashed rgba(39, 244, 210, .35);
+            border-radius: 10px;
+            background:
+                linear-gradient(135deg, rgba(39, 244, 210, .07), transparent 60%),
+                var(--panel-2);
+            color: var(--text-dim);
+        }
+
+        .ph-label {
+            font-size: 11px;
+            letter-spacing: .24em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--turq);
+        }
+
+        .ph-dims { font-family: var(--mono); font-size: 12px; }
+
+        .fld { display: block; }
+
+        .fld-label {
+            display: block;
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--text-dim);
+            margin-bottom: 6px;
+        }
+
+        .fld textarea,
+        .fld input {
+            display: block;
+            width: 100%;
+            font-family: var(--font);
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text);
+            background: var(--panel-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 9px 11px;
+            transition: border-color .15s;
+        }
+
+        .fld textarea { resize: vertical; min-height: 96px; }
+
+        .fld .hashtags-field { font-family: var(--mono); font-size: 13px; }
+
+        .fld textarea:focus,
+        .fld input:focus { border-color: var(--turq); outline: none; }
+
+        .fld textarea:disabled,
+        .fld input:disabled { cursor: not-allowed; }
+
+        .card-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .rule-hint { font-size: 12px; color: var(--text-dim); }
+
+        .validation-badge {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        .validation-badge:empty { display: none; }
+
+        .validation-badge.is-valid {
+            color: var(--ok);
+            border-color: rgba(61, 220, 151, .4);
+            background: rgba(61, 220, 151, .08);
+        }
+
+        .validation-badge.is-invalid {
+            color: var(--danger);
+            border-color: rgba(255, 107, 107, .45);
+            background: rgba(255, 107, 107, .08);
+        }
+
+        .preview-title {
+            margin: 0;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1.35;
+            color: var(--white);
+        }
+
+        .preview-meta {
+            margin: 0;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        .preview {
+            margin: 0;
+            font-size: 14px;
+            color: var(--silver);
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .card-actions .btn { padding: 9px 12px; }
+
+        .btn-approve {
+            background: transparent;
+            color: var(--turq);
+            border: 1px solid var(--turq);
+        }
+
+        .btn-approve:hover:not(:disabled) { background: rgba(39, 244, 210, .1); }
+
+        .btn-approve.is-active {
+            background: var(--turq);
+            color: var(--black);
+        }
+
+        .btn-reject {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-reject:hover:not(:disabled) { border-color: var(--danger); color: var(--danger); }
+
+        .btn-reject.is-active {
+            background: rgba(255, 107, 107, .12);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .card-actions .btn:disabled { cursor: not-allowed; opacity: .4; }
+
+        .card-actions .btn.is-active:disabled { cursor: default; opacity: 1; }
+
+        /* ---- publish bar ---- */
+        .publish-bar {
+            position: sticky;
+            bottom: 12px;
+            z-index: 5;
+            margin-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px 20px;
+            flex-wrap: wrap;
+            padding: 14px 18px;
+            background: rgba(15, 21, 20, .96);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 12px 32px -12px rgba(0, 0, 0, .8);
+        }
+
+        .publish-summary { min-width: 0; }
+
+        .publish-summary strong {
+            display: block;
+            font-size: 14px;
+            color: var(--text);
+        }
+
+        .publish-summary span { font-size: 12px; color: var(--text-dim); }
+
+        .publish-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .publish-actions .btn-primary { width: auto; padding: 10px 18px; font-size: 13px; }
+
+        .publish-actions .btn:disabled { cursor: not-allowed; opacity: .45; }
+
+        .publish-message {
+            flex-basis: 100%;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .publish-message:empty { display: none; }
+
+        .publish-message.is-ok { color: var(--ok); }
+
+        .publish-message.is-error { color: var(--danger); }
+
+        .publish-message.is-info { color: var(--text-dim); }
+
+        @media (max-width: 640px) {
+            /* >=16px stops iOS zooming into focused fields */
+            .fld textarea,
+            .fld input,
+            .fld .hashtags-field { font-size: 16px; }
+            .draft-meta { display: none; }
+            /* A sticky two-row bar would cover a third of a phone screen. */
+            .publish-bar { position: static; }
+            .publish-actions { width: 100%; }
+            .publish-actions .btn { flex: 1; }
+        }
+
         @media (max-width: 480px) {
             .brand-mark { height: 36px; }
             .brand-name { font-size: 17px; }
@@ -299,8 +635,257 @@
             </form>
         </section>
 
-        <!-- Dashboard: hidden until authenticated. Content rendered in later tasks. -->
-        <section id="dashboard" class="dash-section" aria-label="Current draft" hidden></section>
+        <!-- Dashboard: hidden until authenticated. Filled from the current draft by loadDraft(). -->
+        <section id="dashboard" class="dash-section" aria-labelledby="dashboard-title" hidden>
+            <div class="sec-head">
+                <h2 id="dashboard-title">Current draft</h2>
+                <span class="rule" aria-hidden="true"></span>
+                <span id="draft-meta" class="draft-meta"></span>
+            </div>
+
+            <p id="draft-note" class="draft-note" role="status" aria-live="polite">Loading draft...</p>
+
+            <div id="draft-empty" class="empty-state panel" hidden>
+                <p class="eyebrow">No draft yet</p>
+                <h3>Nothing to review</h3>
+                <p>The content engine drafts the week's blog post, newsletter and social posts every Monday at 09:00 UTC. They appear here when it finishes.</p>
+            </div>
+
+            <div id="draft-body" hidden>
+                <div class="content-cards">
+                    <!-- Blog: read-only preview -->
+                    <article class="content-card" data-type="blog" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">Blog post</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <p class="preview-meta" data-bind="meta"></p>
+                            <p class="preview-title" data-bind="title"></p>
+                            <p class="preview" data-bind="excerpt"></p>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">Read-only preview</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <!-- Newsletter: editable subject -->
+                    <article class="content-card" data-type="newsletter" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">Newsletter</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <label class="fld">
+                                <span class="fld-label">Subject</span>
+                                <input type="text" class="subject-field" autocomplete="off">
+                            </label>
+                            <p class="preview" data-bind="body"></p>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">Subject line required</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <!-- Social: image tile + editable caption and hashtags -->
+                    <article class="content-card" data-type="instagram" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">Instagram</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1080x1350</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">15&ndash;25 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="tiktok" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">TikTok</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1080x1920</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">5&ndash;10 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="linkedin" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">LinkedIn</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1200x627</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">5&ndash;10 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="x" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">X</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1200x675</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">280 chars max, hashtags included</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="facebook" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">Facebook</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1200x627</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">3&ndash;5 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+
+                    <article class="content-card" data-type="youtube" data-status="pending">
+                        <header class="card-header">
+                            <h3 class="card-title">YouTube</h3>
+                            <span class="status-badge">&#8856; Pending</span>
+                        </header>
+                        <div class="card-content">
+                            <div class="image-placeholder" aria-hidden="true">
+                                <span class="ph-label">Image tile</span>
+                                <span class="ph-dims" data-bind="dimensions">1080x1920</span>
+                            </div>
+                            <label class="fld">
+                                <span class="fld-label">Caption</span>
+                                <textarea class="caption-field" rows="4"></textarea>
+                            </label>
+                            <label class="fld">
+                                <span class="fld-label">Hashtags</span>
+                                <input type="text" class="hashtags-field" placeholder="#tag1 #tag2" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            </label>
+                        </div>
+                        <footer class="card-foot">
+                            <span class="rule-hint">5&ndash;10 hashtags</span>
+                            <span class="validation-badge" aria-live="polite"></span>
+                        </footer>
+                        <div class="card-actions">
+                            <button type="button" class="btn btn-approve">Approve</button>
+                            <button type="button" class="btn btn-reject">Reject</button>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="publish-bar">
+                    <div class="publish-summary">
+                        <strong id="approval-summary">0 approved &middot; 8 pending &middot; 0 rejected</strong>
+                        <span>Only approved items are published. Pending and rejected items are skipped.</span>
+                    </div>
+                    <div class="publish-actions">
+                        <button type="button" id="reset-btn" class="btn btn-ghost">Reset</button>
+                        <button type="button" id="publish-all-btn" class="btn btn-primary" disabled>Approve &amp; Publish All</button>
+                    </div>
+                    <p id="publish-message" class="publish-message" role="status" aria-live="polite"></p>
+                </div>
+            </div>
+        </section>
 
         <!-- Publish history: hidden until authenticated. Content rendered in later tasks. -->
         <section id="publish-history" class="dash-section" aria-label="Publish history" hidden></section>
@@ -472,6 +1057,631 @@
             showDashboard();
         } else {
             showLogin();
+        }
+    })();
+    </script>
+
+    <!-- Validation rules. Pure functions, no DOM access (unit-tested by
+         tests/integration/admin-dashboard.test.js, which runs this block in node:vm). -->
+    <script id="dashboard-rules">
+    (function (root) {
+        'use strict';
+
+        var SOCIAL = ['instagram', 'tiktok', 'linkedin', 'x', 'facebook', 'youtube'];
+        var ITEMS = ['blog', 'newsletter'].concat(SOCIAL);
+
+        var LABELS = {
+            blog: 'Blog post',
+            newsletter: 'Newsletter',
+            instagram: 'Instagram',
+            tiktok: 'TikTok',
+            linkedin: 'LinkedIn',
+            x: 'X',
+            facebook: 'Facebook',
+            youtube: 'YouTube'
+        };
+
+        // Plan Global Constraints. X is limited by characters, the rest by hashtag count.
+        var RULES = {
+            instagram: { kind: 'hashtags', min: 15, max: 25 },
+            tiktok: { kind: 'hashtags', min: 5, max: 10 },
+            linkedin: { kind: 'hashtags', min: 5, max: 10 },
+            x: { kind: 'chars', max: 280 },
+            facebook: { kind: 'hashtags', min: 3, max: 5 },
+            youtube: { kind: 'hashtags', min: 5, max: 10 }
+        };
+
+        function str(v) { return v == null ? '' : String(v); }
+
+        // Accepts "#a #b", "a, b", "#a#b" or an array like ["a", "#b"].
+        // Returns bare tags without "#", e.g. ["a", "b"].
+        function parseHashtags(value) {
+            var list = Array.isArray(value) ? value : [value];
+            var tags = [];
+            for (var i = 0; i < list.length; i++) {
+                var parts = str(list[i]).split(/[\s,#]+/);
+                for (var j = 0; j < parts.length; j++) {
+                    if (parts[j]) tags.push(parts[j]);
+                }
+            }
+            return tags;
+        }
+
+        function formatHashtags(value) {
+            return parseHashtags(value).map(function (t) { return '#' + t; }).join(' ');
+        }
+
+        // Length of the post as published: caption, a space, then the hashtags.
+        function postLength(caption, hashtags) {
+            var text = str(caption).trim();
+            var tags = formatHashtags(hashtags);
+            if (!tags) return text.length;
+            return text.length + (text ? 1 : 0) + tags.length;
+        }
+
+        // fields: { title } for blog, { subject } for newsletter, { caption, hashtags } for social.
+        // Returns { valid, message }.
+        function validateFields(type, fields) {
+            var f = fields || {};
+
+            if (type === 'blog') {
+                return str(f.title).trim()
+                    ? { valid: true, message: 'Ready ✓' }
+                    : { valid: false, message: '❌ Missing title' };
+            }
+
+            if (type === 'newsletter') {
+                var subject = str(f.subject).trim();
+                return subject
+                    ? { valid: true, message: subject.length + ' chars ✓' }
+                    : { valid: false, message: '❌ Subject required' };
+            }
+
+            var rule = RULES[type];
+            if (!rule) return { valid: false, message: '❌ Unknown item' };
+
+            if (!str(f.caption).trim()) {
+                return { valid: false, message: '❌ Caption required' };
+            }
+
+            if (rule.kind === 'chars') {
+                var len = postLength(f.caption, f.hashtags);
+                return len <= rule.max
+                    ? { valid: true, message: len + '/' + rule.max + ' ✓' }
+                    : { valid: false, message: '❌ Exceeds ' + rule.max + ' (' + len + ')' };
+            }
+
+            var n = parseHashtags(f.hashtags).length;
+            return (n >= rule.min && n <= rule.max)
+                ? { valid: true, message: n + '/' + rule.max + ' ✓' }
+                : { valid: false, message: '❌ Need ' + rule.min + '-' + rule.max + ' (' + n + ')' };
+        }
+
+        root.AdminDashboardRules = {
+            SOCIAL: SOCIAL,
+            ITEMS: ITEMS,
+            LABELS: LABELS,
+            RULES: RULES,
+            parseHashtags: parseHashtags,
+            formatHashtags: formatHashtags,
+            postLength: postLength,
+            validateFields: validateFields
+        };
+    })(window);
+    </script>
+
+    <!-- Dashboard grid: draft loading, live validation, approval state, publish. -->
+    <script>
+    (function () {
+        'use strict';
+
+        var R = window.AdminDashboardRules;
+
+        // GET returns { draftId, draft } (or a bare draft object); 404 means no draft yet.
+        // Served by netlify/functions/admin-action.js via the /admin-action/* redirect.
+        var DRAFT_ENDPOINT = '/admin-action/draft';
+        var APPROVE_ENDPOINT = '/admin-action/approve';
+
+        var STATUS_TEXT = {
+            approved: '✓ Approved',
+            pending: '⊘ Pending',
+            rejected: '✗ Rejected'
+        };
+
+        var dashboardEl = document.getElementById('dashboard');
+        var draftBody = document.getElementById('draft-body');
+        var draftEmpty = document.getElementById('draft-empty');
+        var draftNote = document.getElementById('draft-note');
+        var draftMeta = document.getElementById('draft-meta');
+        var summaryEl = document.getElementById('approval-summary');
+        var publishBtn = document.getElementById('publish-all-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var publishMsg = document.getElementById('publish-message');
+
+        // Live object: mutated in place so window.approvalState always reflects the UI.
+        var approvalState = {};
+        R.ITEMS.forEach(function (k) { approvalState[k] = 'pending'; });
+        window.approvalState = approvalState;
+
+        var current = { draftId: null, draft: null };
+        var dirty = {};     // "type.field" -> true once the user has edited that field
+        var missing = {};   // type -> true when the draft has no data for it
+        var validity = {};  // type -> last validation result
+        var inflight = null;
+        var publishing = false;
+
+        // ---- DOM helpers ----
+
+        function card(type) {
+            return dashboardEl.querySelector('.content-card[data-type="' + type + '"]');
+        }
+
+        function el(type, selector) {
+            var c = card(type);
+            return c ? c.querySelector(selector) : null;
+        }
+
+        function bind(type, name, text) {
+            var node = el(type, '[data-bind="' + name + '"]');
+            if (node) node.textContent = text == null ? '' : String(text);
+        }
+
+        function isSocial(type) {
+            return R.SOCIAL.indexOf(type) !== -1;
+        }
+
+        function fieldsOf(type) {
+            if (type === 'newsletter') return [['subject', '.subject-field']];
+            if (isSocial(type)) return [['caption', '.caption-field'], ['hashtags', '.hashtags-field']];
+            return [];
+        }
+
+        // Writes a server value into a field unless the user is editing it.
+        function setField(type, name, selector, value, force) {
+            var input = el(type, selector);
+            if (!input) return;
+            var key = type + '.' + name;
+            if (force || (!dirty[key] && document.activeElement !== input)) {
+                input.value = value == null ? '' : String(value);
+            }
+        }
+
+        // ---- text helpers ----
+
+        function markdownToText(md) {
+            return String(md || '')
+                .replace(/```[\s\S]*?```/g, ' ')
+                .replace(/^\s{0,3}#{1,6}\s.*$/gm, ' ')      // drop headings (title repeats)
+                .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')        // images
+                .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')      // links -> text
+                .replace(/^\s{0,3}(>|[-*+]|\d+\.)\s+/gm, '')  // quotes, list markers
+                .replace(/[*_`~]+/g, '')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function htmlToText(html) {
+            try {
+                // DOMParser does not run scripts or load resources. Closing block tags get
+                // a trailing space so "<h2>A</h2><p>B</p>" reads "A B", not "AB".
+                var spaced = String(html || '').replace(/<\/(p|div|h[1-6]|li|tr|td|blockquote)>|<br\s*\/?>/gi, '$& ');
+                var doc = new DOMParser().parseFromString(spaced, 'text/html');
+                return (doc.body.textContent || '').replace(/\s+/g, ' ').trim();
+            } catch (e) {
+                return '';
+            }
+        }
+
+        function formatDay(value) {
+            var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(value || ''));
+            if (!m) return value ? String(value) : '';
+            var d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]));
+            return d.toLocaleDateString('en-GB', {
+                weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'
+            });
+        }
+
+        function generatedAt(draftId, draft) {
+            var m = /(\d{13})/.exec(draftId || '');
+            var when = m ? new Date(+m[1])
+                : (draft && draft._validation && draft._validation.timestamp
+                    ? new Date(draft._validation.timestamp) : null);
+            if (!when || isNaN(when.getTime())) return '';
+            return when.toLocaleString('en-GB', {
+                weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+            });
+        }
+
+        // ---- draft data ----
+
+        function itemData(draft, type) {
+            if (!draft) return null;
+            if (type === 'blog' || type === 'newsletter') {
+                return draft[type] && typeof draft[type] === 'object' ? draft[type] : null;
+            }
+            var post = draft.social && draft.social[type];
+            return post && typeof post === 'object' ? post : null;
+        }
+
+        function populate(type, force) {
+            var data = itemData(current.draft, type);
+            var c = card(type);
+            missing[type] = !data;
+            c.setAttribute('data-missing', data ? 'false' : 'true');
+            fieldsOf(type).forEach(function (f) {
+                var input = el(type, f[1]);
+                if (input) input.disabled = !data;
+            });
+            data = data || {};
+
+            if (type === 'blog') {
+                var fm = data.frontmatter || {};
+                var words = String(data.content || '').split(/\s+/).filter(Boolean).length;
+                var meta = [formatDay(fm.date || data.date)];
+                if (words) meta.push(words.toLocaleString('en-GB') + ' words');
+                bind('blog', 'meta', meta.filter(Boolean).join(' · '));
+                bind('blog', 'title', data.title || 'Untitled');
+                bind('blog', 'excerpt', markdownToText(data.content).slice(0, 600));
+            } else if (type === 'newsletter') {
+                setField(type, 'subject', '.subject-field', data.subject, force);
+                bind('newsletter', 'body', htmlToText(data.body).slice(0, 600));
+            } else {
+                // Captions: the engine writes "caption"; older drafts used "text".
+                setField(type, 'caption', '.caption-field', data.caption != null ? data.caption : data.text, force);
+                setField(type, 'hashtags', '.hashtags-field', R.formatHashtags(data.hashtags || []), force);
+                if (data.dimensions) bind(type, 'dimensions', String(data.dimensions).replace(/\s+/g, ''));
+            }
+        }
+
+        function readFields(type) {
+            if (type === 'blog') {
+                var blog = itemData(current.draft, 'blog') || {};
+                return { title: blog.title };
+            }
+            if (type === 'newsletter') {
+                return { subject: el(type, '.subject-field').value };
+            }
+            return {
+                caption: el(type, '.caption-field').value,
+                hashtags: el(type, '.hashtags-field').value
+            };
+        }
+
+        // ---- validation + approval state ----
+
+        // Validates one item from its current field values and updates its badge.
+        // An approved item that becomes invalid drops back to pending.
+        function validateItem(type) {
+            var result = missing[type]
+                ? { valid: false, message: '❌ Not in this draft' }
+                : R.validateFields(type, readFields(type));
+            validity[type] = result;
+
+            var badge = el(type, '.validation-badge');
+            if (badge) {
+                badge.textContent = result.message;
+                badge.classList.toggle('is-valid', result.valid);
+                badge.classList.toggle('is-invalid', !result.valid);
+            }
+
+            if (!result.valid && approvalState[type] === 'approved') {
+                approvalState[type] = 'pending';
+            }
+            syncCard(type);
+            return result;
+        }
+
+        function syncCard(type) {
+            var status = approvalState[type];
+            var c = card(type);
+            var ok = validity[type] && validity[type].valid;
+            c.setAttribute('data-status', status);
+            el(type, '.status-badge').textContent = STATUS_TEXT[status];
+
+            var approve = el(type, '.btn-approve');
+            approve.textContent = status === 'approved' ? STATUS_TEXT.approved : 'Approve';
+            approve.classList.toggle('is-active', status === 'approved');
+            approve.disabled = publishing || status === 'approved' || !ok;
+            approve.title = ok ? '' : 'Fix the validation error before approving';
+
+            var reject = el(type, '.btn-reject');
+            reject.textContent = status === 'rejected' ? STATUS_TEXT.rejected : 'Reject';
+            reject.classList.toggle('is-active', status === 'rejected');
+            reject.disabled = publishing || status === 'rejected' || !!missing[type];
+        }
+
+        function counts() {
+            var c = { approved: 0, pending: 0, rejected: 0 };
+            R.ITEMS.forEach(function (k) { c[approvalState[k]]++; });
+            return c;
+        }
+
+        function syncSummary() {
+            var c = counts();
+            summaryEl.textContent = c.approved + ' approved · ' + c.pending + ' pending · ' +
+                c.rejected + ' rejected';
+            publishBtn.disabled = publishing || !current.draft || c.approved === 0;
+            resetBtn.disabled = publishing || !current.draft;
+        }
+
+        function setStatus(type, status) {
+            if (status === 'approved' && !validateItem(type).valid) return;
+            approvalState[type] = status;
+            syncCard(type);
+            syncSummary();
+        }
+
+        function syncAll() {
+            R.ITEMS.forEach(validateItem);
+            syncSummary();
+        }
+
+        // ---- rendering ----
+
+        function setNote(text, isError) {
+            draftNote.textContent = text || '';
+            draftNote.classList.toggle('is-error', !!isError);
+        }
+
+        function setPublishMessage(text, kind) {
+            publishMsg.textContent = text || '';
+            publishMsg.className = 'publish-message' + (kind ? ' is-' + kind : '');
+        }
+
+        function resetApprovals() {
+            R.ITEMS.forEach(function (k) { approvalState[k] = 'pending'; });
+        }
+
+        function render(draftId, draft) {
+            var isNew = draftId !== current.draftId;
+            current = { draftId: draftId, draft: draft };
+            if (isNew) {
+                dirty = {};
+                resetApprovals();
+                setPublishMessage('');
+            }
+            R.ITEMS.forEach(function (t) { populate(t, isNew); });
+            R.ITEMS.forEach(function (t) {
+                if (missing[t]) approvalState[t] = 'pending';
+            });
+            syncAll();
+
+            var when = generatedAt(draftId, draft);
+            draftMeta.textContent = (when ? 'Generated ' + when + ' · ' : '') + draftId;
+            draftEmpty.hidden = true;
+            draftBody.hidden = false;
+        }
+
+        function showEmpty() {
+            current = { draftId: null, draft: null };
+            dirty = {};
+            resetApprovals();
+            draftMeta.textContent = '';
+            draftBody.hidden = true;
+            draftEmpty.hidden = false;
+            setNote('');
+            syncSummary();
+        }
+
+        function refreshFailed(reason) {
+            if (current.draft) {
+                setNote(reason + ' Showing the last loaded draft.', true);
+            } else {
+                draftBody.hidden = true;
+                draftEmpty.hidden = true;
+                setNote('Could not load the draft. ' + reason, true);
+            }
+            return { status: 'error', error: reason };
+        }
+
+        function normalizeDraft(payload) {
+            if (!payload || typeof payload !== 'object') return null;
+            var draft = payload.draft && typeof payload.draft === 'object' ? payload.draft : payload;
+            if (!draft.blog && !draft.newsletter && !draft.social) return null;
+            var id = payload.draftId || payload.id || draft.draftId || draft.id ||
+                (draft._meta && draft._meta.draftId) || 'current';
+            return { draftId: String(id), draft: draft };
+        }
+
+        function expireSession() {
+            if (window.adminSession) window.adminSession.logout();
+        }
+
+        // ---- loadDraft ----
+
+        // Fetches the current draft and renders it. Safe to call repeatedly (Task 6 polls it
+        // every 5 s): overlapping calls share one request, and a re-render of the same draft
+        // never overwrites fields the user has edited or is focused on, nor approval state.
+        // Resolves to { status: 'loaded' | 'empty' | 'error' | 'unauthenticated', ... }.
+        function loadDraft() {
+            if (inflight) return inflight;
+            inflight = fetchDraft().then(function (r) {
+                inflight = null;
+                return r;
+            }, function (err) {
+                inflight = null;
+                return refreshFailed('Unexpected error: ' + (err && err.message ? err.message : err) + '.');
+            });
+            return inflight;
+        }
+
+        function fetchDraft() {
+            var token = window.adminSession && window.adminSession.getToken();
+            if (!token) {
+                expireSession();
+                return Promise.resolve({ status: 'unauthenticated' });
+            }
+
+            return fetch(DRAFT_ENDPOINT, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json', 'x-admin-token': token },
+                credentials: 'same-origin',
+                cache: 'no-store'
+            }).then(function (res) {
+                if (res.status === 401 || res.status === 403) {
+                    expireSession();
+                    return { status: 'unauthenticated' };
+                }
+                if (res.status === 404) {
+                    showEmpty();
+                    return { status: 'empty' };
+                }
+                if (!res.ok) return refreshFailed('Server error ' + res.status + '.');
+
+                return res.json().then(function (payload) {
+                    var n = normalizeDraft(payload);
+                    if (!n) {
+                        showEmpty();
+                        return { status: 'empty' };
+                    }
+                    render(n.draftId, n.draft);
+                    setNote('');
+                    return { status: 'loaded', draftId: n.draftId };
+                }, function () {
+                    return refreshFailed('The server sent a draft that could not be read.');
+                });
+            }, function () {
+                return refreshFailed('Could not reach the server.');
+            });
+        }
+
+        // ---- output for Task 4 ----
+
+        function getApprovedItems() {
+            return R.ITEMS.filter(function (k) { return approvalState[k] === 'approved'; });
+        }
+
+        // Current field values, shaped like the draft so the endpoint can deep-merge them.
+        // Hashtags are bare strings (no "#"), matching what the content engine writes.
+        function getEditedContent() {
+            var out = { social: {} };
+            if (!missing.newsletter) {
+                out.newsletter = { subject: el('newsletter', '.subject-field').value.trim() };
+            }
+            R.SOCIAL.forEach(function (t) {
+                if (missing[t]) return;
+                out.social[t] = {
+                    caption: el(t, '.caption-field').value.trim(),
+                    hashtags: R.parseHashtags(el(t, '.hashtags-field').value)
+                };
+            });
+            return out;
+        }
+
+        function setPublishing(on) {
+            publishing = on;
+            publishBtn.textContent = on ? 'Publishing...' : 'Approve & Publish All';
+            R.ITEMS.forEach(syncCard);
+            syncSummary();
+        }
+
+        function publishApproved() {
+            var items = getApprovedItems();
+            if (!items.length || publishing || !current.draftId) return Promise.resolve(null);
+
+            var names = items.map(function (k) { return R.LABELS[k]; }).join(', ');
+            var ok = window.confirm('Publish ' + items.length + ' approved item' +
+                (items.length === 1 ? '' : 's') + '?\n\n' + names +
+                '\n\nPending and rejected items are skipped.');
+            if (!ok) return Promise.resolve(null);
+
+            var token = window.adminSession && window.adminSession.getToken();
+            if (!token) {
+                expireSession();
+                return Promise.resolve(null);
+            }
+
+            setPublishing(true);
+            setPublishMessage('Publishing ' + items.length + ' item' + (items.length === 1 ? '' : 's') + '...', 'info');
+
+            return fetch(APPROVE_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+                credentials: 'same-origin',
+                body: JSON.stringify({
+                    draftId: current.draftId,
+                    approvedItems: items,
+                    editedContent: getEditedContent()
+                })
+            }).then(function (res) {
+                return res.json().catch(function () { return {}; }).then(function (data) {
+                    if (res.status === 401 || res.status === 403) {
+                        expireSession();
+                    } else if (res.ok && data.success) {
+                        setPublishMessage('Published ' + items.length + ' item' +
+                            (items.length === 1 ? '' : 's') + ': ' + names + '.', 'ok');
+                    } else if (res.status === 404 && !data.error) {
+                        setPublishMessage('The publish endpoint is not available yet. Nothing was published.', 'error');
+                    } else {
+                        setPublishMessage('Publish failed: ' + (data.error || 'server error ' + res.status) + '.', 'error');
+                    }
+                    return { status: res.status, data: data };
+                });
+            }, function () {
+                setPublishMessage('Could not reach the server. Check the publish history before trying again.', 'error');
+                return null;
+            }).then(function (r) {
+                setPublishing(false);
+                return r;
+            });
+        }
+
+        function resetAll() {
+            if (!current.draft || publishing) return;
+            var changed = Object.keys(dirty).length > 0 ||
+                R.ITEMS.some(function (k) { return approvalState[k] !== 'pending'; });
+            if (changed && !window.confirm('Discard your edits and set every item back to pending?')) return;
+            dirty = {};
+            resetApprovals();
+            R.ITEMS.forEach(function (t) { populate(t, true); });
+            syncAll();
+            setPublishMessage('');
+        }
+
+        // ---- events ----
+
+        dashboardEl.addEventListener('input', function (event) {
+            var target = event.target;
+            var c = target.closest('.content-card');
+            if (!c) return;
+            var type = c.getAttribute('data-type');
+            fieldsOf(type).forEach(function (f) {
+                if (target.matches(f[1])) dirty[type + '.' + f[0]] = true;
+            });
+            validateItem(type);
+            syncSummary();
+        });
+
+        dashboardEl.addEventListener('click', function (event) {
+            var btn = event.target.closest('.btn-approve, .btn-reject');
+            if (!btn || btn.disabled) return;
+            var type = btn.closest('.content-card').getAttribute('data-type');
+            setStatus(type, btn.classList.contains('btn-approve') ? 'approved' : 'rejected');
+        });
+
+        publishBtn.addEventListener('click', publishApproved);
+        resetBtn.addEventListener('click', resetAll);
+
+        // ---- public API (Tasks 4 and 6) ----
+
+        window.loadDraft = loadDraft;
+        window.adminDashboard = {
+            loadDraft: loadDraft,
+            validateItem: validateItem,
+            getDraftId: function () { return current.draftId; },
+            getApprovedItems: getApprovedItems,
+            getEditedContent: getEditedContent,
+            publishApproved: publishApproved,
+            reset: resetAll
+        };
+
+        // ---- start ----
+
+        syncSummary();
+        window.onAdminAuthenticated = function () { loadDraft(); };
+        // The auth script runs first and may already have shown the dashboard.
+        if (!dashboardEl.hidden && window.adminSession && window.adminSession.getToken()) {
+            loadDraft();
         }
     })();
     </script>

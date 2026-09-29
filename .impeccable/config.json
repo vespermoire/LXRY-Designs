@@ -215,6 +215,15 @@
         ],
         "createdAt": "2026-09-29T15:12:01.360Z",
         "reason": "Mono uppercase kicker is established LXRY brand language (used on the homepage hero, newsletter section and Kit PDF); consistent, not a one-off AI-SaaS default."
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "lxrydesigns/admin.html"
+        ],
+        "createdAt": "2026-09-29T20:22:24.919Z",
+        "reason": "False positive: detector composites the body's rgba(39,244,210,.1) radial gradient over white (#e9fefb); the real base is --dark-bg #0D0D0D, where --text is 16:1 and --text-dim 6.4:1"
       }
     ]
   }

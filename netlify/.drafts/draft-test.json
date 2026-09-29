@@ -1,0 +1,54 @@
+{
+  "blog": {
+    "title": "Small Firms, Big Models: What This Week's AI Releases Mean for Cross-Border SMEs",
+    "content": "# Small Firms, Big Models\n\nThis week brought three model releases and one pricing change that matter more to a ten-person firm in Geneva than any benchmark chart.\n\n## The pricing shift\n\nCheaper long-context calls mean a small team can now summarise a full year of client email for less than the cost of a lunch. The catch is governance: **who reviews the output** before it reaches a client?\n\n## What we recommend\n\n- Start with one workflow, not ten.\n- Measure time saved per week, not tokens used.\n- Keep a human in the loop for anything client-facing.\n\nRead the [full release notes](https://example.com/notes) for details.",
+    "frontmatter": {
+      "slug": "small-firms-big-models",
+      "seo_keywords": ["AI for SMEs", "Geneva AI consultancy", "AI automation", "LLM pricing", "AI governance"],
+      "date": "2026-09-28"
+    }
+  },
+  "newsletter": {
+    "subject": "Three AI releases worth your attention this week",
+    "body": "<div style='font-family: -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.6; color: #333;'><h2>This week in practical AI</h2><p>Three releases landed this week. Only one of them changes what a small firm should do on Monday morning: cheaper long-context calls.</p><p>Key takeaways: start with one workflow, measure hours saved, and keep a human reviewing client-facing output.</p></div>"
+  },
+  "social": {
+    "instagram": {
+      "caption": "Three AI releases dropped this week. One of them quietly makes it affordable for a ten-person firm to summarise a year of client email. Here's what we'd do with it first.",
+      "hashtags": ["ai", "artificialintelligence", "smallbusiness", "geneva", "suisse", "france", "automation", "productivity", "aitools", "business", "entrepreneur", "tech", "innovation", "digitaltransformation", "consulting", "llm", "workflow", "lxrydesigns"],
+      "dimensions": "1080x1350"
+    },
+    "tiktok": {
+      "caption": "The AI release nobody's talking about is the one that saves small firms the most time.",
+      "hashtags": ["ai", "smallbusiness", "automation", "techtok", "productivity", "aitools", "business", "geneva"],
+      "dimensions": "1080x1920",
+      "duration": "30-45 seconds"
+    },
+    "linkedin": {
+      "caption": "Cheaper long-context AI calls change the maths for small professional firms. The question is no longer cost, it's review: who checks the output before a client sees it? Our three-step starting point inside.",
+      "hashtags": ["AI", "SMEs", "Automation", "AIGovernance", "Geneva", "DigitalTransformation", "Productivity"],
+      "dimensions": "1200x627"
+    },
+    "x": {
+      "caption": "Cheaper long-context calls mean a 10-person firm can summarise a year of client email for the price of lunch. The hard part isn't cost any more. It's who reviews the output.",
+      "hashtags": ["AI", "SMEs", "Automation"],
+      "length": 280
+    },
+    "facebook": {
+      "caption": "Would you trust AI to summarise a year of client email? This week it became cheap enough to try. Tell us where you'd draw the line.",
+      "hashtags": ["AI", "SmallBusiness", "Automation", "Geneva"],
+      "dimensions": "1200x627"
+    },
+    "youtube": {
+      "caption": "Three AI releases in 60 seconds, and the one that matters for small firms. We cover pricing, governance and a simple first workflow.",
+      "hashtags": ["AI", "Shorts", "SmallBusiness", "Automation", "AITools", "Productivity", "Tech", "Business", "Geneva"],
+      "dimensions": "1080x1920",
+      "duration": "45-60 seconds"
+    }
+  },
+  "_validation": {
+    "timestamp": "2026-09-28T09:00:12.000Z",
+    "errors": [],
+    "isValid": true
+  }
+}
