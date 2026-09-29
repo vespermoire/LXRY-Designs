@@ -33,7 +33,8 @@ A **weekly AI news-to-content pipeline** that automatically monitors AI news fee
    - Generates:
      - One **evergreen blog post** (800–1,200 words, SEO-optimized, original commentary)
      - One **newsletter email** (200–300 words, curated highlights, link to blog)
-     - **3–5 social captions** (platform-specific: LinkedIn/X/Instagram/TikTok)
+     - **6 social media posts** (one per platform: LinkedIn, X, Instagram, TikTok, Facebook, YouTube)
+     - Each social post includes: caption, hashtags, platform-specific dimensions/format specs
    - All content emphasizes original angle, not rewrites
 
 3. **Review Dashboard** (Static HTML + approval logic)
@@ -57,11 +58,11 @@ A **weekly AI news-to-content pipeline** that automatically monitors AI news fee
 4. Stores drafts (JSON file in repo or Supabase)
 5. Sends notification email to owner with review link
 
-**Monday 9:30–10 AM (review window):**
-1. Owner clicks review link
-2. Reads blog, newsletter, social previews
+**Monday 9 AM – Tuesday 9 AM (review window - 24 hours):**
+1. Owner receives notification email with review link
+2. Reads blog, newsletter, social previews (6 platforms with captions, hashtags, dimensions)
 3. Can edit inline or approve as-is
-4. Clicks "Approve & Publish"
+4. Clicks "Approve & Publish" (target: within 24 hours of notification)
 
 **Immediately after approval:**
 1. Blog post markdown commits to repo with timestamp
@@ -109,11 +110,22 @@ A **weekly AI news-to-content pipeline** that automatically monitors AI news fee
 - **Tone:** Conversational, informative
 - **CTA:** Link to the week's blog post
 
-### Social Media
-- **LinkedIn:** Professional take, link to blog
-- **X:** Punchy, news-focused, link to blog
-- **Instagram:** Visual hook (can include generated image or screenshot)
-- **TikTok:** Short-form video concept or text hook (optional—can start without this)
+### Social Media (6 Platforms)
+All posts include captions, hashtags, and platform-specific formatting:
+
+| Platform | Format | Dimensions | Captions | Hashtags |
+|---|---|---|---|---|
+| **LinkedIn** | Text + link | 1200×627 (if image) | Professional, link to blog | 5–10 industry/AI tags |
+| **X** | Text + link | 1200×675 (if image) | Punchy, news-focused | 3–5 hashtags |
+| **Instagram** | Carousel/Reel + caption | 1080×1350 (feed) or 1080×1920 (Reel) | Engaging hook, CTA | 15–25 hashtags |
+| **TikTok** | Short-form video + caption | 1080×1920, 15–60 sec | Trendy, informal | 5–10 hashtags |
+| **Facebook** | Link post + caption | 1200×627 | Community-friendly | 3–5 hashtags |
+| **YouTube** | Short (vertical) + caption | 1080×1920, 15–60 sec | Story-driven | 5–10 hashtags |
+
+- All captions are platform-optimized (tone, length, CTA)
+- Hashtags are researched + relevant to AI/business topics
+- Links point to the week's blog post
+- Posting schedule (timing across platforms) to be confirmed by owner
 
 ---
 
@@ -219,10 +231,44 @@ seo_keywords: ["customer service automation", "GPT-5", "AI tools"]
 ### Social Captions (JSON)
 ```json
 {
-  "linkedin": "...",
-  "x": "...",
-  "instagram": "...",
-  "tiktok": "..."
+  "linkedin": {
+    "caption": "Professional take, link to blog",
+    "hashtags": ["#AI", "#Automation", "#BusinessTech"],
+    "format": "text + link",
+    "dimensions": "1200x627"
+  },
+  "x": {
+    "caption": "Punchy, news-focused",
+    "hashtags": ["#AI", "#News"],
+    "format": "text + link",
+    "length": "280 chars"
+  },
+  "instagram": {
+    "caption": "Engaging hook + CTA",
+    "hashtags": ["#AI", "#ArtificialIntelligence", ...],
+    "format": "carousel/reel",
+    "dimensions": "1080x1350 (feed) or 1080x1920 (reel)"
+  },
+  "tiktok": {
+    "caption": "Trendy, informal",
+    "hashtags": ["#AI", "#TechNews"],
+    "format": "short video",
+    "dimensions": "1080x1920",
+    "duration": "15-60 sec"
+  },
+  "facebook": {
+    "caption": "Community-friendly",
+    "hashtags": ["#AI", "#Business"],
+    "format": "link post",
+    "dimensions": "1200x627"
+  },
+  "youtube": {
+    "caption": "Story-driven",
+    "hashtags": ["#AI", "#Shorts"],
+    "format": "short (vertical)",
+    "dimensions": "1080x1920",
+    "duration": "15-60 sec"
+  }
 }
 ```
 
@@ -274,10 +320,12 @@ Recommendation: **Option B** for speed (the Function generates the HTML during a
 - [ ] System runs weekly without manual intervention
 - [ ] 4 blog posts published (1 per week)
 - [ ] 4 newsletters sent to subscriber base
-- [ ] 12+ social posts queued/published (3+ per week)
-- [ ] Review time stays ≤30 min/week
+- [ ] 24 social posts queued/published (6 per week × 4 platforms, properly formatted)
+- [ ] All social posts include captions, hashtags, and platform-specific dimensions
+- [ ] Review time stays ≤30 min/week (Monday review, approval within 24 hours)
 - [ ] Blog page live on site with working internal links
 - [ ] No critical errors in first 4 weeks (retry logic handles gracefully)
+- [ ] Social posting schedule established and coordinated across platforms
 
 ---
 
@@ -303,12 +351,15 @@ Recommendation: **Option B** for speed (the Function generates the HTML during a
 
 ## Open Questions Resolved
 
-✅ Cadence: 1 blog + 1 newsletter per week, 1+ social posts per week  
-✅ Effort: ~30 min/week (review + approve)  
+✅ Cadence: 1 blog + 1 newsletter per week, 6 social posts per week (1 per platform)  
+✅ Effort: ~30 min/week (review + approve within 24 hours of Monday notification)  
 ✅ Content strategy: Evergreen blog (SEO), news-driven newsletter, social atomized from both  
 ✅ Automation level: Fully automated monitoring + drafting, human review gate before publish  
 ✅ Tech stack: Netlify Functions + Claude API + MailerLite + Buffer  
 ✅ Blog location: New `/posts/` folder, auto-rendered to `/blog/` page  
+✅ Social platforms: 6 platforms (LinkedIn, X, Instagram, TikTok, Facebook, YouTube)  
+✅ Social formats: Each post includes captions, hashtags, platform-specific dimensions/specs  
+⏳ Social posting schedule: To be confirmed (timing/staggering across platforms)
 
 ---
 
