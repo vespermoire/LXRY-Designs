@@ -24,3 +24,14 @@
   for = "/sitemap.xml"
   [headers.values]
     Content-Type = "application/xml; charset=utf-8"
+
+# Clean URLs for the legal pages
+[[redirects]]
+  from = "/privacy"
+  to = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from = "/legal"
+  to = "/legal.html"
+  status = 200
