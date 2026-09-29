@@ -134,6 +134,60 @@
         ],
         "createdAt": "2026-09-29T09:32:25.487Z",
         "reason": "Turquoise CTA glow is established LXRY brand language (HUD/neon aesthetic, matches site CTAs + open-pulse); user asked for the Kit fully on-brand and aesthetic."
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "starter-kit/starter-kit.html"
+        ],
+        "createdAt": "2026-09-29T09:36:07.991Z",
+        "reason": "Brand-styled print/marketing artifact: tight leading is correct for large display headings, negative tracking is mild display tightening, wide tracking is only on uppercase mono labels, and the left accent is a conventional editorial callout — not defects."
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          "starter-kit/starter-kit.html"
+        ],
+        "createdAt": "2026-09-29T09:36:10.832Z",
+        "reason": "Brand-styled print/marketing artifact: tight leading is correct for large display headings, negative tracking is mild display tightening, wide tracking is only on uppercase mono labels, and the left accent is a conventional editorial callout — not defects."
+      },
+      {
+        "rule": "extreme-negative-tracking",
+        "value": "*",
+        "files": [
+          "starter-kit/starter-kit.html"
+        ],
+        "createdAt": "2026-09-29T09:36:13.670Z",
+        "reason": "Brand-styled print/marketing artifact: tight leading is correct for large display headings, negative tracking is mild display tightening, wide tracking is only on uppercase mono labels, and the left accent is a conventional editorial callout — not defects."
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "starter-kit/starter-kit.html"
+        ],
+        "createdAt": "2026-09-29T09:36:16.257Z",
+        "reason": "Brand-styled print/marketing artifact: tight leading is correct for large display headings, negative tracking is mild display tightening, wide tracking is only on uppercase mono labels, and the left accent is a conventional editorial callout — not defects."
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "lxrydesigns/ai-kit.html"
+        ],
+        "createdAt": "2026-09-29T09:36:19.112Z",
+        "reason": "Brand-styled print/marketing artifact: tight leading is correct for large display headings, negative tracking is mild display tightening, wide tracking is only on uppercase mono labels, and the left accent is a conventional editorial callout — not defects."
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          "lxrydesigns/ai-kit.html"
+        ],
+        "createdAt": "2026-09-29T09:36:21.907Z",
+        "reason": "Brand-styled print/marketing artifact: tight leading is correct for large display headings, negative tracking is mild display tightening, wide tracking is only on uppercase mono labels, and the left accent is a conventional editorial callout — not defects."
       }
     ]
   }
