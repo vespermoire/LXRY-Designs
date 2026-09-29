@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Automation Starter Kit — LXRY Designs</title>
+<link rel="stylesheet" href="../lxrydesigns/assets/fonts/fonts.css">
+<style>
+  :root {
+    --black:#0D0D0D; --panel:#0F1514; --border:#20302D; --turq:#27F4D2; --teal:#00A19B;
+    --text:#E9EDEC; --dim:#8C9694; --jura:'Jura','Inter',sans-serif; --font:'Inter',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  @page { size: A4; margin: 0; }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body { font-family:var(--font); color:var(--text); background:var(--black); line-height:1.55; }
+  .page { width:210mm; min-height:297mm; padding:22mm 20mm; background:var(--black); position:relative; page-break-after:always; overflow:hidden; }
+  .page:last-child { page-break-after:auto; }
+
+  /* Cover */
+  .cover { display:flex; flex-direction:column; justify-content:center; }
+  .cover .mark { font-family:var(--jura); font-weight:700; letter-spacing:0.16em; text-transform:uppercase; font-size:14pt; }
+  .cover .mark .a { color:var(--turq); }
+  .cover .eyebrow { font-family:var(--mono); font-size:9pt; letter-spacing:0.22em; text-transform:uppercase; color:var(--turq); margin:60mm 0 8mm; }
+  .cover h1 { font-family:var(--jura); font-weight:700; font-size:40pt; line-height:1.05; letter-spacing:-0.5pt; }
+  .cover h1 .a { color:var(--turq); }
+  .cover .sub { color:var(--dim); font-size:13pt; margin-top:10mm; max-width:150mm; }
+  .cover .foot { position:absolute; bottom:22mm; left:20mm; right:20mm; display:flex; justify-content:space-between; color:var(--dim); font-family:var(--mono); font-size:8pt; letter-spacing:0.08em; }
+
+  h2.section { font-family:var(--jura); font-weight:700; color:var(--turq); font-size:22pt; margin-bottom:6mm; }
+  p.lede { color:var(--dim); font-size:11pt; margin-bottom:8mm; }
+  .eyebrow-s { font-family:var(--mono); font-size:8.5pt; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal); margin-bottom:3mm; }
+
+  .wf { background:var(--panel); border:1px solid var(--border); border-radius:4mm; padding:7mm 8mm; margin-bottom:6mm; page-break-inside:avoid; }
+  .wf .num { font-family:var(--mono); font-size:9pt; color:var(--teal); }
+  .wf h3 { font-family:var(--jura); font-weight:700; font-size:14pt; margin:1mm 0 3mm; }
+  .wf .what { font-size:10.5pt; margin-bottom:4mm; }
+  .wf .meta { display:flex; flex-wrap:wrap; gap:5mm; font-size:9pt; }
+  .wf .meta .lbl { font-family:var(--mono); font-size:7.5pt; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); display:block; margin-bottom:1mm; }
+  .wf .meta .tools { flex:1 1 90mm; }
+  .wf .meta .time { flex:0 0 28mm; }
+  .wf .meta .time .v { color:var(--turq); font-family:var(--jura); font-weight:700; font-size:11pt; }
+  .wf .start { margin-top:4mm; font-size:9.5pt; color:var(--dim); }
+  .wf .start b { color:var(--text); font-weight:600; }
+
+  .compliance { background:linear-gradient(180deg, rgba(39,244,210,0.06), rgba(15,21,20,0.4)); border:1px solid var(--border); border-left:3px solid var(--turq); border-radius:3mm; padding:8mm; margin-top:4mm; }
+  .compliance h3 { font-family:var(--jura); font-weight:700; color:var(--turq); font-size:15pt; margin-bottom:4mm; }
+  .compliance ul { list-style:none; }
+  .compliance li { font-size:10pt; padding-left:7mm; position:relative; margin-bottom:3mm; color:var(--text); }
+  .compliance li::before { content:'→'; position:absolute; left:0; color:var(--turq); }
+
+  .cta { text-align:center; margin-top:14mm; }
+  .cta h2 { font-family:var(--jura); font-weight:700; font-size:24pt; margin-bottom:4mm; }
+  .cta h2 .a { color:var(--turq); }
+  .cta p { color:var(--dim); font-size:11pt; max-width:140mm; margin:0 auto 8mm; }
+  .cta .btn { display:inline-block; background:var(--turq); color:var(--black); font-family:var(--jura); font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:5mm 12mm; border-radius:2mm; font-size:11pt; }
+  .cta .contact { margin-top:8mm; font-family:var(--mono); font-size:9pt; color:var(--dim); }
+  .cta .contact a, .compliance a { color:var(--turq); text-decoration:none; }
+</style>
+</head>
+<body>
+
+<!-- Cover -->
+<section class="page cover">
+  <div class="mark">LXRY<span class="a"> DESIGNS</span></div>
+  <p class="eyebrow">Free digital guide · 2026</p>
+  <h1>The AI Automation<br><span class="a">Starter Kit</span></h1>
+  <p class="sub">10 practical AI workflows that give a small business back 10+ hours a week — the tools, the use-cases, and how to start. No jargon, no fluff.</p>
+  <div class="foot"><span>lxrydesigns.com</span><span>Geneva ⇄ Pays de Gex · CHF · EUR</span></div>
+</section>
+
+<!-- Intro -->
+<section class="page">
+  <p class="eyebrow-s">Start here</p>
+  <h2 class="section">Why automate?</h2>
+  <p class="lede">Most small businesses lose a full day a week to repetitive, manual work — chasing enquiries, copying data between tools, writing the same replies, building the same reports. AI won't run your business, but it will quietly take those jobs off your plate.</p>
+  <p class="lede">This kit is ten workflows we see save the most time, ranked by how quickly you can put them to work. Each one lists what it does, the kind of tools that do it, roughly how many hours it gives back, and the smallest first step. Pick one. Ship it this week. Then come back for the next.</p>
+  <div class="compliance">
+    <h3>One rule before you start</h3>
+    <ul>
+      <li>Keep a human in the loop for anything a customer sees or that touches money.</li>
+      <li>Only feed these tools the data they actually need — less is safer.</li>
+      <li>If it processes personal data, it's covered by GDPR / Swiss FDPIC. Get consent, log why, keep it minimal.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Workflows 1-3 -->
+<section class="page">
+  <p class="eyebrow-s">The 10 workflows</p>
+  <h2 class="section">Quick wins first</h2>
+
+  <div class="wf">
+    <span class="num">01</span><h3>Inbox triage &amp; drafted replies</h3>
+    <p class="what">AI reads incoming email, sorts it by intent and urgency, and pre-writes on-brand replies for you to approve and send.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>Gmail / Outlook + an AI assistant, or Make/Zapier + a language model</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">3–5 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> connect your inbox, write 3–4 reply templates, keep every send behind a human click.</p>
+  </div>
+
+  <div class="wf">
+    <span class="num">02</span><h3>Lead capture → CRM sync</h3>
+    <p class="what">Every enquiry — form, DM, email — is logged to your CRM automatically, enriched and deduplicated, so nothing slips.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>Web form + Make/Zapier → HubSpot / Notion / a spreadsheet</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">2 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> map your form fields to the CRM once, add a dedupe step on email.</p>
+  </div>
+
+  <div class="wf">
+    <span class="num">03</span><h3>Quotes &amp; invoices from a brief</h3>
+    <p class="what">Turn a one-line description into a formatted quote or invoice, ready to review and send.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>Document automation + Stripe / QuickBooks / your accounting tool</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">2 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> build one template with variables (client, items, totals), wire it to your product list.</p>
+  </div>
+</section>
+
+<!-- Workflows 4-6 -->
+<section class="page">
+  <div class="wf">
+    <span class="num">04</span><h3>Meeting notes &amp; action items</h3>
+    <p class="what">Calls are transcribed automatically, then distilled into decisions and a clean task list sent to the right people.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>Fathom / Otter / tl;dv (+ your task tool)</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">2–3 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> add a notetaker to your recurring calls, forward its summary into your task board.</p>
+  </div>
+
+  <div class="wf">
+    <span class="num">05</span><h3>Content repurposing</h3>
+    <p class="what">One long piece — a post, a talk, a call — becomes several social posts and short-form video clips.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>An AI writer + a clip tool (Opus Clip / Descript)</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">4 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> take your best recent piece, produce five outputs from it before creating anything new.</p>
+  </div>
+
+  <div class="wf">
+    <span class="num">06</span><h3>Reviews &amp; reputation</h3>
+    <p class="what">Ask for a review at the exact right moment, watch new ones land, and draft replies to each.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>Automation platform + Google Business Profile</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">1–2 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> trigger a review request a few days after a completed job or delivery.</p>
+  </div>
+</section>
+
+<!-- Workflows 7-10 -->
+<section class="page">
+  <div class="wf">
+    <span class="num">07</span><h3>Document data extraction</h3>
+    <p class="what">Pull structured data out of PDFs, receipts and forms straight into your tools — no more retyping.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>AI OCR / document AI + your spreadsheet or database</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">2 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> pick one document you handle every week and automate just that one.</p>
+  </div>
+
+  <div class="wf">
+    <span class="num">08</span><h3>Scheduling &amp; reminders</h3>
+    <p class="what">Let people book you directly, and send automatic reminders and follow-ups so nobody no-shows.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>Cal.com / Calendly + an automation for reminders</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">2 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> share one booking link, add a two-step reminder sequence.</p>
+  </div>
+
+  <div class="wf">
+    <span class="num">09</span><h3>Customer FAQ assistant</h3>
+    <p class="what">An on-brand assistant answers your most common questions instantly — on the site or on WhatsApp.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>A chatbot trained on your own docs and FAQs</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">3 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> write your top 20 questions and answers, feed them in, hand off anything unusual to a human.</p>
+  </div>
+
+  <div class="wf">
+    <span class="num">10</span><h3>Weekly reporting</h3>
+    <p class="what">Dashboards build themselves from your tools, so the numbers that matter are ready every Monday.</p>
+    <div class="meta">
+      <div class="tools"><span class="lbl">Tools</span>Looker Studio / Google Sheets + connectors</div>
+      <div class="time"><span class="lbl">Time back</span><span class="v">1–2 h/wk</span></div>
+    </div>
+    <p class="start"><b>Start:</b> choose five metrics you actually act on, ignore the rest.</p>
+  </div>
+</section>
+
+<!-- Compliance + CTA -->
+<section class="page">
+  <p class="eyebrow-s">Do it right</p>
+  <h2 class="section">Automate without breaking GDPR</h2>
+  <div class="compliance">
+    <h3>The short compliance checklist</h3>
+    <ul>
+      <li>Collect and share only the personal data each workflow truly needs.</li>
+      <li>Get clear consent, and record the lawful basis for using the data.</li>
+      <li>Keep a human reviewing anything customer-facing or financial.</li>
+      <li>Check where your AI tools store data — EU/Swiss hosting is the safer default.</li>
+      <li>Where required, disclose that AI is being used (the EU AI Act is coming into force).</li>
+      <li>Review AI outputs before they go out — you're accountable for them.</li>
+    </ul>
+  </div>
+
+  <div class="cta">
+    <h2>Want this <span class="a">done for you?</span></h2>
+    <p>We audit your stack, find the hours hiding in manual work, and build the automations — compliantly, on both sides of the Geneva border.</p>
+    <a class="btn" href="https://www.lxrydesigns.com/#contact">Book an AI Automation Audit</a>
+    <p class="contact">hello@lxrydesigns.com · lxrydesigns.com · Divonne-les-Bains, France</p>
+  </div>
+</section>
+
+</body>
+</html>
