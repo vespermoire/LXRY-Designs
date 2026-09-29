@@ -35,3 +35,8 @@
   from = "/legal"
   to = "/legal.html"
   status = 200
+
+[[redirects]]
+  from = "/brand-pack"
+  to = "/brand-pack.html"
+  status = 200
