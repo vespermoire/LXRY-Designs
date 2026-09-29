@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Automation Starter Kit — LXRY Designs</title>
+<link rel="stylesheet" href="../lxrydesigns/assets/fonts/fonts.css">
+<style>
+  :root{
+    --black:#0D0D0D; --panel:#0F1514; --panel2:#111C1A; --border:#20302D; --border-soft:#182420;
+    --turq:#27F4D2; --teal:#00A19B; --text:#E9EDEC; --dim:#8C9694; --silver:#C8CCCE;
+    --jura:'Jura','Inter',sans-serif; --font:'Inter',sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  @page{ size:A4; margin:0; }
+  *{ margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  body{ font-family:var(--font); color:var(--text); background:var(--black); line-height:1.55; }
+  .page{ width:210mm; min-height:297mm; padding:16mm 18mm 20mm; background:var(--black); position:relative; page-break-after:always; overflow:hidden; }
+  .page:last-child{ page-break-after:auto; }
+
+  /* running header / footer */
+  .rh{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10mm; }
+  .rh .lhs{ display:flex; align-items:center; gap:4mm; }
+  .rh img{ height:8mm; width:auto; }
+  .rh .nm{ font-family:var(--jura); font-weight:700; letter-spacing:0.16em; text-transform:uppercase; font-size:8.5pt; color:var(--silver); }
+  .rh .pg{ font-family:var(--mono); font-size:7.5pt; letter-spacing:0.1em; color:var(--dim); }
+  .pf{ position:absolute; bottom:11mm; left:18mm; right:18mm; display:flex; justify-content:space-between; font-family:var(--mono); font-size:7pt; letter-spacing:0.08em; color:var(--dim); border-top:1px solid var(--border-soft); padding-top:3mm; }
+
+  h2.section{ font-family:var(--jura); font-weight:700; color:var(--turq); font-size:23pt; line-height:1.1; margin-bottom:5mm; }
+  .eyebrow-s{ font-family:var(--mono); font-size:8.5pt; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal); margin-bottom:3mm; }
+  p.lede{ color:var(--silver); font-size:11pt; margin-bottom:6mm; }
+
+  /* ---------- COVER ---------- */
+  .cover{ display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding-top:0; }
+  .cover .logo{ width:132mm; margin-bottom:14mm; position:relative; z-index:1; }
+  .cover .eyebrow{ font-family:var(--mono); font-size:9pt; letter-spacing:0.24em; text-transform:uppercase; color:var(--turq); margin-bottom:7mm; position:relative; z-index:1; }
+  .cover h1{ font-family:var(--jura); font-weight:700; font-size:38pt; line-height:1.04; letter-spacing:-0.4pt; position:relative; z-index:1; }
+  .cover h1 .a{ color:var(--turq); }
+  .cover .sub{ color:var(--silver); font-size:13pt; margin-top:9mm; max-width:150mm; position:relative; z-index:1; }
+  .cover .chips{ display:flex; gap:4mm; margin-top:12mm; position:relative; z-index:1; }
+  .cover .chip{ font-family:var(--mono); font-size:8pt; letter-spacing:0.06em; color:var(--turq); border:1px solid var(--border); border-radius:999px; padding:2.5mm 6mm; }
+  .cover .foot{ position:absolute; bottom:16mm; left:18mm; right:18mm; display:flex; justify-content:space-between; color:var(--dim); font-family:var(--mono); font-size:8pt; letter-spacing:0.08em; }
+
+  /* ---------- STAT / INFOGRAPHIC ---------- */
+  .statwrap{ display:flex; gap:8mm; align-items:stretch; margin:6mm 0; }
+  .bigstat{ flex:0 0 66mm; background:linear-gradient(160deg, rgba(39,244,210,0.14), rgba(0,161,155,0.05)); border:1px solid var(--border); border-radius:5mm; padding:8mm; text-align:center; display:flex; flex-direction:column; justify-content:center; }
+  .bigstat .n{ font-family:var(--jura); font-weight:700; color:var(--turq); font-size:44pt; line-height:1; }
+  .bigstat .u{ font-family:var(--mono); font-size:8.5pt; letter-spacing:0.12em; text-transform:uppercase; color:var(--silver); margin-top:3mm; }
+  .statwrap .body{ flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .statwrap .body p{ font-size:11pt; color:var(--silver); margin-bottom:4mm; }
+
+  /* how-to steps */
+  .steps{ display:flex; gap:5mm; margin:7mm 0; }
+  .step{ flex:1; background:var(--panel); border:1px solid var(--border); border-top:3px solid var(--turq); border-radius:4mm; padding:7mm 6mm; text-align:center; }
+  .step .ic{ width:14mm; height:14mm; margin:0 auto 4mm; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(39,244,210,0.1); }
+  .step .ic svg{ width:8mm; height:8mm; }
+  .step h3{ font-family:var(--jura); font-weight:700; font-size:12pt; color:var(--text); margin-bottom:2mm; }
+  .step p{ font-size:9pt; color:var(--dim); }
+
+  /* callout */
+  .callout{ background:linear-gradient(180deg, rgba(39,244,210,0.07), rgba(15,21,20,0.3)); border:1px solid var(--border); border-left:3px solid var(--turq); border-radius:3mm; padding:7mm 8mm; }
+  .callout h3{ font-family:var(--jura); font-weight:700; color:var(--turq); font-size:14pt; margin-bottom:3.5mm; }
+  .callout ul{ list-style:none; }
+  .callout li{ font-size:10pt; padding-left:7mm; position:relative; margin-bottom:2.5mm; color:var(--text); }
+  .callout li::before{ content:'→'; position:absolute; left:0; color:var(--turq); }
+
+  /* SVG icon base */
+  svg.ic-line{ fill:none; stroke:var(--turq); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* ---------- WORKFLOW CARDS ---------- */
+  .wf{ background:var(--panel); border:1px solid var(--border); border-radius:4mm; padding:4.5mm 7mm; margin-bottom:3.5mm; page-break-inside:avoid; position:relative; }
+  .wf .head{ display:flex; align-items:center; gap:5mm; margin-bottom:2.5mm; }
+  .wf .badge{ flex:0 0 13mm; height:13mm; border-radius:3mm; background:rgba(39,244,210,0.1); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
+  .wf .badge svg{ width:7mm; height:7mm; }
+  .wf .htext{ flex:1; }
+  .wf .num{ font-family:var(--mono); font-size:8pt; color:var(--teal); letter-spacing:0.1em; }
+  .wf h3{ font-family:var(--jura); font-weight:700; font-size:13.5pt; margin-top:0.5mm; }
+  .wf .hours{ flex:0 0 auto; text-align:right; }
+  .wf .hours .v{ font-family:var(--jura); font-weight:700; color:var(--turq); font-size:14pt; }
+  .wf .hours .l{ display:block; font-family:var(--mono); font-size:6.5pt; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); }
+  .wf .what{ font-size:10pt; color:var(--silver); margin-bottom:2mm; }
+  .wf .row{ display:flex; gap:6mm; font-size:9pt; }
+  .wf .row .lbl{ font-family:var(--mono); font-size:7pt; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); display:block; margin-bottom:1mm; }
+  .wf .tools{ flex:1; color:var(--text); }
+  .wf .start{ flex:1; color:var(--dim); }
+  .wf .start b{ color:var(--text); font-weight:600; }
+
+  /* tip strip (fills page, adds value) */
+  .tip{ display:flex; gap:5mm; align-items:center; background:rgba(39,244,210,0.05); border:1px solid var(--border-soft); border-radius:3mm; padding:5mm 7mm; margin-top:4mm; }
+  .tip svg{ width:7mm; height:7mm; flex:0 0 auto; fill:none; stroke:var(--turq); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+  .tip p{ font-size:10pt; color:var(--silver); }
+  .tip b{ font-family:var(--mono); font-size:8pt; letter-spacing:0.12em; text-transform:uppercase; color:var(--turq); }
+
+  /* ---------- BAR CHART ---------- */
+  .chart{ margin:6mm 0; }
+  .bar{ display:flex; align-items:center; gap:4mm; margin-bottom:3mm; }
+  .bar .name{ flex:0 0 52mm; font-size:9pt; color:var(--silver); text-align:right; }
+  .bar .track{ flex:1; height:6mm; background:var(--panel); border-radius:999px; overflow:hidden; }
+  .bar .fill{ height:100%; background:linear-gradient(90deg, var(--teal), var(--turq)); border-radius:999px; }
+  .bar .hrs{ flex:0 0 16mm; font-family:var(--mono); font-size:8.5pt; color:var(--turq); }
+
+  /* ---------- CTA / CLOSE ---------- */
+  .close{ display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .close img.mark{ width:34mm; margin-bottom:8mm; }
+  .close h2{ font-family:var(--jura); font-weight:700; font-size:26pt; margin-bottom:4mm; }
+  .close h2 .a{ color:var(--turq); }
+  .close p{ color:var(--silver); font-size:11pt; max-width:135mm; margin:0 auto 8mm; }
+  .close .btn{ display:inline-block; background:var(--turq); color:var(--black); font-family:var(--jura); font-weight:700; letter-spacing:0.06em; text-transform:uppercase; padding:5mm 14mm; border-radius:2mm; font-size:11.5pt; }
+  .close .contact{ margin-top:9mm; font-family:var(--mono); font-size:9pt; color:var(--dim); line-height:1.9; }
+  .close .contact a{ color:var(--turq); text-decoration:none; }
+  .social{ display:flex; gap:5mm; justify-content:center; margin-top:9mm; }
+  .social a{ width:11mm; height:11mm; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  .social svg{ width:5.5mm; height:5.5mm; fill:var(--turq); }
+  .social .handle{ text-align:center; }
+
+  /* cover top logo bar */
+  .cover-top{ position:absolute; top:13mm; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:4mm; z-index:2; }
+  .cover-top img{ height:9mm; }
+  .cover-top span{ font-family:var(--jura); font-weight:700; letter-spacing:0.18em; text-transform:uppercase; font-size:9pt; color:var(--silver); }
+
+  /* AI automation hub graphic (recreated on-brand) */
+  .aihub-line{ fill:none; stroke:var(--turq); stroke-width:2; stroke-dasharray:6 8; opacity:0.5; }
+  .aihub-node{ fill:rgba(39,244,210,0.08); stroke:var(--turq); stroke-width:2; }
+  .aihub-ico{ fill:none; stroke:var(--turq); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+  .aihub-fill{ fill:var(--turq); stroke:none; }
+  .aihub-ai{ fill:var(--turq); font-family:var(--jura); font-weight:700; }
+  .aihub-ring{ fill:none; stroke:var(--turq); stroke-width:14; stroke-dasharray:22 15; }
+  .aihub-feature{ display:block; width:118mm; margin:9mm auto 0; }
+  .aihub-cap{ text-align:center; font-family:var(--mono); font-size:8pt; letter-spacing:0.12em; text-transform:uppercase; color:var(--dim); margin-top:4mm; }
+  .aihub-bg{ position:absolute; top:50%; left:50%; width:172mm; transform:translate(-50%,-50%); opacity:0.1; z-index:0; }
+  .close > *:not(.aihub-bg){ position:relative; z-index:1; }
+</style>
+</head>
+<body>
+
+<!-- Reusable AI-automation hub (recreated on-brand, static) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="aihub" viewBox="0 0 1000 600">
+  <line class="aihub-line" x1="500" y1="204" x2="500" y2="120"/>
+  <line class="aihub-line" x1="583" y1="252" x2="656" y2="210"/>
+  <line class="aihub-line" x1="583" y1="348" x2="656" y2="390"/>
+  <line class="aihub-line" x1="500" y1="396" x2="500" y2="480"/>
+  <line class="aihub-line" x1="417" y1="348" x2="344" y2="390"/>
+  <line class="aihub-line" x1="417" y1="252" x2="344" y2="210"/>
+  <circle class="aihub-ring" cx="500" cy="300" r="84"/>
+  <circle cx="500" cy="300" r="62" fill="#0C1416" stroke="#27F4D2" stroke-width="2.5"/>
+  <text class="aihub-ai" x="500" y="301" font-size="52" text-anchor="middle" dominant-baseline="central">AI</text>
+  <g><rect class="aihub-node" x="454" y="24" width="92" height="92" rx="18"/><circle class="aihub-ico" cx="500" cy="70" r="12"/><circle class="aihub-fill" cx="500" cy="70" r="3.5"/><path class="aihub-ico" stroke-width="2.5" d="M500 53 v-6 M500 87 v6 M483 70 h-6 M517 70 h6 M488 58 l-4 -4 M512 82 l4 4 M512 58 l4 -4 M488 82 l-4 4"/></g>
+  <g><rect class="aihub-node" x="653" y="139" width="92" height="92" rx="18"/><path class="aihub-ico" d="M699 168 v-8"/><circle class="aihub-fill" cx="699" cy="158" r="3.5"/><rect class="aihub-ico" x="682" y="172" width="34" height="27" rx="7"/><circle class="aihub-fill" cx="692" cy="185" r="2.8"/><circle class="aihub-fill" cx="706" cy="185" r="2.8"/><path class="aihub-ico" stroke-width="2.5" d="M680 182 h-4 M718 182 h4"/></g>
+  <g><rect class="aihub-node" x="653" y="369" width="92" height="92" rx="18"/><path class="aihub-ico" d="M683 401 h32 a6 6 0 0 1 6 6 v14 a6 6 0 0 1 -6 6 h-16 l-9 8 v-8 h-1 a6 6 0 0 1 -6 -6 v-14 a6 6 0 0 1 6 -6 z"/><path class="aihub-ico" stroke-width="2.4" d="M690 411 h22 M690 419 h15"/></g>
+  <g><rect class="aihub-node" x="454" y="484" width="92" height="92" rx="18"/><path class="aihub-ico" d="M487 511 h18 l8 8 v20 a3 3 0 0 1 -3 3 h-23 a3 3 0 0 1 -3 -3 v-25 a3 3 0 0 1 3 -3 z"/><path class="aihub-ico" stroke-width="2.4" d="M505 511 v8 h8 M491 528 h18 M491 536 h13"/></g>
+  <g><rect class="aihub-node" x="255" y="369" width="92" height="92" rx="18"/><path class="aihub-ico" d="M288 415 a13 13 0 0 1 22 -9"/><path class="aihub-fill" d="M310 397 l2 9 l-9 -2 z"/><path class="aihub-ico" d="M314 415 a13 13 0 0 1 -22 9"/><path class="aihub-fill" d="M292 433 l-2 -9 l9 2 z"/><circle class="aihub-fill" cx="301" cy="415" r="3"/></g>
+  <g><rect class="aihub-node" x="255" y="139" width="92" height="92" rx="18"/><path class="aihub-ico" d="M286 197 h30"/><rect class="aihub-fill" x="289" y="189" width="6" height="8"/><rect class="aihub-fill" x="298" y="182" width="6" height="15"/><rect class="aihub-fill" x="307" y="176" width="6" height="21"/></g>
+</symbol></svg>
+
+<!-- 1 · COVER -->
+<section class="page cover">
+  <div class="cover-top"><img src="../lxrydesigns/assets/lxry-wave-mark.webp" alt=""><span>LXRY Designs</span></div>
+  <img class="logo" src="../lxrydesigns/assets/lxry-logo-lockup.webp" alt="LXRY Designs">
+  <p class="eyebrow">Free digital guide · 2026</p>
+  <h1>The AI Automation<br><span class="a">Starter Kit</span></h1>
+  <p class="sub">10 practical AI workflows that give a small business back 10+ hours a week — the tools, the use-cases, and how to start. No jargon, no fluff.</p>
+  <div class="chips"><span class="chip">Web</span><span class="chip">SEO</span><span class="chip">Compliance</span><span class="chip">AI Automation</span></div>
+  <div class="foot"><span>lxrydesigns.com</span><span>Geneva ⇄ Pays de Gex · CHF · EUR</span></div>
+</section>
+
+<!-- 2 · WHY -->
+<section class="page">
+  <div class="rh"><div class="lhs"><img src="../lxrydesigns/assets/lxry-wave-mark.webp" alt=""><span class="nm">LXRY Designs</span></div><span class="pg">Starter Kit · 02</span></div>
+  <p class="eyebrow-s">Start here</p>
+  <h2 class="section">Why automate?</h2>
+  <div class="statwrap">
+    <div class="bigstat"><span class="n">~8h</span><span class="u">lost per week to manual work</span></div>
+    <div class="body">
+      <p>Most small businesses lose the best part of a day every week to repetitive, manual work — chasing enquiries, copying data between tools, writing the same replies, rebuilding the same reports.</p>
+      <p>AI won't run your business. But it will quietly take those jobs off your plate — so your time goes to the work only you can do.</p>
+    </div>
+  </div>
+  <p class="lede">This kit is the ten workflows we see save the most time, ranked by how quickly you can put them to work. Each lists what it does, the tools that do it, roughly how many hours it gives back, and the smallest first step.</p>
+  <div class="callout">
+    <h3>One rule before you start</h3>
+    <ul>
+      <li>Keep a human in the loop for anything a customer sees or that touches money.</li>
+      <li>Only feed these tools the data they actually need — less is safer.</li>
+      <li>If it processes personal data, it's covered by GDPR / Swiss FDPIC. Get consent, log why, keep it minimal.</li>
+    </ul>
+  </div>
+  <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
+</section>
+
+<!-- 3 · HOW TO USE -->
+<section class="page">
+  <div class="rh"><div class="lhs"><img src="../lxrydesigns/assets/lxry-wave-mark.webp" alt=""><span class="nm">LXRY Designs</span></div><span class="pg">Starter Kit · 03</span></div>
+  <p class="eyebrow-s">How to use this kit</p>
+  <h2 class="section">Three steps, one at a time</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="ic"><svg class="ic-line" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="0.6" fill="#27F4D2" stroke="none"/></svg></div>
+      <h3>1 · Pick one</h3><p>Choose a single workflow that matches a job you do every week.</p>
+    </div>
+    <div class="step">
+      <div class="ic"><svg class="ic-line" viewBox="0 0 24 24"><path d="M12 3c4 2 6 6 6 10l-6 3-6-3c0-4 2-8 6-10z"/><path d="M9.5 13.5L7 20M14.5 13.5L17 20"/><circle cx="12" cy="10" r="1.6"/></svg></div>
+      <h3>2 · Ship it this week</h3><p>Set it up in an afternoon. Keep it simple; you can refine later.</p>
+    </div>
+    <div class="step">
+      <div class="ic"><svg class="ic-line" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4h-4"/></svg></div>
+      <h3>3 · Come back</h3><p>Once it's running without you, pick the next one from the list.</p>
+    </div>
+  </div>
+  <div class="statwrap">
+    <div class="bigstat"><span class="n">24h</span><span class="u">up to, back per week</span></div>
+    <div class="body">
+      <p>Run all ten and the time adds up fast. You don't need all ten — even three or four of these compound into a noticeably lighter week.</p>
+      <p>The chart on page 7 shows where the biggest wins are.</p>
+    </div>
+  </div>
+  <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
+</section>
+
+<!-- 4 · WORKFLOWS 1-3 -->
+<section class="page">
+  <div class="rh"><div class="lhs"><img src="../lxrydesigns/assets/lxry-wave-mark.webp" alt=""><span class="nm">LXRY Designs</span></div><span class="pg">Starter Kit · 04</span></div>
+  <p class="eyebrow-s">The 10 workflows</p>
+  <h2 class="section">Quick wins first</h2>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="M3 6l9 7 9-7"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 01</span><h3>Inbox triage &amp; drafted replies</h3></div>
+      <div class="hours"><span class="v">3–5h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">AI reads incoming email, sorts it by intent and urgency, and pre-writes on-brand replies for you to approve and send.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>Gmail / Outlook + an AI assistant, or Make/Zapier + a language model</div><div class="start"><span class="lbl">Start</span><b>Connect your inbox</b>, write 3–4 reply templates, keep every send behind a human click.</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><path d="M3 4h18l-7 8v6l-4 2v-8z"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 02</span><h3>Lead capture → CRM sync</h3></div>
+      <div class="hours"><span class="v">2h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">Every enquiry — form, DM, email — is logged to your CRM automatically, enriched and deduplicated, so nothing slips.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>Web form + Make/Zapier → HubSpot / Notion / a spreadsheet</div><div class="start"><span class="lbl">Start</span><b>Map your form fields</b> to the CRM once, add a dedupe step on email.</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 12h6M9 16h6"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 03</span><h3>Quotes &amp; invoices from a brief</h3></div>
+      <div class="hours"><span class="v">2h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">Turn a one-line description into a formatted quote or invoice, ready to review and send.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>Document automation + Stripe / QuickBooks / your accounting tool</div><div class="start"><span class="lbl">Start</span><b>Build one template</b> with variables (client, items, totals), wire it to your product list.</div></div>
+  </div>
+  <div class="tip"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 1 4 10.5c-.7.6-1 1-1 2H9c0-1-.3-1.4-1-2A6 6 0 0 1 12 3z"/></svg><p><b>Tip &nbsp;·&nbsp;</b> Start with the workflow that annoys you most on a Monday morning. Momentum beats perfection — you can refine any of these later.</p></div>
+  <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
+</section>
+
+<!-- 5 · WORKFLOWS 4-6 -->
+<section class="page">
+  <div class="rh"><div class="lhs"><img src="../lxrydesigns/assets/lxry-wave-mark.webp" alt=""><span class="nm">LXRY Designs</span></div><span class="pg">Starter Kit · 05</span></div>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><path d="M4 5h16v10H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 04</span><h3>Meeting notes &amp; action items</h3></div>
+      <div class="hours"><span class="v">2–3h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">Calls are transcribed automatically, then distilled into decisions and a clean task list sent to the right people.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>Fathom / Otter / tl;dv (+ your task tool)</div><div class="start"><span class="lbl">Start</span><b>Add a notetaker</b> to recurring calls, forward its summary into your task board.</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M8 11l8-4M8 13l8 4"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 05</span><h3>Content repurposing</h3></div>
+      <div class="hours"><span class="v">4h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">One long piece — a post, a talk, a call — becomes several social posts and short-form video clips.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>An AI writer + a clip tool (Opus Clip / Descript)</div><div class="start"><span class="lbl">Start</span><b>Take your best recent piece</b>, produce five outputs from it before creating anything new.</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><path d="M12 3l2.5 6 6.5.5-5 4 1.7 6.3L12 16.8 6.3 19.8 8 13.5 3 9.5 9.5 9z"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 06</span><h3>Reviews &amp; reputation</h3></div>
+      <div class="hours"><span class="v">1–2h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">Ask for a review at the exact right moment, watch new ones land, and draft a reply to each.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>Automation platform + Google Business Profile</div><div class="start"><span class="lbl">Start</span><b>Trigger a review request</b> a few days after a completed job or delivery.</div></div>
+  </div>
+  <div class="tip"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 1 4 10.5c-.7.6-1 1-1 2H9c0-1-.3-1.4-1-2A6 6 0 0 1 12 3z"/></svg><p><b>Tip &nbsp;·&nbsp;</b> You don't need all ten. Three or four compounding wins already reshape your week — and each one funds the time to set up the next.</p></div>
+  <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
+</section>
+
+<!-- 6 · WORKFLOWS 7-10 -->
+<section class="page">
+  <div class="rh"><div class="lhs"><img src="../lxrydesigns/assets/lxry-wave-mark.webp" alt=""><span class="nm">LXRY Designs</span></div><span class="pg">Starter Kit · 06</span></div>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><path d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3M4 12h16"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 07</span><h3>Document data extraction</h3></div>
+      <div class="hours"><span class="v">2h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">Pull structured data out of PDFs, receipts and forms straight into your tools — no more retyping.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>AI OCR / document AI + your spreadsheet or database</div><div class="start"><span class="lbl">Start</span><b>Pick one document</b> you handle every week and automate just that one.</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><path d="M4 5h16v15H4z"/><path d="M4 9h16M8 3v4M16 3v4"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 08</span><h3>Scheduling &amp; reminders</h3></div>
+      <div class="hours"><span class="v">2h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">Let people book you directly, and send automatic reminders and follow-ups so nobody no-shows.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>Cal.com / Calendly + an automation for reminders</div><div class="start"><span class="lbl">Start</span><b>Share one booking link</b>, add a two-step reminder sequence.</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><path d="M4 5h16v11H10l-4 4v-4H4z"/><path d="M9 10h6"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 09</span><h3>Customer FAQ assistant</h3></div>
+      <div class="hours"><span class="v">3h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">An on-brand assistant answers your most common questions instantly — on the site or on WhatsApp.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>A chatbot trained on your own docs and FAQs</div><div class="start"><span class="lbl">Start</span><b>Write your top 20 Q&amp;As</b>, feed them in, hand off anything unusual to a human.</div></div>
+  </div>
+
+  <div class="wf">
+    <div class="head">
+      <div class="badge"><svg class="ic-line" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M8 17v-5M13 17V9M18 17V6"/></svg></div>
+      <div class="htext"><span class="num">WORKFLOW 10</span><h3>Weekly reporting</h3></div>
+      <div class="hours"><span class="v">1–2h</span><span class="l">per week</span></div>
+    </div>
+    <p class="what">Dashboards build themselves from your tools, so the numbers that matter are ready every Monday.</p>
+    <div class="row"><div class="tools"><span class="lbl">Tools</span>Looker Studio / Google Sheets + connectors</div><div class="start"><span class="lbl">Start</span><b>Choose five metrics</b> you actually act on, ignore the rest.</div></div>
+  </div>
+  <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
+</section>
+
+<!-- 7 · TIME BACK CHART -->
+<section class="page">
+  <div class="rh"><div class="lhs"><img src="../lxrydesigns/assets/lxry-wave-mark.webp" alt=""><span class="nm">LXRY Designs</span></div><span class="pg">Starter Kit · 07</span></div>
+  <p class="eyebrow-s">The payoff</p>
+  <h2 class="section">Where the hours come back</h2>
+  <p class="lede">Rough weekly time saved once each workflow is running. Start at the top.</p>
+  <div class="chart">
+    <div class="bar"><span class="name">Content repurposing</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="hrs">~4h</span></div>
+    <div class="bar"><span class="name">Inbox triage &amp; replies</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="hrs">3–5h</span></div>
+    <div class="bar"><span class="name">Customer FAQ assistant</span><span class="track"><span class="fill" style="width:75%"></span></span><span class="hrs">~3h</span></div>
+    <div class="bar"><span class="name">Meeting notes &amp; actions</span><span class="track"><span class="fill" style="width:62%"></span></span><span class="hrs">2–3h</span></div>
+    <div class="bar"><span class="name">Lead capture → CRM</span><span class="track"><span class="fill" style="width:50%"></span></span><span class="hrs">~2h</span></div>
+    <div class="bar"><span class="name">Quotes &amp; invoices</span><span class="track"><span class="fill" style="width:50%"></span></span><span class="hrs">~2h</span></div>
+    <div class="bar"><span class="name">Document extraction</span><span class="track"><span class="fill" style="width:50%"></span></span><span class="hrs">~2h</span></div>
+    <div class="bar"><span class="name">Scheduling &amp; reminders</span><span class="track"><span class="fill" style="width:50%"></span></span><span class="hrs">~2h</span></div>
+    <div class="bar"><span class="name">Reviews &amp; reputation</span><span class="track"><span class="fill" style="width:37%"></span></span><span class="hrs">1–2h</span></div>
+    <div class="bar"><span class="name">Weekly reporting</span><span class="track"><span class="fill" style="width:37%"></span></span><span class="hrs">1–2h</span></div>
+  </div>
+  <div class="statwrap">
+    <div class="bigstat"><span class="n">~24h</span><span class="u">total, per week, all ten</span></div>
+    <div class="body"><p>That's three working days handed back every week — or, more realistically, the four or five workflows that fit your business, giving you a clear half-day-plus to spend on growth instead of admin.</p></div>
+  </div>
+  <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
+</section>
+
+<!-- 8 · COMPLIANCE -->
+<section class="page">
+  <div class="rh"><div class="lhs"><img src="../lxrydesigns/assets/lxry-wave-mark.webp" alt=""><span class="nm">LXRY Designs</span></div><span class="pg">Starter Kit · 08</span></div>
+  <p class="eyebrow-s">Do it right</p>
+  <h2 class="section">Automate without breaking GDPR</h2>
+  <p class="lede">You're a compliance-facing business either way. These six habits keep your automations on the right side of GDPR, Swiss FDPIC and the incoming EU AI Act.</p>
+  <div class="callout">
+    <h3>The short compliance checklist</h3>
+    <ul>
+      <li>Collect and share only the personal data each workflow truly needs.</li>
+      <li>Get clear consent, and record the lawful basis for using the data.</li>
+      <li>Keep a human reviewing anything customer-facing or financial.</li>
+      <li>Check where your AI tools store data — EU / Swiss hosting is the safer default.</li>
+      <li>Where required, disclose that AI is being used (the EU AI Act is coming into force).</li>
+      <li>Review AI outputs before they go out — you're accountable for them.</li>
+    </ul>
+  </div>
+  <svg class="aihub-feature" viewBox="0 0 1000 600" role="img" aria-label="AI automation hub connecting documents, settings, robots, chat, data and workflows"><use href="#aihub"/></svg>
+  <p class="aihub-cap">One hub · every workflow · human-supervised</p>
+  <div class="pf"><span>THE AI AUTOMATION STARTER KIT</span><span>lxrydesigns.com</span></div>
+</section>
+
+<!-- 9 · CLOSE / CTA -->
+<section class="page close">
+  <svg class="aihub-bg" viewBox="0 0 1000 600" aria-hidden="true"><use href="#aihub"/></svg>
+  <img class="mark" src="../lxrydesigns/assets/lxry-wave-mark.webp" alt="LXRY Designs">
+  <h2>Want this <span class="a">done for you?</span></h2>
+  <p>We audit your stack, find the hours hiding in manual work, and build the automations — compliantly, on both sides of the Geneva border. Every engagement starts with an audit and a straight answer.</p>
+  <a class="btn" href="https://www.lxrydesigns.com/#contact">Book an AI Automation Audit</a>
+  <div class="contact">
+    hello@lxrydesigns.com&nbsp;&nbsp;·&nbsp;&nbsp;lxrydesigns.com<br>
+    Divonne-les-Bains, France · serving Geneva &amp; Pays de Gex · CHF · EUR
+  </div>
+  <div class="social">
+    <a aria-label="Instagram" href="https://www.instagram.com/lxry_Design_Studio"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.4-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg></a>
+    <a aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
+    <a aria-label="TikTok" href="https://www.tiktok.com/@lxry.designs"><svg viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.3v13.1a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.78.12v-3.4a5.99 5.99 0 0 0-.78-.05A5.99 5.99 0 1 0 15.64 16V9.4a7.5 7.5 0 0 0 4.36 1.4V7.4a4.28 4.28 0 0 1-3.4-1.58z"/></svg></a>
+    <a aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24h-4V8z"/></svg></a>
+    <a aria-label="YouTube" href="https://www.youtube.com/@lxrydesigns"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
+    <a aria-label="X" href="https://x.com/LXRYDesigns"><svg viewBox="0 0 24 24"><path d="M18.9 1.5h3.7l-8.1 9.2 9.5 12.6h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.9L0 1.5h7.6l5.2 6.9 6.1-6.9zm-1.3 19.7h2L6.5 3.6H4.4l13.2 17.6z"/></svg></a>
+  </div>
+  <p class="contact" style="margin-top:5mm;">Instagram @lxry_Design_Studio&nbsp;·&nbsp;TikTok @lxry.designs&nbsp;·&nbsp;YouTube @lxrydesigns&nbsp;·&nbsp;X @LXRYDesigns</p>
+</section>
+
+</body>
+</html>

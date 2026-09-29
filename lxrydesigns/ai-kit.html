@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free AI Automation Starter Kit — LXRY Designs</title>
+    <meta name="description" content="A free, practical guide: 10 AI workflows that give a small business back 10+ hours a week. Built by LXRY Designs — cross-border web, SEO, compliance & AI automation.">
+    <link rel="canonical" href="https://www.lxrydesigns.com/ai-kit">
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <meta name="theme-color" content="#0D0D0D">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="LXRY Designs">
+    <meta property="og:url" content="https://www.lxrydesigns.com/ai-kit">
+    <meta property="og:title" content="Free AI Automation Starter Kit — LXRY Designs">
+    <meta property="og:description" content="10 AI workflows that give a small business back 10+ hours a week.">
+    <meta property="og:image" content="https://www.lxrydesigns.com/assets/favicon-512.png">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:locale:alternate" content="fr_FR">
+
+    <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/signup.css">
+    <style>
+        :root {
+            --black: #0D0D0D;
+            --panel: #0F1514;
+            --border: #20302D;
+            --turq: #27F4D2;
+            --teal: #00A19B;
+            --text: #E9EDEC;
+            --dim: #8C9694;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --jura: 'Jura', 'Inter', sans-serif;
+            --mono: 'JetBrains Mono', ui-monospace, monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--black);
+            color: var(--text);
+            font-family: var(--font);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; }
+        .wrap { width: 100%; max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+
+        /* Top bar */
+        .topbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 22px; max-width: 1040px; margin: 0 auto;
+        }
+        .brand { font-family: var(--jura); font-weight: 700; letter-spacing: 0.14em;
+            text-transform: uppercase; text-decoration: none; font-size: 1.05rem; }
+        .brand .accent { color: var(--turq); }
+        .lang-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+        .lang-btn { background: transparent; color: var(--dim); border: none; padding: 6px 14px;
+            font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; cursor: pointer; }
+        .lang-btn[aria-pressed="true"] { background: var(--turq); color: var(--black); font-weight: 700; }
+
+        /* Hero */
+        .hero { text-align: center; padding: 60px 0 40px; }
+        .eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.16em;
+            text-transform: uppercase; color: var(--turq); margin-bottom: 18px; }
+        .hero h1 { font-family: var(--jura); font-weight: 700; font-size: clamp(2rem, 6vw, 3.4rem);
+            line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 20px; }
+        .hero h1 .accent { color: var(--turq); }
+        .hero p.lead { font-size: clamp(1.05rem, 2.4vw, 1.25rem); color: var(--dim);
+            max-width: 640px; margin: 0 auto 30px; }
+        .cta-primary { display: inline-block; background: var(--turq); color: var(--black);
+            text-decoration: none; padding: 15px 34px; border-radius: 8px; font-family: var(--jura);
+            font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+            transition: transform 0.2s, box-shadow 0.2s; }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(39,244,210,0.28); }
+
+        /* What's inside */
+        .inside { padding: 40px 0 20px; }
+        .inside h2 { font-family: var(--jura); font-weight: 700; color: var(--turq);
+            font-size: clamp(1.5rem, 4vw, 2.1rem); text-align: center; margin-bottom: 8px; }
+        .inside .sub { text-align: center; color: var(--dim); margin-bottom: 34px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+        .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+            padding: 20px 22px; }
+        .card .num { font-family: var(--mono); font-size: 0.8rem; color: var(--teal); }
+        .card h3 { font-family: var(--jura); font-weight: 600; font-size: 1.05rem; margin: 6px 0 6px; }
+        .card p { color: var(--dim); font-size: 0.92rem; line-height: 1.5; }
+
+        /* Signup section */
+        .signup-section { padding: 56px 0 40px; text-align: center; }
+        .signup-section h2 { font-family: var(--jura); font-weight: 700; color: var(--turq);
+            font-size: clamp(1.6rem, 4.5vw, 2.3rem); margin-bottom: 12px; }
+        .signup-section p.intro { color: var(--dim); max-width: 560px; margin: 0 auto 30px; }
+        .signup-card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px;
+            padding: 34px 26px; max-width: 520px; margin: 0 auto; }
+        .alt-contact { color: var(--dim); font-size: 0.9rem; margin-top: 22px; }
+        .alt-contact a { color: var(--turq); }
+
+        /* Footer */
+        footer { border-top: 1px solid var(--border); margin-top: 50px; padding: 28px 0; }
+        footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between;
+            color: var(--dim); font-size: 0.85rem; }
+        footer a { color: var(--turq); text-decoration: none; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .cta-primary { transition: none; }
+            .cta-primary:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <a class="brand" href="/">LXRY<span class="accent"> DESIGNS</span></a>
+        <div class="lang-toggle" role="group" aria-label="Language / Langue">
+            <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+            <button class="lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+        </div>
+    </div>
+
+    <main class="wrap">
+        <section class="hero">
+            <p class="eyebrow" data-i18n="k.eyebrow">Free digital guide</p>
+            <h1 data-i18n="k.h1">The AI Automation <span class="accent">Starter Kit</span></h1>
+            <p class="lead" data-i18n="k.lead">10 practical AI workflows that give a small business back 10+ hours a week — the tools, the use-cases, and how to start. No jargon, no fluff.</p>
+            <a href="#get" class="cta-primary" data-i18n="k.cta">Get the free kit</a>
+        </section>
+
+        <section class="inside">
+            <h2 data-i18n="k.inside.h">What's inside</h2>
+            <p class="sub" data-i18n="k.inside.sub">Ten repeatable workflows you can put to work this week.</p>
+            <div class="grid">
+                <div class="card"><span class="num">01</span><h3 data-i18n="k.w1.t">Inbox triage &amp; drafted replies</h3><p data-i18n="k.w1.p">Sort, prioritise and pre-write email responses.</p></div>
+                <div class="card"><span class="num">02</span><h3 data-i18n="k.w2.t">Lead capture → CRM sync</h3><p data-i18n="k.w2.p">Every enquiry logged and routed automatically.</p></div>
+                <div class="card"><span class="num">03</span><h3 data-i18n="k.w3.t">Quotes &amp; invoices</h3><p data-i18n="k.w3.p">Generate documents from a short brief.</p></div>
+                <div class="card"><span class="num">04</span><h3 data-i18n="k.w4.t">Meeting notes &amp; actions</h3><p data-i18n="k.w4.p">Transcribe calls into clear next steps.</p></div>
+                <div class="card"><span class="num">05</span><h3 data-i18n="k.w5.t">Content repurposing</h3><p data-i18n="k.w5.p">Turn one post into social + short-form clips.</p></div>
+                <div class="card"><span class="num">06</span><h3 data-i18n="k.w6.t">Reviews &amp; reputation</h3><p data-i18n="k.w6.p">Ask for reviews at the right moment.</p></div>
+                <div class="card"><span class="num">07</span><h3 data-i18n="k.w7.t">Document data extraction</h3><p data-i18n="k.w7.p">Pull data from PDFs and forms into your tools.</p></div>
+                <div class="card"><span class="num">08</span><h3 data-i18n="k.w8.t">Scheduling &amp; reminders</h3><p data-i18n="k.w8.p">Bookings and follow-ups without the back-and-forth.</p></div>
+                <div class="card"><span class="num">09</span><h3 data-i18n="k.w9.t">Customer FAQ assistant</h3><p data-i18n="k.w9.p">Answer common questions instantly, on-brand.</p></div>
+                <div class="card"><span class="num">10</span><h3 data-i18n="k.w10.t">Weekly reporting</h3><p data-i18n="k.w10.p">Auto-built dashboards you actually read.</p></div>
+            </div>
+        </section>
+
+        <section class="signup-section" id="get">
+            <h2 data-i18n="k.get.h">Get the Starter Kit — free</h2>
+            <p class="intro" data-i18n="k.get.p">Drop your email and we'll send the Kit straight to your inbox. You'll also get our AI-news newsletter — the latest developments, distilled for busy owners. Unsubscribe anytime.</p>
+            <div class="signup-card">
+                <form class="lxry-signup" data-signup
+                      data-loading="Sending…"
+                      data-success="Almost there — check your inbox to confirm and get the Kit."
+                      data-error="Something went wrong — please email hello@lxrydesigns.com.">
+                    <p class="sg-hp" aria-hidden="true"><label>Leave this blank <input type="text" name="website" tabindex="-1" autocomplete="off"></label></p>
+                    <div class="sg-row">
+                        <label for="cf-name" data-i18n="k.f.name">First name</label>
+                        <input id="cf-name" type="text" name="name" autocomplete="given-name">
+                    </div>
+                    <div class="sg-row">
+                        <label for="cf-email" data-i18n="k.f.email">Email</label>
+                        <input id="cf-email" type="email" name="email" autocomplete="email" required>
+                    </div>
+                    <label class="sg-consent">
+                        <input type="checkbox" name="consent" required>
+                        <span data-i18n="k.f.consent">I agree to receive the Kit and newsletter, and to the <a href="/privacy">Privacy Policy</a>.</span>
+                    </label>
+                    <input type="hidden" name="source" value="ai-kit">
+                    <button type="submit" data-i18n="k.f.btn">Send me the Kit</button>
+                    <p data-signup-status></p>
+                </form>
+            </div>
+            <p class="alt-contact" data-i18n="k.alt">Prefer to talk first? <a href="mailto:hello@lxrydesigns.com">Email us</a> or <a href="/">visit the main site</a>.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <span data-i18n="k.foot.copy">© 2026 LXRY Designs Ltd · Divonne-les-Bains, France</span>
+            <span><a href="/privacy" data-i18n="k.foot.privacy">Privacy Policy</a> · <a href="/legal" data-i18n="k.foot.legal">Legal Notice</a> · <a href="/" data-i18n="k.foot.home">Home</a></span>
+        </div>
+    </footer>
+
+    <script src="assets/signup.js"></script>
+    <script>
+        (function () {
+            var I18N = { fr: {
+                "k.eyebrow": "Guide numérique gratuit",
+                "k.h1": "Le <span class=\"accent\">Kit de démarrage</span> automatisation IA",
+                "k.lead": "10 workflows IA concrets qui redonnent 10 h+ par semaine à une petite entreprise — les outils, les cas d'usage et comment démarrer. Sans jargon.",
+                "k.cta": "Obtenir le kit gratuit",
+                "k.inside.h": "Ce qu'il contient",
+                "k.inside.sub": "Dix workflows réutilisables à mettre en place dès cette semaine.",
+                "k.w1.t": "Tri des e-mails &amp; réponses pré-rédigées", "k.w1.p": "Trier, prioriser et pré-écrire les réponses.",
+                "k.w2.t": "Capture de leads → CRM", "k.w2.p": "Chaque demande enregistrée et routée automatiquement.",
+                "k.w3.t": "Devis &amp; factures", "k.w3.p": "Générer les documents à partir d'un brief court.",
+                "k.w4.t": "Notes de réunion &amp; actions", "k.w4.p": "Transcrire les appels en étapes claires.",
+                "k.w5.t": "Reconditionnement de contenu", "k.w5.p": "Transformer un post en réseaux sociaux + clips courts.",
+                "k.w6.t": "Avis &amp; réputation", "k.w6.p": "Demander des avis au bon moment.",
+                "k.w7.t": "Extraction de données", "k.w7.p": "Extraire les données des PDF et formulaires.",
+                "k.w8.t": "Planification &amp; rappels", "k.w8.p": "Rendez-vous et relances sans allers-retours.",
+                "k.w9.t": "Assistant FAQ client", "k.w9.p": "Répondre instantanément aux questions courantes.",
+                "k.w10.t": "Rapports hebdomadaires", "k.w10.p": "Des tableaux de bord que vous lisez vraiment.",
+                "k.get.h": "Recevez le Starter Kit — gratuit",
+                "k.get.p": "Laissez votre e-mail et nous vous envoyons le Kit. Vous recevrez aussi notre newsletter actualités IA — les dernières avancées, résumées pour les dirigeants occupés. Désabonnement à tout moment.",
+                "k.f.name": "Prénom", "k.f.email": "E-mail",
+                "k.f.consent": "J'accepte de recevoir le Kit et la newsletter, et la <a href=\"/privacy\">Politique de confidentialité</a>.",
+                "k.f.btn": "Envoyez-moi le Kit",
+                "k.alt": "Vous préférez échanger d'abord ? <a href=\"mailto:hello@lxrydesigns.com\">Écrivez-nous</a> ou <a href=\"/\">visitez le site</a>.",
+                "k.foot.copy": "© 2026 LXRY Designs Ltd · Divonne-les-Bains, France",
+                "k.foot.privacy": "Politique de confidentialité", "k.foot.legal": "Mentions légales", "k.foot.home": "Accueil"
+            } };
+            var FORMCOPY = {
+                en: { loading: "Sending…", success: "Almost there — check your inbox to confirm and get the Kit.", error: "Something went wrong — please email hello@lxrydesigns.com." },
+                fr: { loading: "Envoi…", success: "Presque terminé — vérifiez votre boîte mail pour confirmer et recevoir le Kit.", error: "Une erreur est survenue — écrivez à hello@lxrydesigns.com." }
+            };
+            var nodes = Array.from(document.querySelectorAll('[data-i18n]'));
+            var en = new Map();
+            nodes.forEach(function (n) { en.set(n, n.innerHTML); });
+            var buttons = Array.from(document.querySelectorAll('.lang-btn'));
+            function setLang(lang) {
+                nodes.forEach(function (n) {
+                    var key = n.getAttribute('data-i18n');
+                    if (lang === 'fr' && I18N.fr[key] != null && I18N.fr[key] !== '') n.innerHTML = I18N.fr[key];
+                    else n.innerHTML = en.get(n);
+                });
+                var form = document.querySelector('form[data-signup]');
+                if (form) {
+                    var c = FORMCOPY[lang] || FORMCOPY.en;
+                    form.setAttribute('data-loading', c.loading);
+                    form.setAttribute('data-success', c.success);
+                    form.setAttribute('data-error', c.error);
+                }
+                document.documentElement.lang = lang;
+                buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.lang === lang)); });
+                try { localStorage.setItem('lxry-lang', lang); } catch (e) {}
+            }
+            var saved = null;
+            try { saved = localStorage.getItem('lxry-lang'); } catch (e) {}
+            if (saved === 'fr') setLang('fr');
+            buttons.forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.lang); }); });
+        })();
+    </script>
+</body>
+</html>

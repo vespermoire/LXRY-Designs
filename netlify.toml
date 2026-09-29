@@ -2,6 +2,12 @@
   # Static site — no build step. The site lives in the lxrydesigns/ subfolder,
   # so point Netlify's publish directory there (repo root has no index.html).
   publish = "lxrydesigns"
+  [build.environment]
+    NODE_VERSION = "20"
+
+# Serverless functions (newsletter signup → MailerLite). Node 20 has global fetch.
+[functions]
+  directory = "netlify/functions"
 
 # Security headers — the same hygiene our audit checks on client sites.
 [[headers]]
@@ -39,4 +45,9 @@
 [[redirects]]
   from = "/brand-pack"
   to = "/brand-pack.html"
+  status = 200
+
+[[redirects]]
+  from = "/ai-kit"
+  to = "/ai-kit.html"
   status = 200

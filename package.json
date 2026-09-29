@@ -1,0 +1,10 @@
+{
+  "name": "lxrydesigns",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LXRY Designs static site + Netlify Functions",
+  "scripts": {
+    "test": "node --test"
+  }
+}

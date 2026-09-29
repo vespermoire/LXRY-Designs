@@ -28,6 +28,7 @@
     <meta name="twitter:image" content="https://www.lxrydesigns.com/assets/favicon-512.png">
 
     <link rel="stylesheet" href="assets/fonts/fonts.css">
+    <link rel="stylesheet" href="assets/signup.css">
 
     <!-- Structured data -->
     <script type="application/ld+json">
@@ -2141,6 +2142,49 @@
     </section>
 
     <!-- Final CTA -->
+    <style>
+        .newsletter-band { padding: 70px 40px; text-align: center; border-top: 1px solid #182420; }
+        .newsletter-band .nl-eyebrow { font-family: 'JetBrains Mono', ui-monospace, monospace;
+            font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: #27F4D2; margin-bottom: 14px; }
+        .newsletter-band h2 { font-family: 'Jura', 'Inter', sans-serif; font-weight: 700; color: #27F4D2;
+            font-size: clamp(1.6rem, 4.5vw, 2.4rem); margin-bottom: 12px; }
+        .newsletter-band p.nl-intro { color: #8C9694; max-width: 560px; margin: 0 auto 30px; line-height: 1.6; }
+        .newsletter-card { background: #0F1514; border: 1px solid #20302D; border-radius: 16px;
+            padding: 32px 26px; max-width: 520px; margin: 0 auto; }
+        .newsletter-band .nl-kit { display: inline-block; margin-top: 20px; color: #27F4D2;
+            font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.85rem; text-decoration: none; border-bottom: 1px solid rgba(39,244,210,0.4); }
+        @media (max-width: 640px) { .newsletter-band { padding: 54px 20px; } }
+    </style>
+    <section id="newsletter" class="newsletter-band">
+        <p class="nl-eyebrow" data-i18n="nl.eyebrow">AI news, distilled</p>
+        <h2 data-i18n="nl.h2">The AI edge for your business</h2>
+        <p class="nl-intro" data-i18n="nl.intro">Join our newsletter for the latest AI developments — filtered for busy owners, no hype. Subscribe and get the free AI Automation Starter Kit.</p>
+        <div class="newsletter-card">
+            <form class="lxry-signup" data-signup
+                  data-loading="Sending…"
+                  data-success="Almost there — check your inbox to confirm and get the Kit."
+                  data-error="Something went wrong — please email hello@lxrydesigns.com.">
+                <p class="sg-hp" aria-hidden="true"><label>Leave this blank <input type="text" name="website" tabindex="-1" autocomplete="off"></label></p>
+                <div class="sg-row">
+                    <label for="nl-name" data-i18n="nl.f.name">First name</label>
+                    <input id="nl-name" type="text" name="name" autocomplete="given-name">
+                </div>
+                <div class="sg-row">
+                    <label for="nl-email" data-i18n="nl.f.email">Email</label>
+                    <input id="nl-email" type="email" name="email" autocomplete="email" required>
+                </div>
+                <label class="sg-consent">
+                    <input type="checkbox" name="consent" required>
+                    <span data-i18n="nl.f.consent">I agree to receive the Kit and newsletter, and to the <a href="/privacy">Privacy Policy</a>.</span>
+                </label>
+                <input type="hidden" name="source" value="homepage">
+                <button type="submit" data-i18n="nl.f.btn">Get the free Kit</button>
+                <p data-signup-status></p>
+            </form>
+        </div>
+        <a class="nl-kit" href="/ai-kit" data-i18n="nl.more">See what's in the Kit →</a>
+    </section>
+
     <section id="contact" class="cta-final">
         <h2 data-i18n="cta.h2">Book your audit</h2>
         <p data-i18n="cta.p">Tell us about your site or your workflows and we'll come back with an audit and a straight answer. Fields marked * are required.</p>
@@ -2199,9 +2243,41 @@
                 <span class="footer-tag">DIGITAL SOLUTIONS</span>
                 <p class="footer-blurb" data-i18n="foot.blurb">Cross-border web, SEO, compliance and AI automation. Divonne-les-Bains, working both sides of the Geneva border.</p>
                 <div class="social-row">
+                    <a href="https://www.instagram.com/lxry_Design_Studio" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.4-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg></a>
+                    <a href="#" aria-label="Facebook" title="Facebook — profile coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></a>
+                    <a href="https://www.tiktok.com/@lxry.designs" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.06-2.82h-3.3v13.1a2.59 2.59 0 1 1-2.59-2.59c.27 0 .53.04.78.12v-3.4a5.99 5.99 0 0 0-.78-.05A5.99 5.99 0 1 0 15.64 16V9.4a7.5 7.5 0 0 0 4.36 1.4V7.4a4.28 4.28 0 0 1-3.4-1.58z"/></svg></a>
                     <a href="#" aria-label="LinkedIn" title="LinkedIn — profile coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.38-3.9-2.38 0-2.74 1.86-2.74 3.78V24h-4V8z"/></svg></a>
-                    <a href="#" aria-label="Instagram" title="Instagram — profile coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zm0 10.16A4 4 0 1 1 16 12a4 4 0 0 1-4 4zm6.4-10.4a1.44 1.44 0 1 1-1.44-1.44 1.44 1.44 0 0 1 1.44 1.44z"/></svg></a>
-                    <a href="#" aria-label="X" title="X — profile coming soon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.7l-8.1 9.2 9.5 12.6h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.9L0 1.5h7.6l5.2 6.9 6.1-6.9zm-1.3 19.7h2L6.5 3.6H4.4l13.2 17.6z"/></svg></a>
+                    <a href="https://www.youtube.com/@lxrydesigns" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
+                    <a href="https://x.com/LXRYDesigns" target="_blank" rel="noopener" aria-label="X" title="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.7l-8.1 9.2 9.5 12.6h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.9L0 1.5h7.6l5.2 6.9 6.1-6.9zm-1.3 19.7h2L6.5 3.6H4.4l13.2 17.6z"/></svg></a>
+                </div>
+                <style>
+                    .footer-signup { margin-top: 24px; }
+                    .footer-signup h3 { font-family: 'Jura','Inter',sans-serif; color: #27F4D2; margin-bottom: 4px; }
+                    .footer-signup p { color: #8C9694; font-size: 0.85rem; margin-bottom: 12px; }
+                    .footer-signup .lxry-signup { max-width: 320px; margin: 0; gap: 10px; }
+                    .footer-signup .lxry-signup .sg-consent { font-size: 0.78rem; }
+                    .footer-signup .lxry-signup button { padding: 11px 18px; font-size: 0.85rem; }
+                </style>
+                <div class="footer-signup">
+                    <h3 data-i18n="foot.nl.h">Newsletter</h3>
+                    <p data-i18n="foot.nl.p">Latest AI news + the free Starter Kit.</p>
+                    <form class="lxry-signup" data-signup
+                          data-loading="Sending…"
+                          data-success="Check your inbox to confirm."
+                          data-error="Something went wrong — email hello@lxrydesigns.com.">
+                        <p class="sg-hp" aria-hidden="true"><label>Leave this blank <input type="text" name="website" tabindex="-1" autocomplete="off"></label></p>
+                        <div class="sg-row">
+                            <label for="ft-email" data-i18n="foot.nl.email">Email</label>
+                            <input id="ft-email" type="email" name="email" autocomplete="email" required>
+                        </div>
+                        <label class="sg-consent">
+                            <input type="checkbox" name="consent" required>
+                            <span data-i18n="foot.nl.consent">I agree to the <a href="/privacy">Privacy Policy</a>.</span>
+                        </label>
+                        <input type="hidden" name="source" value="footer">
+                        <button type="submit" data-i18n="foot.nl.btn">Subscribe</button>
+                        <p data-signup-status></p>
+                    </form>
                 </div>
             </div>
 
@@ -2277,10 +2353,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <script src="assets/signup.js"></script>
     <script>
         /* ---------- Language toggle (FR / EN) ---------- */
         const I18N = {
             fr: {
+                "pop.eyebrow": "Kit gratuit",
+                "pop.h2": "Récupérez 10 h+ par semaine",
+                "pop.intro": "Recevez le Kit de démarrage automatisation IA gratuit et notre newsletter actualités IA — les dernières avancées, résumées. Désabonnement à tout moment.",
+                "pop.email": "E-mail",
+                "pop.consent": "J'accepte la <a href=\"/privacy\">Politique de confidentialité</a>.",
+                "pop.btn": "Envoyez-moi le Kit",
+                "nl.eyebrow": "L'IA, décryptée",
+                "nl.h2": "L'avantage IA pour votre entreprise",
+                "nl.intro": "Rejoignez notre newsletter pour les dernières avancées de l'IA — filtrées pour les dirigeants occupés, sans battage. Abonnez-vous et recevez le Kit de démarrage automatisation IA gratuit.",
+                "nl.f.name": "Prénom",
+                "nl.f.email": "E-mail",
+                "nl.f.consent": "J'accepte de recevoir le Kit et la newsletter, et la <a href=\"/privacy\">Politique de confidentialité</a>.",
+                "nl.f.btn": "Recevoir le Kit gratuit",
+                "nl.more": "Voir le contenu du Kit →",
+                "foot.nl.h": "Newsletter",
+                "foot.nl.p": "Dernières actus IA + le Kit gratuit.",
+                "foot.nl.email": "E-mail",
+                "foot.nl.consent": "J'accepte la <a href=\"/privacy\">Politique de confidentialité</a>.",
+                "foot.nl.btn": "S'abonner",
                 "skip": "Aller au contenu principal",
                 "nav.services": "Services",
                 "nav.ai": "Automatisation IA",
@@ -2485,6 +2581,10 @@
             const en = new Map();
             nodes.forEach(n => en.set(n, n.innerHTML));
             const buttons = Array.from(document.querySelectorAll('.lang-btn'));
+            const FORMCOPY = {
+                en: { loading: "Sending…", success: "Almost there — check your inbox to confirm.", error: "Something went wrong — please email hello@lxrydesigns.com." },
+                fr: { loading: "Envoi…", success: "Presque terminé — vérifiez votre boîte mail pour confirmer.", error: "Une erreur est survenue — écrivez à hello@lxrydesigns.com." }
+            };
 
             function setLang(lang) {
                 nodes.forEach(n => {
@@ -2494,6 +2594,12 @@
                     } else {
                         n.innerHTML = en.get(n);
                     }
+                });
+                const fc = FORMCOPY[lang] || FORMCOPY.en;
+                document.querySelectorAll('form[data-signup]').forEach(f => {
+                    f.setAttribute('data-loading', fc.loading);
+                    f.setAttribute('data-success', fc.success);
+                    f.setAttribute('data-error', fc.error);
                 });
                 document.documentElement.lang = lang;
                 buttons.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
@@ -2697,6 +2803,77 @@
                 });
             });
         }
+    </script>
+    <!-- Newsletter popup (subtle, once per visitor) -->
+    <style>
+        .nl-popup-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.62); backdrop-filter: blur(2px);
+            display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+        .nl-popup-overlay.show { display: flex; }
+        .nl-popup { position: relative; background: #0F1514; border: 1px solid #20302D; border-radius: 16px;
+            max-width: 460px; width: 100%; padding: 36px 28px 30px; text-align: center; animation: nl-pop-in 0.3s ease; }
+        @keyframes nl-pop-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+        .nl-popup .nl-eyebrow { font-family:'JetBrains Mono',ui-monospace,monospace; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:#27F4D2; margin-bottom:10px; }
+        .nl-popup h2 { font-family:'Jura','Inter',sans-serif; color:#E9EDEC; font-size:1.5rem; margin-bottom:8px; }
+        .nl-popup p.nl-intro { color:#8C9694; font-size:0.92rem; line-height:1.5; margin-bottom:22px; }
+        .nl-popup-close { position:absolute; top:8px; right:12px; background:none; border:none; color:#8C9694; font-size:1.7rem; line-height:1; cursor:pointer; padding:6px; }
+        .nl-popup-close:hover { color:#27F4D2; }
+        @media (prefers-reduced-motion: reduce) { .nl-popup { animation: none; } }
+    </style>
+    <div class="nl-popup-overlay" id="nlPopup" role="dialog" aria-modal="true" aria-labelledby="nlPopupTitle" aria-hidden="true">
+        <div class="nl-popup">
+            <button class="nl-popup-close" id="nlPopupClose" aria-label="Close">&times;</button>
+            <p class="nl-eyebrow" data-i18n="pop.eyebrow">Free Starter Kit</p>
+            <h2 id="nlPopupTitle" data-i18n="pop.h2">Get 10+ hours back a week</h2>
+            <p class="nl-intro" data-i18n="pop.intro">Grab the free AI Automation Starter Kit and our AI-news newsletter — the latest developments, distilled. Unsubscribe anytime.</p>
+            <form class="lxry-signup" data-signup
+                  data-loading="Sending…"
+                  data-success="Almost there — check your inbox to confirm and get the Kit."
+                  data-error="Something went wrong — please email hello@lxrydesigns.com.">
+                <p class="sg-hp" aria-hidden="true"><label>Leave this blank <input type="text" name="website" tabindex="-1" autocomplete="off"></label></p>
+                <div class="sg-row"><label for="pop-email" data-i18n="pop.email">Email</label><input id="pop-email" type="email" name="email" autocomplete="email" required></div>
+                <label class="sg-consent"><input type="checkbox" name="consent" required><span data-i18n="pop.consent">I agree to the <a href="/privacy">Privacy Policy</a>.</span></label>
+                <input type="hidden" name="source" value="popup">
+                <button type="submit" data-i18n="pop.btn">Send me the Kit</button>
+                <p data-signup-status></p>
+            </form>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var KEY = 'lxry_kit_seen';
+            var seen = false;
+            try { seen = localStorage.getItem(KEY) === '1'; } catch (e) {}
+            if (seen) return;
+            var overlay = document.getElementById('nlPopup');
+            var closeBtn = document.getElementById('nlPopupClose');
+            if (!overlay) return;
+            var shown = false;
+            function markSeen() { try { localStorage.setItem(KEY, '1'); } catch (e) {} }
+            function cleanup() {
+                window.removeEventListener('scroll', onScroll);
+                document.removeEventListener('mouseout', onExit);
+            }
+            function show() {
+                if (shown) return; shown = true;
+                overlay.classList.add('show');
+                overlay.setAttribute('aria-hidden', 'false');
+                markSeen();
+                cleanup();
+                var email = overlay.querySelector('[name=email]'); if (email) email.focus();
+            }
+            function hide() { overlay.classList.remove('show'); overlay.setAttribute('aria-hidden', 'true'); }
+            function onScroll() {
+                var sc = window.scrollY || document.documentElement.scrollTop;
+                var max = document.documentElement.scrollHeight - window.innerHeight;
+                if (max > 0 && sc / max >= 0.5) show();
+            }
+            function onExit(e) { if (e.clientY <= 0) show(); }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            document.addEventListener('mouseout', onExit);
+            closeBtn.addEventListener('click', hide);
+            overlay.addEventListener('click', function (e) { if (e.target === overlay) hide(); });
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('show')) hide(); });
+        })();
     </script>
 </body>
 </html>
