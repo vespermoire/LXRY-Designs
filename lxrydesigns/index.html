@@ -2577,6 +2577,7 @@
         };
 
         (function () {
+          function initI18n() {
             const nodes = Array.from(document.querySelectorAll('[data-i18n]'));
             const en = new Map();
             nodes.forEach(n => en.set(n, n.innerHTML));
@@ -2613,6 +2614,10 @@
             setLang(saved === 'fr' ? 'fr' : 'en');
 
             buttons.forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+          }
+          // Run after full parse so late-in-page forms (e.g. the popup) are included.
+          if (document.readyState !== 'loading') initI18n();
+          else document.addEventListener('DOMContentLoaded', initI18n);
         })();
 
         /* ---------- Mobile nav ---------- */
