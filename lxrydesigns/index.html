@@ -1471,6 +1471,30 @@
         }
         .chat-action:hover { background: var(--accent-teal); color: #04110F; }
 
+        /* ---------- AI automation SVG hub ---------- */
+        .ai-visual { max-width: 620px; margin: 4px auto 44px; }
+        .ai-visual svg { width: 100%; height: auto; display: block; overflow: visible; }
+        .aiv-line {
+            fill: none;
+            stroke: var(--accent-teal);
+            stroke-width: 2;
+            stroke-dasharray: 6 8;
+            opacity: 0.55;
+            animation: aiv-flow 1.6s linear infinite;
+        }
+        .aiv-node { fill: rgba(39, 244, 210, 0.08); stroke: var(--accent-teal); stroke-width: 2; }
+        .aiv-ico { fill: none; stroke: var(--accent-teal); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+        .aiv-fill { fill: var(--accent-teal); stroke: none; }
+        .aiv-ai { fill: var(--accent-teal); font-family: 'Jura', 'Inter', sans-serif; font-weight: 700; }
+        .aiv-node-g { animation: aiv-pulse 3.6s ease-in-out infinite; }
+        .aiv-spin { transform-box: fill-box; transform-origin: center; animation: aiv-spin 26s linear infinite; }
+        @keyframes aiv-flow { to { stroke-dashoffset: -28; } }
+        @keyframes aiv-spin { to { transform: rotate(360deg); } }
+        @keyframes aiv-pulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
+        @media (prefers-reduced-motion: reduce) {
+            .aiv-line, .aiv-spin, .aiv-node-g { animation: none; }
+        }
+
         @media (max-width: 900px) {
             .reviews-grid { grid-template-columns: 1fr; }
         }
@@ -1750,6 +1774,75 @@
         <div class="ai-box">
             <h3 data-i18n="ai.box.h3">Transform your workflows with AI</h3>
             <p data-i18n="ai.box.p">We audit your entire tech stack and design AI-powered automations that eliminate manual work, reduce errors, and cut operational cost — then we build and support them.</p>
+
+            <div class="ai-visual">
+                <svg viewBox="0 0 1000 600" role="img" aria-label="AI automation hub connecting documents, settings, robots, chat, data and workflows">
+                    <!-- connector lines (gear → nodes) -->
+                    <line class="aiv-line" x1="500" y1="204" x2="500" y2="120"/>
+                    <line class="aiv-line" x1="583" y1="252" x2="656" y2="210"/>
+                    <line class="aiv-line" x1="583" y1="348" x2="656" y2="390"/>
+                    <line class="aiv-line" x1="500" y1="396" x2="500" y2="480"/>
+                    <line class="aiv-line" x1="417" y1="348" x2="344" y2="390"/>
+                    <line class="aiv-line" x1="417" y1="252" x2="344" y2="210"/>
+
+                    <!-- central AI gear -->
+                    <circle class="aiv-spin" cx="500" cy="300" r="84" fill="none" stroke="var(--accent-teal)" stroke-width="14" stroke-dasharray="22 15"/>
+                    <circle cx="500" cy="300" r="62" fill="#0C1416" stroke="var(--accent-teal)" stroke-width="2.5"/>
+                    <text class="aiv-ai" x="500" y="301" font-size="52" text-anchor="middle" dominant-baseline="central">AI</text>
+
+                    <!-- N1 settings gear (top) -->
+                    <g class="aiv-node-g">
+                        <rect class="aiv-node" x="454" y="24" width="92" height="92" rx="18"/>
+                        <circle class="aiv-ico" cx="500" cy="70" r="12"/>
+                        <circle class="aiv-fill" cx="500" cy="70" r="3.5"/>
+                        <path class="aiv-ico" stroke-width="2.5" d="M500 53 v-6 M500 87 v6 M483 70 h-6 M517 70 h6 M488 58 l-4 -4 M512 82 l4 4 M512 58 l4 -4 M488 82 l-4 4"/>
+                    </g>
+
+                    <!-- N2 robot (upper-right) -->
+                    <g class="aiv-node-g" style="animation-delay:.4s">
+                        <rect class="aiv-node" x="653" y="139" width="92" height="92" rx="18"/>
+                        <path class="aiv-ico" d="M699 168 v-8"/>
+                        <circle class="aiv-fill" cx="699" cy="158" r="3.5"/>
+                        <rect class="aiv-ico" x="682" y="172" width="34" height="27" rx="7"/>
+                        <circle class="aiv-fill" cx="692" cy="185" r="2.8"/>
+                        <circle class="aiv-fill" cx="706" cy="185" r="2.8"/>
+                        <path class="aiv-ico" stroke-width="2.5" d="M680 182 h-4 M718 182 h4"/>
+                    </g>
+
+                    <!-- N3 chat bubble (lower-right) -->
+                    <g class="aiv-node-g" style="animation-delay:.8s">
+                        <rect class="aiv-node" x="653" y="369" width="92" height="92" rx="18"/>
+                        <path class="aiv-ico" d="M683 401 h32 a6 6 0 0 1 6 6 v14 a6 6 0 0 1 -6 6 h-16 l-9 8 v-8 h-1 a6 6 0 0 1 -6 -6 v-14 a6 6 0 0 1 6 -6 z"/>
+                        <path class="aiv-ico" stroke-width="2.4" d="M690 411 h22 M690 419 h15"/>
+                    </g>
+
+                    <!-- N4 document (bottom) -->
+                    <g class="aiv-node-g" style="animation-delay:1.2s">
+                        <rect class="aiv-node" x="454" y="484" width="92" height="92" rx="18"/>
+                        <path class="aiv-ico" d="M487 511 h18 l8 8 v20 a3 3 0 0 1 -3 3 h-23 a3 3 0 0 1 -3 -3 v-25 a3 3 0 0 1 3 -3 z"/>
+                        <path class="aiv-ico" stroke-width="2.4" d="M505 511 v8 h8 M491 528 h18 M491 536 h13"/>
+                    </g>
+
+                    <!-- N5 automation cycle (lower-left) -->
+                    <g class="aiv-node-g" style="animation-delay:1.6s">
+                        <rect class="aiv-node" x="255" y="369" width="92" height="92" rx="18"/>
+                        <path class="aiv-ico" d="M288 415 a13 13 0 0 1 22 -9"/>
+                        <path class="aiv-fill" d="M310 397 l2 9 l-9 -2 z"/>
+                        <path class="aiv-ico" d="M314 415 a13 13 0 0 1 -22 9"/>
+                        <path class="aiv-fill" d="M292 433 l-2 -9 l9 2 z"/>
+                        <circle class="aiv-fill" cx="301" cy="415" r="3"/>
+                    </g>
+
+                    <!-- N6 data bars (upper-left) -->
+                    <g class="aiv-node-g" style="animation-delay:2s">
+                        <rect class="aiv-node" x="255" y="139" width="92" height="92" rx="18"/>
+                        <path class="aiv-ico" d="M286 197 h30"/>
+                        <rect class="aiv-fill" x="289" y="189" width="6" height="8"/>
+                        <rect class="aiv-fill" x="298" y="182" width="6" height="15"/>
+                        <rect class="aiv-fill" x="307" y="176" width="6" height="21"/>
+                    </g>
+                </svg>
+            </div>
 
             <div class="ai-flow">
                 <div class="ai-step">
