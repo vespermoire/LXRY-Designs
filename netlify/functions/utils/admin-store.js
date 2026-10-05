@@ -37,6 +37,7 @@ export async function connectStore(event) {
 
   const hasLambdaContext = !!(event && event.blobs);
   const hasCredentials = !!(process.env.NETLIFY_SITE_ID && process.env.NETLIFY_BLOBS_KEY);
+  console.log('[admin-store] hasLambdaContext:', hasLambdaContext, 'hasCredentials:', hasCredentials, 'SITE_ID:', !!process.env.NETLIFY_SITE_ID, 'BLOBS_KEY:', !!process.env.NETLIFY_BLOBS_KEY);
   if (!hasLambdaContext && !hasCredentials) return 'fs';
 
   let blobs;
