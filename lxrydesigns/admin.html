@@ -1185,7 +1185,7 @@
             if (!raw) return null;
             try {
                 var s = JSON.parse(raw);
-                if (!s || typeof s.token !== 'string' || !s.token ||
+                if (!s || typeof s.password !== 'string' || !s.password ||
                     typeof s.timestamp !== 'number' || typeof s.ttl !== 'number') {
                     return null;
                 }
@@ -1199,8 +1199,8 @@
             return !!s && (s.timestamp + s.ttl) > Date.now();
         }
 
-        function saveSession(token) {
-            var session = { token: token, timestamp: Date.now(), ttl: SESSION_TTL_MS };
+        function saveSession(password) {
+            var session = { password: password, timestamp: Date.now(), ttl: SESSION_TTL_MS };
             try {
                 window.localStorage.setItem(SESSION_KEY, JSON.stringify(session));
             } catch (e) {
@@ -1215,10 +1215,10 @@
             } catch (e) { /* ignore */ }
         }
 
-        // Returns the current valid token, or null. Clears an expired/corrupt session.
-        function getSessionToken() {
+        // Returns the current valid password, or null. Clears an expired/corrupt session.
+        function getSessionPassword() {
             var s = readSession();
-            if (isSessionValid(s)) return s.token;
+            if (isSessionValid(s)) return s.password;
             clearSession();
             return null;
         }
@@ -1781,7 +1781,7 @@
 
             return fetch(DRAFT_ENDPOINT, {
                 method: 'GET',
-                headers: { 'Accept': 'application/json', 'x-admin-token': token },
+                headers: { 'Accept': 'application/json', 'x-admin-password': password },
                 credentials: 'same-origin',
                 cache: 'no-store'
             }).then(function (res) {
@@ -1863,7 +1863,7 @@
 
             return fetch(APPROVE_ENDPOINT, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+                headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
                 credentials: 'same-origin',
                 body: JSON.stringify({
                     draftId: current.draftId,
@@ -2189,7 +2189,7 @@
                 return Promise.resolve().then(function () {
                     return deps.fetch(endpoint, {
                         method: 'GET',
-                        headers: { 'Accept': 'application/json', 'x-admin-token': token },
+                        headers: { 'Accept': 'application/json', 'x-admin-password': password },
                         credentials: 'same-origin',
                         cache: 'no-store'
                     });
