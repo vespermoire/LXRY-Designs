@@ -1240,7 +1240,7 @@
             logoutBtn.hidden = false;
             // Hook for later tasks (draft rendering, history, polling).
             if (typeof window.onAdminAuthenticated === 'function') {
-                window.onAdminAuthenticated(getSessionToken());
+                window.onAdminAuthenticated(getSessionPassword());
             }
         }
 
@@ -1313,7 +1313,7 @@
 
         // Expose a minimal session API for later tasks (dashboard fetches, polling).
         window.adminSession = {
-            getToken: getSessionToken,
+            getToken: getSessionPassword,
             clear: clearSession,
             logout: logout
         };
