@@ -203,25 +203,17 @@ async function handleCheckPassword(event) {
     return json(400, { error: 'Invalid request' });
   }
   const result = await verifyPassword(password);
-  // R1: persist the issued token so later invocations can validate it.
-  if (result.valid) {
-    try {
-      await saveToken(result.token, getSessionTTL());
-    } catch (err) {
-      // Token persistence failed (Blobs not configured). Still return valid=true
-      // so password check works; login will work for this session (stored in localStorage).
-      console.warn('[admin-action] Token persistence failed (Blobs not configured):', err.message);
-    }
-  }
   return json(result.valid ? 200 : 401, result);
 }
 
-async function requireToken(event) {
-  return validateToken(header(event, 'x-admin-token'));
+async function requirePassword(event) {
+  const password = header(event, 'x-admin-password');
+  const result = await verifyPassword(password);
+  return result.valid;
 }
 
 async function handleGetDraft(event) {
-  if (!(await requireToken(event))) return json(401, { error: 'Invalid or expired session' });
+  if (!(await requirePassword(event))) return json(401, { error: 'Invalid password' });
   const draftId = await findNewestDraftId();
   if (!draftId) return json(404, { error: 'No draft found' });
   const draft = await readDraftFile(`${draftId}.json`);
@@ -231,13 +223,13 @@ async function handleGetDraft(event) {
 
 // Publish history for the dashboard table. Newest first, as stored.
 async function handleGetPublishLog(event) {
-  if (!(await requireToken(event))) return json(401, { error: 'Invalid or expired session' });
+  if (!(await requirePassword(event))) return json(401, { error: 'Invalid password' });
   const { entries } = await readLog();
   return json(200, { entries });
 }
 
 async function handleApprove(event, publish) {
-  if (!(await requireToken(event))) return json(401, { error: 'Invalid or expired session' });
+  if (!(await requirePassword(event))) return json(401, { error: 'Invalid password' });
   await clearExpired();
 
   let body;
