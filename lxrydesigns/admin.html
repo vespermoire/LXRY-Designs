@@ -1199,8 +1199,8 @@
             return !!s && (s.timestamp + s.ttl) > Date.now();
         }
 
-        function saveSession(token) {
-            var session = { token: token, timestamp: Date.now(), ttl: SESSION_TTL_MS };
+        function saveSession(password) {
+            var session = { password: password, timestamp: Date.now(), ttl: SESSION_TTL_MS };
             try {
                 window.localStorage.setItem(SESSION_KEY, JSON.stringify(session));
             } catch (e) {
@@ -1215,10 +1215,10 @@
             } catch (e) { /* ignore */ }
         }
 
-        // Returns the current valid token, or null. Clears an expired/corrupt session.
-        function getSessionToken() {
+        // Returns the current valid password, or null. Clears an expired/corrupt session.
+        function getSessionPassword() {
             var s = readSession();
-            if (isSessionValid(s)) return s.token;
+            if (isSessionValid(s)) return s.password;
             clearSession();
             return null;
         }
