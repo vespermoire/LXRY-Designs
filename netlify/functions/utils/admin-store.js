@@ -15,6 +15,7 @@
 // than silently using the ephemeral filesystem, which would lose sessions.
 
 import { mkdir, readFile, writeFile, rename, readdir } from 'fs/promises';
+import { join } from 'path';
 import { DRAFTS_DIR } from './paths.js';
 
 const DEFAULT_DIR = DRAFTS_DIR;
