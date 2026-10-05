@@ -1,10 +1,7 @@
 import { mkdir, writeFile, readFile, unlink } from 'fs/promises';
 import { join } from 'path';
-import { fileURLToPath } from 'url';
 import { createHash } from 'crypto';
-
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
-const DRAFTS_DIR = join(__dirname, '../../.drafts');
+import { DRAFTS_DIR } from './paths.js';
 
 /**
  * Ensures the drafts directory exists
