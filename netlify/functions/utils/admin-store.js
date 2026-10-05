@@ -16,6 +16,7 @@
 
 import { mkdir, readFile, writeFile, rename, readdir } from 'fs/promises';
 import { DRAFTS_DIR } from './paths.js';
+import { join } from 'path';
 
 const DEFAULT_DIR = DRAFTS_DIR;
 const STORE_NAME = 'admin-dashboard';
