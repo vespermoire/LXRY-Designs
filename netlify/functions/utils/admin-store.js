@@ -15,11 +15,9 @@
 // than silently using the ephemeral filesystem, which would lose sessions.
 
 import { mkdir, readFile, writeFile, rename, readdir } from 'fs/promises';
-import { join } from 'path';
-import { fileURLToPath } from 'url';
+import { DRAFTS_DIR } from './paths.js';
 
-const __dirname = fileURLToPath(new URL('.', import.meta.url));
-const DEFAULT_DIR = join(__dirname, '../../.drafts');
+const DEFAULT_DIR = DRAFTS_DIR;
 const STORE_NAME = 'admin-dashboard';
 
 let blobStore = null;
