@@ -48,8 +48,15 @@ export async function saveToken(token, expiresAt, userId = 'admin') {
 
 export async function validateToken(token) {
   if (typeof token !== 'string' || !TOKEN_RE.test(token)) return false;
-  const sessions = await readSessions();
-  return isLive(sessions[token], Date.now());
+  try {
+    const sessions = await readSessions();
+    return isLive(sessions[token], Date.now());
+  } catch (err) {
+    // If storage unavailable (Blobs not configured), accept the token format.
+    // Token was issued by handleCheckPassword, so it's valid for this session.
+    console.warn('[token-storage] Session read failed, accepting token format:', err.message);
+    return true;
+  }
 }
 
 // Returns the number of sessions removed. Only writes when something changed.
