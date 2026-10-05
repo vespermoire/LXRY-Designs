@@ -204,7 +204,15 @@ async function handleCheckPassword(event) {
   }
   const result = await verifyPassword(password);
   // R1: persist the issued token so later invocations can validate it.
-  if (result.valid) await saveToken(result.token, getSessionTTL());
+  if (result.valid) {
+    try {
+      await saveToken(result.token, getSessionTTL());
+    } catch (err) {
+      // Token persistence failed (Blobs not configured). Still return valid=true
+      // so password check works; login will work for this session (stored in localStorage).
+      console.warn('[admin-action] Token persistence failed (Blobs not configured):', err.message);
+    }
+  }
   return json(result.valid ? 200 : 401, result);
 }
 
