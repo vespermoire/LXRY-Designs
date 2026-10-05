@@ -37,8 +37,11 @@ export async function connectStore(event) {
 
   const hasLambdaContext = !!(event && event.blobs);
   const hasCredentials = !!(process.env.NETLIFY_SITE_ID && process.env.NETLIFY_BLOBS_KEY);
-  console.log('[admin-store] hasLambdaContext:', hasLambdaContext, 'hasCredentials:', hasCredentials, 'SITE_ID:', !!process.env.NETLIFY_SITE_ID, 'BLOBS_KEY:', !!process.env.NETLIFY_BLOBS_KEY);
-  if (!hasLambdaContext && !hasCredentials) return 'fs';
+  console.warn('[admin-store] Lambda context:', hasLambdaContext, '| Site ID:', !!process.env.NETLIFY_SITE_ID, '| Blobs key:', !!process.env.NETLIFY_BLOBS_KEY);
+  if (!hasLambdaContext && !hasCredentials) {
+    console.warn('[admin-store] Falling back to filesystem (no Blobs credentials)');
+    return 'fs';
+  }
 
   let blobs;
   try {
