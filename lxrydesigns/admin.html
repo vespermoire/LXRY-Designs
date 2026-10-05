@@ -1185,7 +1185,7 @@
             if (!raw) return null;
             try {
                 var s = JSON.parse(raw);
-                if (!s || typeof s.token !== 'string' || !s.token ||
+                if (!s || typeof s.password !== 'string' || !s.password ||
                     typeof s.timestamp !== 'number' || typeof s.ttl !== 'number') {
                     return null;
                 }
@@ -1781,7 +1781,7 @@
 
             return fetch(DRAFT_ENDPOINT, {
                 method: 'GET',
-                headers: { 'Accept': 'application/json', 'x-admin-token': token },
+                headers: { 'Accept': 'application/json', 'x-admin-password': password },
                 credentials: 'same-origin',
                 cache: 'no-store'
             }).then(function (res) {
@@ -1863,7 +1863,7 @@
 
             return fetch(APPROVE_ENDPOINT, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+                headers: { 'Content-Type': 'application/json', 'x-admin-password': password },
                 credentials: 'same-origin',
                 body: JSON.stringify({
                     draftId: current.draftId,
@@ -2189,7 +2189,7 @@
                 return Promise.resolve().then(function () {
                     return deps.fetch(endpoint, {
                         method: 'GET',
-                        headers: { 'Accept': 'application/json', 'x-admin-token': token },
+                        headers: { 'Accept': 'application/json', 'x-admin-password': password },
                         credentials: 'same-origin',
                         cache: 'no-store'
                     });
